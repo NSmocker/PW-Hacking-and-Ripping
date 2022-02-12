@@ -1,0 +1,1 @@
+start pPck.exe -u "D:\configs.pck"
