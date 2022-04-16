@@ -1,1 +1,1 @@
-sPCK.exe -x "grasses.pck"
+sPCK.exe -x "trees.pck"
