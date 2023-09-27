@@ -1,0 +1,13 @@
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\Debug\DirectXTutorial.exe.config
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\Debug\DirectXTutorial.exe.manifest
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\Debug\DirectXTutorial.application
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\Debug\DirectXTutorial.exe
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\Debug\DirectXTutorial.pdb
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\ResolveAssemblyReference.cache
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\ModelViewer.Form1.resources
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\DirectXTutorial.Properties.Resources.resources
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\DirectXTutorial.csproj.GenerateResource.Cache
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\DirectXTutorial.exe.manifest
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\DirectXTutorial.application
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\DirectXTutorial.exe
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\Debug\DirectXTutorial.pdb

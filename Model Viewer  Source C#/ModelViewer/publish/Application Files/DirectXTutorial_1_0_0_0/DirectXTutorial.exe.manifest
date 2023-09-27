@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity name="DirectXTutorial.exe" version="1.0.0.0" publicKeyToken="96965f51d5c60865" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="LC.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="DirectXTutorial" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="DirectXTutorial.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.DirectX" version="1.0.2902.0" publicKeyToken="31BF3856AD364E35" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.DirectX.Direct3D" version="1.0.2902.0" publicKeyToken="31BF3856AD364E35" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.DirectX.Direct3DX" version="1.0.2902.0" publicKeyToken="31BF3856AD364E35" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.DirectX.DirectInput" version="1.0.2902.0" publicKeyToken="31BF3856AD364E35" language="neutral" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Core" version="3.5.0.0" publicKeyToken="b77a5c561934e089" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="WindowsBase" version="3.0.0.0" publicKeyToken="31bf3856ad364e35" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DirectXTutorial.exe" size="52736">
+      <assemblyIdentity name="DirectXTutorial" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>aJ14ead3FNlTjFQJCp6JROZeMPk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="LC.ico" size="17542">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>N3M2GjH3Lg0YnD95YBegAF+rfyc=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=Wizatek-PC\Wizatek" issuerKeyHash="7ff8974cd93eca42771366b2e936d1237ac608dc" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>5OPctcwfZkbe9CjkldKtVO1mSMg=</DigestValue></Reference></SignedInfo><SignatureValue>xrEeFFuyFB06lu7dBQF+toZciULg5CxtA3TX0kX74TdNJJ771i3jYen4lQThoEpFMDbrhCiUbpzV+FoE9Bki8gTf/qMPb3fR2GJ6bcTSgpm24RYotG7ArufJ01HW+Qiqvy3UAog6vZfR3FfAyOrRCcRGSdq6mq6D6fNbzUMgfDE=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>1ebeN5M/9QJ+H/OVz6Iyakago+L8tsqhWrZlAJkHgtom2yWWIgoForHkf5SFuqHZVncG/rgwciTW46eCHsFRKdS9xzD990rn0BrGUYsNMoL0Ob9BP90MhbRnIcsa6hauKB3YRhxbIqR9FFiAMmqmJXhghEe3f7115aJYxpqzsRM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="c84866ed54add295e428f4de46661fccb5dce3e4" Description="" Url=""><as:assemblyIdentity name="DirectXTutorial.exe" version="1.0.0.0" publicKeyToken="96965f51d5c60865" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Wizatek-PC\Wizatek</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>k/lLHSRWC6Fi0Jb4ibbmll7vMWg=</DigestValue></Reference></SignedInfo><SignatureValue>enqXFjhkuvA0hhYb2O1NlpZABaJjduX8dnfq/+txO+mCyqBVYrV8VldVGZi+mOS19JB58ZPQyEigGPRUshrKzeih/odUG+LaI/JT99fa4zMfL/yN8gZVT7JLVXU4dCuQ1YIPepaDCnBGGrf2clL0DOc5miFOFQmNGaa0kJFHXk8=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>1ebeN5M/9QJ+H/OVz6Iyakago+L8tsqhWrZlAJkHgtom2yWWIgoForHkf5SFuqHZVncG/rgwciTW46eCHsFRKdS9xzD990rn0BrGUYsNMoL0Ob9BP90MhbRnIcsa6hauKB3YRhxbIqR9FFiAMmqmJXhghEe3f7115aJYxpqzsRM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB4TCCAUqgAwIBAgIQcoGyHAHBgrRJpnB9eNomzjANBgkqhkiG9w0BAQUFADAvMS0wKwYDVQQDHiQAVwBpAHoAYQB0AGUAawAtAFAAQwBcAFcAaQB6AGEAdABlAGswHhcNMTExMDA3MjAwMTU2WhcNMTIxMDA3MDIwMTU2WjAvMS0wKwYDVQQDHiQAVwBpAHoAYQB0AGUAawAtAFAAQwBcAFcAaQB6AGEAdABlAGswgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANXm3jeTP/UCfh/zlc+iMmpGoKPi/LbKoVq2ZQCZB4LaJtslliIKBaKx5H+Uhbqh2VZ3Bv64MHIk1uOngh7BUSnUvccw/fdK59AaxlGLDTKC9Dm/QT/dDIW0ZyHLGuoWrigd2EYcWyKkfRRYgDJqpiV4YIRHt3+9deWiWMaas7ETAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEArGje+bBn8MHOzv6528Q5YafTksPgIQkPtnfCMtJCUwAY9VKykt56Jrnl+l/BN8OXhbhWdsr/7ojlkVtepEvMEIzaSUWmXnxcLTBmidMCsi47v6I0DDgY+6YouXblqx47f7OLQHMql873ad9RajFICeWV19BF8upkEwqLxq9VoY8=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

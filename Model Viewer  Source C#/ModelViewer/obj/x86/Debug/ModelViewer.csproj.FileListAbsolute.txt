@@ -1,0 +1,13 @@
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\x86\Debug\ModelViewer.exe.config
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.Form1.resources
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.Properties.Resources.resources
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.csproj.GenerateResource.Cache
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\x86\Debug\ModelViewer.exe.manifest
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\x86\Debug\ModelViewer.application
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\x86\Debug\ModelViewer.exe
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\bin\x86\Debug\ModelViewer.pdb
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.exe.manifest
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.application
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.exe
+D:\Users\Wizatek\Desktop\Nieuwe map\ModelViewer\ModelViewer\obj\x86\Debug\ModelViewer.pdb
