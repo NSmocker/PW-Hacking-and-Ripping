@@ -1,0 +1,609 @@
+#*****************************************************************************
+# Copyright 1986-2004 by mental images GmbH, Fasanenstr. 81, D-10623 Berlin,
+# Germany. All rights reserved.
+#*****************************************************************************
+# Created:	19.06.96
+# Module:	physics
+# Purpose:	Declarations needed for global illumination, caustics, etc.
+#
+# Exports:
+#	physical_lens_dof
+#	physical_light
+#	dgs_material
+#	dgs_material_photon
+#	dielectric_material
+#	dielectric_material_photon
+#	oversampling_lens
+#	path_material
+#	parti_volume
+#	parti_volume_photon
+#	transmat
+#	transmat_photon
+#
+# Note:
+#
+#      For the dgs and dielectric shaders, the shaders provided by the physics.mi file are 
+#      hidden to end users of 3ds max (although still available for rendering).
+#
+#      3ds max ships with dielectric and dgs materials tha are recompiled with some bug fixes that are not appearing in
+#      the shaders provided by mental images.
+#
+#      For this reason, to modify the UI of the dgs and dielectric shaders that are shown in the 3ds max UI,
+#      modify the 3dsmax.mi file as opposed to the physics.mi file    
+#
+#****************************************************************************/
+
+min version "2.1"
+max version "3.4.99"
+
+# Lens depth of field shader, requires physics.so that comes with ray 2.1
+
+declare shader
+	color "physical_lens_dof" (
+		scalar		"plane",
+		scalar		"radius"
+	)
+	version 1
+	apply lens
+	scanline off
+	trace on
+	gui "gui_physical_lens_dof" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_1Lens_Shader_physical_l.html#physicallensdof",
+			"uiName" "Physical Lens DOF (physics)",
+			"category" "Lens",
+			"hidden"
+		)
+		control "plane" "scalar" (
+			"uiName" "Focus Point distance",
+			"units" "world",
+			"value" -100
+		)
+		control "radius" "scalar" (
+			"uiName" "Radius of confusion",
+			"units" "world",
+			"value" 10
+		)
+	}
+end declare
+
+# Light shader (physically plausible light source model)
+
+declare shader
+	color "physical_light" (
+		color		"color",    # energy 
+		scalar		"cone",	    # inner solid cone for spotlight
+		scalar		"threshold",# accuracy threshold for opti.
+		scalar		"cos_exp"   # cosine exponent (disc&rectangle)
+	)
+	version 3
+	apply light
+	gui "gui_physical_light" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_2Light_Shader_physical_.html#physicallight",
+			"uiName" "Physical Light (physics)",
+			"category" "Light",
+			"hidden"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+            "scalarColor"
+		)
+		control "cone" "scalar" (
+			"uiName" "Cone"
+		)
+		control "threshold" "scalar" (
+			"uiName" "Light Cut-Off Threshold"
+		)
+		control "cos_exp" "scalar" (
+			"uiName" "Distribution Cosine Exponent"
+		)
+}
+end declare
+
+
+# Material declaration for diffuse-glossy-specular global illumination 
+# (physically plausible models of reflection).
+# When changing here, also change dgs_material_photon and path_material!
+# There is no texture capability since this can be done with a phenomenon
+# or shader tree with base shaders.  Modifying the brushing direction with 
+# a texture can also be done with a base shader.
+
+declare shader
+	color "dgs_material" (
+		color		"diffuse",
+		color           "glossy",
+		color		"specular",
+		scalar		"shiny",
+		scalar		"shiny_u",
+		scalar		"shiny_v",
+		scalar		"transp",
+		scalar		"ior",
+		array light	"lights"
+	)
+	version 2
+	apply material
+	derivative 1
+	gui "gui_dgs_material" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_3Materials.html#dgsmaterial",
+			"uiName" "DGS Material (physics)",
+			"category" "Illumination",
+			"hidden"
+		)
+		control "diffuse" "color" (
+			"uiName" "Diffuse",
+			"value" .7 .7 .7
+		)
+		control "glossy" "color" (
+			"uiName" "Glossy Highlights",
+			"value" 0 0 1
+		)
+		control "specular" "color" (
+			"uiName" "Specular",
+			"value" 1 0 0
+		)
+		control "shiny" "scalar" (
+			"uiName" "Shiny",
+			"value" 10
+		)
+		control "shiny_u" "scalar" (
+			"uiName" "Shiny U"
+		)
+		control "shiny_v" "scalar" (
+			"uiName" "Shiny V"
+		)
+		control "transp" "scalar" (
+			"uiName" "Transparency"
+		)
+		control "ior" "scalar" (
+			"uiName" "Index Of Refraction",
+			"value" 1.5
+		)
+		control "lights" "array light" (
+			"uiName" "Lights",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	"dgs_material_photon" (
+		color		"diffuse",
+		color           "glossy",
+		color		"specular",
+		scalar		"shiny",
+		scalar		"shiny_u",
+		scalar		"shiny_v",
+		scalar		"transp",
+		scalar		"ior",
+		array light	"lights"
+	)
+	version 2
+	apply photon
+	gui "gui_dgs_material_photon" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_4Photon_Tracing.html#dgsmaterialphoton",
+			"uiName" "DGS Material Photon (physics)",
+			"category" "Photon",
+			"hidden"
+		)
+		control "diffuse" "color" (
+			"uiName" "Diffuse",
+			"value" .7 .7 .7
+		)
+		control "glossy" "color" (
+			"uiName" "Glossy Highlights",
+			"value" 1 1 1
+		)
+		control "specular" "color" (
+			"uiName" "Specular",
+			"value" 1 1 1
+		)
+		control "shiny" "scalar" (
+			"uiName" "Shiny"
+		)
+		control "shiny_u" "scalar" (
+			"uiName" "Shiny U"
+		)
+		control "shiny_v" "scalar" (
+			"uiName" "Shiny V"
+		)
+		control "transp" "scalar" (
+			"uiName" "Transparency"
+		)
+		control "ior" "scalar" (
+			"uiName" "Index Of Refraction",
+			"value" 1.5
+		)
+		control "lights" "array light" (
+			"uiName" "Lights",
+			"hidden"
+		)	
+	}
+	derivative 1
+end declare
+
+
+declare shader
+	color "dielectric_material" (
+		color "col",        # Inside (light absorption per unit-length)
+		scalar "ior",       # Inside (index of refract = 1.5 for glass)
+		color "col_out",    # Outside (light absorption per unit-lngth)
+		scalar "ior_out",   # Outside (index of refraction)
+		boolean "ignore_normals", # Ignore normals
+		scalar "phong_coef", # Phong fake high light
+		array light "lights" # Lights giving rise to Phong highlights
+				     # if none then *all* lights are used!
+	)
+	version 1
+	apply material
+	gui "gui_dielectric_material" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_3Materials.html#dielectricmaterial",
+			"uiName" "Dielectric Material (physics)",
+			"category" "Illumination",
+			"hidden"
+		)
+		control "col" "vector" (
+			"uiName" "Light Persistence",
+			"value" 1 1 1,
+            "nonConnectable"
+		)
+		control "ior" "scalar" (
+			"uiName" "Index Of Refraction",
+			"value" 1.5
+		)
+		control "col_out" "vector" (
+			"uiName" "Outside Light Persistence",
+            "nonConnectable"
+		)
+		control "ior_out" "scalar" (
+			"uiName" "Index Of Refraction(out)"
+		)
+		control "ignore_normals" "boolean" (
+			"uiName" "Ignore Normals"
+		)
+		control "phong_coef" "scalar" (
+			"uiName" "Phong Coefficient"
+		)
+		control "lights" "array light" (
+			"uiName" "Lights",
+			hidden
+
+		)	
+	}
+end declare
+
+declare shader
+	"dielectric_material_photon" (
+		color "col",        # Inside (light absorption per unit-length)
+		scalar "ior",       # Inside (index of refract = 1.5 for glass)
+		color "col_out",    # Outside (light absorption per unit-lngth)
+		scalar "ior_out",   # Outside (index of refraction)
+		boolean "ignore_normals", # Ignore normals
+		scalar "phong_coef", # unused, but necessary for db
+		array light "lights" # unused, "
+				     
+	)
+	version 1
+	apply photon
+	gui "gui_dielectric_material_photon" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_4Photon_Tracing.html#dielectricmaterialphoton",
+			"uiName" "Dielectric Material Photon (physics)",
+			"category" "Photon",
+			"hidden"
+		)
+		control "col" "color" (
+			"uiName" "Light Persistence",
+			"value" 1 1 1,
+            "nonConnectable"
+		)
+		control "ior" "scalar" (
+			"uiName" "Index Of Refraction",
+			"value" 1.5
+		)
+		control "col_out" "color" (
+			"uiName" "Outside Light Persistence",
+            "nonConnectable"
+		)
+		control "ior_out" "scalar" (
+			"uiName" "Index Of Refraction(out)"
+		)
+		control "ignore_normals" "boolean" (
+			"uiName" "Ignore Normals"
+		)
+		control "phong_coef" "scalar" (
+			"uiName" "Phong Coefficient"
+		)
+		control "lights" "array light" (
+			"uiName" "Lights",
+			hidden
+		)	
+	}
+end declare
+
+
+# ----- Path tracing -----
+
+# Lens shader for oversampling
+
+declare shader
+	color "oversampling_lens" (
+		integer  	"samples"
+	)
+	version 1
+	apply lens
+	gui "gui_oversampling_lens" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/",
+			"uiName" "Oversampling Lens (physics)",
+			"category" "Lens",
+			"hidden"
+		)
+		control "samples" "integer" (
+			"uiName" "Depth",
+			"value" 1
+		)
+	}
+end declare
+
+
+# Material declaration for path tracing
+
+declare shader
+	color "path_material" (
+		color		"diffuse",
+		color           "glossy",
+		color		"specular",
+		scalar		"shiny",
+		scalar		"shiny_u",
+		scalar		"shiny_v",
+		scalar		"transp",
+		scalar		"ior",
+		array light	"lights"
+	)
+	version 1
+	apply material
+	gui "gui_path_material" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/",
+			"uiName" "Path Material (physics)",
+			"category" "Illumination",
+			"hidden"
+		)
+		control "diffuse" "color" (
+			"uiName" "Diffuse",
+			"value" .7 .7 .7
+		)
+		control "glossy" "color" (
+			"uiName" "Glossy Highlights",
+			"value" 1 1 1
+		)
+		control "specular" "color" (
+			"uiName" "Specular",
+			"value" 1 1 1
+		)
+		control "shiny" "scalar" (
+			"uiName" "Shiny",
+			"value" 0
+		)
+        control "shiny_u" "scalar" (
+			"uiName" "Shinnyness in U",
+            "value" 2
+        )
+        control "shiny_v" "scalar" (
+			"uiName" "Shinnyness in V",
+            "value" 2
+        )
+		control "transp" "scalar" (
+			"uiName" "Transparency",
+			"value" 0
+		)
+		control "ior" "scalar" (
+			"uiName" "Index Of Refraction",
+			"value" 1.5
+		)
+		control "lights" "array light" (
+			"uiName" "Lights",
+			"hidden"
+		)	
+	}
+end declare
+
+
+# ----- Volume shaders for participating media -----
+
+declare shader 
+	color "parti_volume" (
+		integer "mode",		# mode: 0 or 1
+		color 	"scatter",	# volume color
+		scalar 	"extinction",	# extinction coefficient
+		scalar	"r",		# blending parameter between lobes
+		scalar	"g1",		# eccentricity for first lobe
+		scalar	"g2",		# eccentricity for second lobe
+		scalar  "nonuniform", 	# nonhomogeneous ("cloudiness")
+		scalar  "height", 	# mode 1:upper height ("roof of smoke")
+		scalar  "min_step_len", # minimum step length for ray marcher
+		scalar  "max_step_len", # maximum step length for ray marcher
+		scalar  "light_dist",   # distance for fast light sampling
+		integer "min_level",    # ignored
+		boolean "no_globil_where_direct", # for optimization
+		array light  "lights"   # light sources
+	)
+	version 3
+	apply volume
+	gui "gui_parti_volume" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_5Participating_Media.html#partivolume",
+			"uiName" "Parti Volume (physics,legacy)",
+			"category" "Volume",
+			"hidden"
+		)
+		control "mode" "integer" (
+			"uiName" "Mode"
+		)
+		control "scatter" "color" (
+			"uiName" "Scatter color",
+			"value" 0.5 0.5 0.5
+
+		)
+		control "extinction" "scalar" (
+			"uiName" "Extinction",
+			"value" 0.001
+		)
+		control "r" "scalar" (
+			"uiName" "r"
+		)
+		control "g1" "scalar" (
+			"uiName" "g1"
+		)
+		control "g2" "scalar" (
+			"uiName" "g2"
+		)
+		control "nonuniform" "scalar" (
+			"uiName" "Non Uniform"
+		)
+		control "height" "scalar" (
+			"uiName" "Height"
+		)
+		control "max_step_len" "scalar" (
+			"uiName" "Maximum Step Length",
+			"value" 5
+		)
+		control "min_step_len" "scalar" (
+			"uiName" "Mininum Step Length",
+			"value" 0.1
+		)
+		control "light_dist" "scalar" (
+			"uiName" "Light Distance"
+		)
+		control "min_level" "integer" (
+			"uiName" "--ignore--",
+			"hidden"
+		)
+		control "no_globil_where_direct" "boolean" (
+			"uiName" "No GI where direct"
+		)
+		control "lights" "array light" (
+			"uiName" "Lights"
+		)
+	}
+end declare
+
+declare shader
+	color "parti_volume_photon" (
+		integer "mode",		# mode: 0 or 1
+		color 	"scatter",	# volume color
+		scalar 	"extinction",	# extinction coefficient
+		scalar	"r",		# blending parameter between lobes
+		scalar	"g1",		# eccentricity for first lobe
+		scalar	"g2",		# eccentricity for second lobe
+		scalar  "nonuniform", 	# nonhomogeneous ("cloudiness")
+		scalar  "height", 	# mode 1:upper height ("roof of smoke")
+		scalar  "min_step_len", # minimum step length for ray marcher
+		scalar  "max_step_len", # maximum step length for ray marcher
+		scalar  "light_dist",   # ignored
+		integer "min_level",    # photons only stored from min refr.lvl
+		boolean "no_globil_where_direct", # ignored
+		array light  "lights"   # ignored
+	)
+	version 3
+	apply photonvol
+	gui "gui_parti_volume_photon" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_6Photon_Tracing_in_Partic.html#partivolumephoton",
+			"uiName" "Parti Volume Photon (physics)",
+			"category" "Photon Volume",
+			"hidden"
+		)
+		control "mode" "integer" (
+			"uiName" "Mode"
+		)
+		control "scatter" "color" (
+			"uiName" "Scatter color",
+			"value" 0.5 0.5 0.5
+		)
+		control "extinction" "scalar" (
+			"uiName" "Extinction",
+			"value" 0.001
+		)
+		control "r" "scalar" (
+			"uiName" "r"
+		)
+		control "g1" "scalar" (
+			"uiName" "g1"
+		)
+		control "g2" "scalar" (
+			"uiName" "g2"
+		)
+		control "nonuniform" "scalar" (
+			"uiName" "Non Uniform"
+		)
+		control "height" "scalar" (
+			"uiName" "Height"
+		)
+		control "max_step_len" "scalar" (
+			"uiName" "Maximum Step Length",
+			"value" 5
+		)
+		control "min_step_len" "scalar" (
+			"uiName" "Mininum Step Length",
+			"value" 0.1
+		)
+		control "light_dist" "scalar" (
+			"uiName" "Light Distance"
+		)
+		control "min_level" "integer" (
+			"uiName" "Min Level"
+		)
+		control "no_globil_where_direct" "boolean" (
+			"uiName" "No GI where direct"
+		)
+		control "lights" "array light" (
+			"uiName" "Lights"
+		)
+	}
+end declare
+
+
+# ----- Material shader for 'dummy' surface of participating media -----
+
+declare shader 
+	color "transmat" ()
+	version 1
+	apply material, shadow
+	gui "gui_transmat" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_5Participating_Media.html#transmat",
+			"uiName" "Transmat (physics)",
+			"category" "Illumination"
+		)
+	}
+end declare
+
+declare shader 
+	color "transmat_photon" ()
+	version 1
+	apply photon
+	gui "gui_transmat_photon" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-2_6Photon_Tracing_in_Partic.html#transmatphoton",
+			"uiName" "Transmat Photon (physics)",
+			"category" "Photon"
+		)
+	}
+end declare

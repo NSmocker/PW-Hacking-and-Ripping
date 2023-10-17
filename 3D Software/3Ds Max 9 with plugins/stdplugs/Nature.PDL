@@ -1,0 +1,3502 @@
+PDLFile
+
+
+//
+//	Plant Definition file.
+// .pdl files (like this one) go in your plug-in directory.
+//
+
+//
+// Generic Palm Tree
+//
+
+
+branch PalmBranch1
+	{
+	type = Leaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 60.0
+	LengthIsProportional = 1
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = Down	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.2
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 -8.0 
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.065  1.0 0.0
+	RadialSidesMin = 2
+	RadialSidesMax = 2
+	RadialSidesPerInch = 1.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	SurfaceTwistNoise = 0.0
+	BranchRegionStart = 0.25
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 100.0  1.0 30.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.9  0.5 1.0  1.0 0.1
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 2.0
+	BranchDensityNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	Branch1RollKeys = 0.0 90.0
+	Branch1RollNoise = 0.2
+	BranchNRollNoise = 0.2
+	NumNodes = 3
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch PalmBranch0
+	{
+	DescendantBranches = PalmBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 1
+	Length = 120.0
+	LengthIsProportional = 1
+	LengthNoise = 0.05
+	PruningMode = Base
+	NoiseKeys = 0.0 0.05
+	TropismType = Down	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.2
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.015  1.0 0.0
+	RadialSidesMin = 2
+	RadialSidesMax = 2
+	RadialSidesPerInch = 1.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistInitial = 90.0
+	SurfaceTwistInitialIsRandom = 0
+	SurfaceTwistNoise = 0.0
+	BranchRegionStart = 0.9
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 120.0  1.0 40.0
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0   1.0  1.0  0.5
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 6.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 90.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Random		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.2
+	NumNodes = 5
+	InternodeLengthKeys = 0.0 8.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ExpiredFrond1
+	{
+	type = Leaf
+	SubMatID = 4
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 60.0
+	LengthIsProportional = 1
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = Down	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 4.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.065  1.0 0.0
+	RadialSidesMin = 2
+	RadialSidesMax = 2
+	RadialSidesPerInch = 1.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	SurfaceTwistNoise = 0.0
+	BranchRegionStart = 0.25
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 60.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.9  0.5 1.0  1.0 0.1
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 2.0
+	BranchDensityNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	Branch1RollKeys = 0.0 90.0
+	Branch1RollNoise = 0.2
+	BranchNRollNoise = 0.2
+	NumNodes = 3
+	InternodeLengthKeys = 0.0 20.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ExpiredFrond0
+	{
+	DescendantBranches = ExpiredFrond1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 120.0
+	LengthIsProportional = 1
+	LengthNoise = 0.05
+	PruningMode = Base
+	NoiseKeys = 0.0 0.05
+	TropismType = Down	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 4.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.015  1.0 0.0
+	RadialSidesMin = 2
+	RadialSidesMax = 2
+	RadialSidesPerInch = 1.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistInitial = 90.0
+	SurfaceTwistInitialIsRandom = 0
+	SurfaceTwistNoise = 0.0
+	BranchRegionStart = 0.85
+	BranchRegionEnd = 0.9
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 90.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 6.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 90.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Random		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.2
+	NumNodes = 5
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch PalmTrunk		// This is the definition of a palm trunk
+	{
+	DescendantBranches = PalmBranch0 ExpiredFrond0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 500.0
+	LengthIsProportional = 1
+	LengthNoise = 0.15
+	PruningMode = None
+	NoiseKeys = 0.0 0.05
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 1.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 20.0  0.01 0.0  0.02 0.0  1.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.03  0.1 0.02  0.11 0.0197  0.55 0.013  1.0 0.006
+	RadialSidesMin = 4
+	RadialSidesMax = 8
+	RadialSidesPerInch = 1.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	SurfaceTwistNoise = 0.0
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree PalmTree
+	{
+	CommonName = "Generic Palm"
+	CommonType = "Palm"
+	ScientificName = "Palmae philimus"
+	ApproximateFaceCount = 7500
+	PaletteImage = "IMG_PALMS"
+	PaletteImageMask = "IMG_PALMS_MASK"
+	PaletteImageIndex = 0
+	Description = "Generic palm tree"
+	BranchingStructure = PalmTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.4 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicPalm"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 5
+	Scale = 0.75
+	}
+
+
+//
+// Generic Spruce Tree
+//
+
+
+leaf SpruceLeaf
+	{
+	Shape = SquareX	// Diamond, Square, Spear, InvSpear, Fan, InvFan, DiamondX, SquareX, SpearX, InvSpearX, FanX, InvFanX, BendableSquare
+	ShapeSegments = 1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 20.0
+	Diameter = 0.4
+	LengthIsProportional = 0
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 37.25
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = Spiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 5.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch SpruceBranch1
+	{
+	DescendantBranches = SpruceLeaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 100.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = Either
+	NoiseKeys = 0.0 0.1
+	TropismType = Plagio	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 0.4
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.012  1.0 0.003
+	RadialSidesMin = 3
+	RadialSidesMax = 4
+	RadialSidesPerInch = 4.0
+	RadiusNoise = 0.05
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 70.0  1.0 35.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0  0.5 1.6  1.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.1
+	Branch1RollBase = 0.0
+	Branch1RollInc = 180.0
+	Branch1RollIncNoise = 0.4
+	Phylotaxis = Spiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 20.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch SpruceBranch0
+	{
+	DescendantBranches = SpruceBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 200.0
+	LengthIsProportional = 1
+	LengthNoise = 0.2
+	PruningMode = Either
+	NoiseKeys = 0.0 0.1
+	TropismType = Plagio	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 0.8
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.018  1.0 0.0045
+	RadialSidesMin = 3
+	RadialSidesMax = 4
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 120.0  1.0 40.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0  0.5 1.2  1.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.8
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.01
+	}
+
+branch SpruceTrunk
+	{
+	DescendantBranches = SpruceBranch0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 600.0
+	LengthIsProportional = 1
+	LengthNoise = 0.3
+	PruningMode = None
+	NoiseKeys = 0.0 0.1
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.02 1.0 0.002
+	RadialSidesMin = 4
+	RadialSidesMax = 32
+	RadialSidesPerInch = 1.2
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+// "Flutes" must have 2 or more values to enable fluting.  Use negative values for euphorbia type branches
+	Flutes = 0.25 0.25 0.4
+	FluteScaleKeys = 0.0 1.5  0.50 0.0  0.75 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree SpruceTree
+	{
+	CommonName = "Blue Spruce"
+	CommonType = "Spruce"
+	ScientificName = "Picea glauca"
+	ApproximateFaceCount = 19500
+	PaletteImage = "IMG_CONIFERS"
+	PaletteImageMask = "IMG_CONIFERS_MASK"
+	PaletteImageIndex = 0
+	Description = "Colorado Blue spruce tree"
+	BranchingStructure = SpruceTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.4 0.8
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicSpruce"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 4
+	Scale = 0.75
+	}
+
+
+//
+// Oak Tree
+//
+
+leaf OakLeaf
+	{
+	Shape = Square	// Diamond, Square, Spear, InvSpear, Fan, InvFan, DiamondX, SquareX, SpearX, InvSpearX, FanX, InvFanX, BendableSquare
+	ShapeSegments = 1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 20.0
+	Diameter = 0.7
+	LengthIsProportional = 0
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 45.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.2
+	}
+
+
+branch OakBranch1
+	{
+	DescendantBranches = OakLeaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 170.0
+	LengthIsProportional = 1
+	LengthNoise = 0.075
+	PruningMode = Either
+	NoiseKeys = 0.0 0.5
+	TropismType = None	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.02  1.0 0.0
+	RadialSidesMin = 3
+	RadialSidesMax = 4
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  30.0 
+	BranchAngleNoise = 0.3333
+	LengthScaleKeys = 0.0 1.0  1.0 2.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 90.0
+	Branch1RollIncNoise = 0.23
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch OakBranch0
+	{
+	DescendantBranches = OakBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 340.0
+	LengthIsProportional = 1
+	LengthNoise = 0.075
+	PruningMode = Either
+	NoiseKeys = 0.0 0.7
+	TropismType = None	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.4
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.015  1.0 0.0
+	RadialSidesMin = 3
+	RadialSidesMax = 8
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.3
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 100.0  1.0 45.0
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0  0.5 1.8 1.0 2.5
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.333
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 16.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch OakTrunk
+	{
+	DescendantBranches = OakBranch0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 500.0
+	LengthIsProportional = 0
+	LengthNoise = 0.12
+	PruningMode = None
+	NoiseKeys = 0.0 0.2  1.0 0.4
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.03  1.0 0.003
+	RadialSidesMin = 4
+	RadialSidesMax = 32
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.15
+// "Flutes" must have 2 or more values to enable fluting.  Use negative values for euphorbia type branches
+	Flutes = 0.25 0.25 0.5 0.25
+	FluteScaleKeys = 0.0 3.0 0.25 0.0  0.26 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.3
+	SurfaceTwistKeys = 0.0 60.0  0.1 40.0  0.2 24.0  0.3 12.0  0.4 4.0  0.5 0.0  0.51 0.0  1.0 0.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree OakTree
+	{
+	CommonName = "Generic Oak"
+	CommonType = "Oak"
+	ScientificName = "Quercus philimus"
+	ApproximateFaceCount = 24000
+	PaletteImage = "IMG_DECIDS"
+	PaletteImageMask = "IMG_DECIDS_MASK"
+	PaletteImageIndex = 0
+	Description = "Generic oak tree"
+	BranchingStructure = OakTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.8 0.4 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicOak"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 4
+	Scale = 0.75
+	}
+
+
+
+
+//
+// Willow Tree
+//
+
+leaf WillowLeaf
+	{
+	Shape = Spear	// Diamond, Square, Spear, InvSpear, Fan, InvFan, DiamondX, SquareX, SpearX, InvSpearX, FanX, InvFanX, BendableSquare
+	ShapeSegments = 1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 10.0
+	Diameter = 0.6
+	LengthIsProportional = 0
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 2.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 4.0
+	InternodeLengthNoise = 0.2
+	}
+
+
+branch WillowBranch1
+	{
+	DescendantBranches = WillowLeaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 290.0
+	LengthIsProportional = 1
+	LengthNoise = 0.2
+	PruningMode = Clip
+	NoiseKeys = 0.0 0.0
+	TropismType = Down	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 3.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.003  1.0 0.00075
+	RadialSidesMin = 3
+	RadialSidesMax = 4
+	RadialSidesPerInch = 5.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0  0.5 1.8 1.0 1.5
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 45.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = Spiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch WillowBranch0
+	{
+	DescendantBranches = WillowBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 1
+	Length = 150.0
+	LengthIsProportional = 1
+	LengthNoise = 0.3
+	PruningMode = Either
+	NoiseKeys = 0.0 0.1
+	TropismType = Plagio	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 1.2
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.015  1.0 0.007
+	RadialSidesMin = 3
+	RadialSidesMax = 4
+	RadialSidesPerInch = 2.5
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.4
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 20.0
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0  0.5 1.8 1.0 2.5
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.20
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 16.0
+	InternodeLengthNoise = 0.06
+	}
+
+branch WillowTrunk
+	{
+	DescendantBranches = WillowBranch0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 500.0
+	LengthIsProportional = 0
+	LengthNoise = 0.12
+	PruningMode = None
+	NoiseKeys = 0.0 0.2  1.0 0.4
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.02  1.0 0.005
+	RadialSidesMin = 4
+	RadialSidesMax = 32
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.15
+// "Flutes" must have 2 or more values to enable fluting.  Use negative values for euphorbia type branches
+	Flutes = 0.23 0.25 0.34 0.27 0.15 0.25
+	FluteScaleKeys = 0.0 1.0 0.5 0.0  0.51 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.3
+	SurfaceTwistKeys = 0.0 60.0  0.1 40.0  0.2 24.0  0.3 12.0  0.4 4.0  0.5 0.0  0.51 0.0  1.0 0.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree WillowTree
+	{
+	CommonName = "Weeping Willow"
+	CommonType = "Willow"
+	ScientificName = "Salix babylonica"
+	ApproximateFaceCount = 42000
+	PaletteImage = "IMG_DECIDS"
+	PaletteImageMask = "IMG_DECIDS_MASK"
+	PaletteImageIndex = 1
+	Description = "Weeping willow tree"
+	BranchingStructure = WillowTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.8 0.8 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicWillow"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 4
+	Scale = 0.75
+	}
+
+
+
+//
+// Elm Tree
+//
+
+leaf ElmLeaf
+	{
+	Shape = Square	// Diamond, Square, Spear, InvSpear, Fan, InvFan, DiamondX, SquareX, SpearX, InvSpearX, FanX, InvFanX, BendableSquare
+	ShapeSegments = 1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 15.0
+	Diameter = 0.7
+	LengthIsProportional = 0
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 45.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.3
+	}
+
+
+branch ElmBranch1
+	{
+	DescendantBranches = ElmLeaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 140.0
+	LengthIsProportional = 1
+	LengthNoise = 0.2
+	PruningMode = Either
+	NoiseKeys = 0.0 0.2
+	TropismType = Plagio	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 0.4
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.008  1.0 0.002
+	RadialSidesMin = 3
+	RadialSidesMax = 3
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.3
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 120.0  1.0 40.0
+	BranchAngleNoise = 0.2
+	LengthScaleKeys = 0.0 1.0  0.5 1.4  1.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.1
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.1
+	Phylotaxis = Spiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 7.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch ElmBranch0
+	{
+	DescendantBranches = ElmBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 250.0
+	LengthIsProportional = 1
+	LengthNoise = 0.075
+	PruningMode = Either
+	NoiseKeys = 0.0 0.3
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 0.3
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.01  1.0 0.0025
+	RadialSidesMin = 3
+	RadialSidesMax = 8
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.3
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 90.0  1.0 20.0
+	BranchAngleNoise = 0.2
+	LengthScaleKeys = 0.0 1.0  0.5 1.4 1.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.1
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 12.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ElmTrunk
+	{
+	DescendantBranches = ElmBranch0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 360.0
+	LengthIsProportional = 0
+	LengthNoise = 0.12
+	PruningMode = None
+	NoiseKeys = 0.0 0.2  1.0 0.3
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.03  1.0 0.0075
+	RadialSidesMin = 4
+	RadialSidesMax = 24
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.15
+	Flutes = 0.25 0.25 0.5 0.25
+	FluteScaleKeys = 0.0 2.0 0.25 0.0  0.26 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.3
+	SurfaceTwistKeys = 0.0 60.0  0.1 40.0  0.2 24.0  0.3 12.0  0.4 4.0  0.5 0.0  0.51 0.0  1.0 0.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree ElmTree
+	{
+	CommonName = "American Elm"
+	CommonType = "Elm"
+	ScientificName = "Ulmus americana"
+	ApproximateFaceCount = 19000
+	PaletteImage = "IMG_DECIDS"
+	PaletteImageMask = "IMG_DECIDS_MASK"
+	PaletteImageIndex = 2
+	Description = "American elm tree"
+	BranchingStructure = ElmTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.8 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicElm"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 4
+	Scale = 1.0
+	}
+
+
+
+
+//
+// Yucca Tree
+//
+
+branch YuccaFrond
+	{
+	type = Leaf
+	SubMatID = 1
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 21.0
+	LengthIsProportional = 0
+	LengthNoise = 0.05
+	PruningMode = Base
+	NoiseKeys = 0.0 0.05
+	TropismType = Down	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 0.1
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.025  0.1 0.025  0.5 0.05  1.0 0.002
+	RadialSidesMin = 2
+	RadialSidesMax = 2
+	RadialSidesPerInch = 1.0
+	RadiusNoise = 0.05
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistInitial = 90.0
+	SurfaceTwistInitialIsRandom = 0
+	SurfaceTwistNoise = 0.0
+	BranchRegionStart = 0.95
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.9		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 100.0  1.0 20.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 75.0
+	Branch1RollIncNoise = 0.05
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.1
+	NumNodes = 5
+	InternodeLengthKeys = 0.0 0.1
+	InternodeLengthNoise = 0.05
+	}
+
+
+branch YuccaTrunk
+	{
+	DescendantBranches = YuccaFrond
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 180.0
+	LengthIsProportional = 0
+	LengthNoise = 0.25
+	PruningMode = None
+	NoiseKeys = 0.0 0.4
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 3
+	RadiusKeys = 0.0 0.08  0.05 0.08  0.18 0.015  0.2 0.012  0.201 0.012  1.0 0.0075
+	RadialSidesMin = 6
+	RadialSidesMax = 24
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree YuccaTree
+	{
+	CommonName = "Yucca"
+	CommonType = "Yucca"
+	ScientificName = "Yucca mohavensis"
+	ApproximateFaceCount = 2100
+	PaletteImage = "IMG_PALMS"
+	PaletteImageMask = "IMG_PALMS_MASK"
+	PaletteImageIndex = 2
+	Description = "Yucca with single cluster"
+	BranchingStructure = YuccaTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.8 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicYucca"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 2
+	Scale = 1.0
+	}
+
+
+branch YuccaBranch
+	{
+	DescendantBranches = YuccaFrond
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 160.0
+	LengthIsProportional = 0
+	LengthNoise = 0.4
+	PruningMode = None
+	NoiseKeys = 0.0 0.4
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 3
+	RadiusKeys = 0.0 0.024  0.1 0.012  0.101 0.012  1.0 0.0075
+	RadialSidesMin = 6
+	RadialSidesMax = 8
+	RadialSidesPerInch = 4.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.08
+	BranchRegionEnd = 0.12
+	BranchPerpOffset = 0.8		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 40.0
+	BranchAngleNoise = 0.2
+	LengthScaleKeys = 0.0 2.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 3.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+branch YuccaBranchSmall
+	{
+	DescendantBranches = YuccaFrond
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 80.0
+	LengthIsProportional = 0
+	LengthNoise = 0.4
+	PruningMode = None
+	NoiseKeys = 0.0 0.4
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 3
+	RadiusKeys = 0.0 0.048  0.1 0.024  0.101 0.024  1.0 0.015
+	RadialSidesMin = 6
+	RadialSidesMax = 8
+	RadialSidesPerInch = 4.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.08
+	BranchRegionEnd = 0.12
+	BranchPerpOffset = 0.8		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 40.0
+	BranchAngleNoise = 0.2
+	LengthScaleKeys = 0.0 2.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 3.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+branch YuccaMultiTrunk
+	{
+	DescendantBranches = YuccaFrond YuccaBranch YuccaBranchSmall
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 180.0
+	LengthIsProportional = 0
+	LengthNoise = 0.25
+	PruningMode = None
+	NoiseKeys = 0.0 0.4
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 0
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 3
+	RadiusKeys = 0.0 0.08  0.05 0.08  0.18 0.015  0.2 0.012  0.201 0.012  1.0 0.0075
+	RadialSidesMin = 6
+	RadialSidesMax = 24
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0		// Not used in trunk -- only child branches
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		// Choices are Keys, Random, Banked, Spiral, RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 1.0		// Not used in trunk -- only child branches
+	InternodeLengthNoise = 0.0
+	}
+
+tree YuccaMultiTree
+	{
+	CommonName = "Big Yucca"
+	CommonType = "Yucca"
+	ScientificName = "Yucca mohavensis"
+	ApproximateFaceCount = 15000
+	PaletteImage = "IMG_PALMS"
+	PaletteImageMask = "IMG_PALMS_MASK"
+	PaletteImageIndex = 1
+	Description = "Yucca with multiple clusters"
+	BranchingStructure = YuccaMultiTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.8 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicYucca"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 2
+	Scale = 1.0
+	}
+
+
+
+
+
+//
+// Cherry Trees
+//
+
+leaf CherrySpringLeaf
+	{
+	Shape = Square
+	ShapeSegments = 1
+	Density = 0.1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 8.0
+	Diameter = 1.0
+	LengthIsProportional = 0
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 45.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 3.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+flower CherrySpringFlower
+	{
+	Shape = Square
+	ShapeSegments = 1
+	Density = 1.0
+	SubMatID = 4
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 6.0
+	Diameter = 1.1
+	LengthIsProportional = 0
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0	
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = -3.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  135.0  1.0 127.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 45.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 3.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch CherrySpringTwig
+	{
+	DescendantBranches = CherrySpringFlower
+	Invisible = 1
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 70.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = Either
+	NoiseKeys = 0.0 0.0
+	TropismType = None
+	TropismFixedAttachAngle = 1
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.002 
+	RadialSidesMin = 3
+	RadialSidesMax = 3
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 45.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 2
+	InternodeLengthKeys = 0.0 11.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch CherrySpringBranch1
+	{
+	DescendantBranches = CherrySpringLeaf CherrySpringTwig
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 84.0
+	LengthIsProportional = 1
+	LengthNoise = 0.075
+	PruningMode = Either
+	NoiseKeys = 0.0 0.05
+	TropismType = Plagio
+	TropismFixedAttachAngle = 1
+	Tropism = 0.3
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.008  1.0 0.002
+	RadialSidesMin = 3
+	RadialSidesMax = 3
+	RadialSidesPerInch = 1.5
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 30.0
+	BranchAngleNoise = 0.25
+	LengthScaleKeys = 0.0 1.0  0.5 1.3  1.0 1.15
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.17
+	Phylotaxis = Spiral
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 10.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+branch CherrySpringBranchApical
+	{
+	DescendantBranches = CherrySpringBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 187.5
+	LengthIsProportional = 1
+	LengthNoise = 0.125
+	PruningMode = Either
+	NoiseKeys = 0.0 0.15
+	TropismType = Up	// None, Up, Down, Plagio, Vector
+	TropismFixedAttachAngle = 1
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.016  1.0 0.004
+	RadialSidesMin = 4
+	RadialSidesMax = 8
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.35
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0		// 0.0 is center of parent branch; 1.0 is approx. surface of parent branch
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 120.0  1.0 70.0
+	BranchAngleNoise = 0.2
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.5
+	Phylotaxis = Apical
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 8.0
+	InternodeLengthNoise = 0.01
+	}
+
+
+branch CherrySpringBranch0
+	{
+	DescendantBranches = CherrySpringBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 187.5
+	LengthIsProportional = 1
+	LengthNoise = 0.125
+	PruningMode = Either
+	NoiseKeys = 0.0 0.15
+	TropismType = Up
+	TropismFixedAttachAngle = 1
+	Tropism = 0.5
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.016  1.0 0.004
+	RadialSidesMin = 4
+	RadialSidesMax = 8
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	BranchRegionStart = 0.35
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 120.0  1.0 70.0
+	BranchAngleNoise = 0.2
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.5
+	Phylotaxis = RanSpiral		
+	BranchNRollNoise = 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	FluteAmplitudeNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 8.0
+	InternodeLengthNoise = 0.01
+	}
+
+
+branch CherrySpringTrunk
+	{
+	DescendantBranches = CherrySpringBranch0 CherrySpringBranchApical
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 300.0
+	LengthIsProportional = 0
+	LengthNoise = 0.12
+	PruningMode = None
+	NoiseKeys = 0.0 0.4
+	TropismType = Up
+	TropismFixedAttachAngle = 0
+	Tropism = 0.6
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.02  1.0 0.01
+	RadialSidesMin = 4
+	RadialSidesMax = 24
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.15
+	Flutes = 0.25 0.25 0.5 0.25
+	FluteScaleKeys = 0.0 2.0 0.25 0.0  0.26 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.3
+	SurfaceTwistKeys = 0.0 60.0  0.1 40.0  0.2 24.0  0.3 12.0  0.4 4.0  0.5 0.0  0.51 0.0  1.0 0.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+tree CherryTreeSpring
+	{
+	CommonName = "Japanese Flowering Cherry, Spring"
+	CommonType = "Cherry"
+	ScientificName = "Prunus serrulata"
+	ApproximateFaceCount = 40000
+	PaletteImage = "IMG_DECIDS"
+	PaletteImageMask = "IMG_DECIDS_MASK"
+	PaletteImageIndex = 3
+	Description = "Cherry tree in Spring"
+	BranchingStructure = CherrySpringTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.8 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicCherry"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 5
+	Scale = 1.0
+	}
+
+
+
+//
+// Euphorbia
+//
+
+
+branch EuphorbiaBranch1
+	{
+	SubMatID = 1
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 80.0
+	LengthIsProportional = 1
+	LengthNoise = 0.12
+	PruningMode = Either
+	NoiseKeys = 0.0 0.8
+	TropismType = Up
+	TropismFixedAttachAngle = 1
+	Tropism = 0.8
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.031  0.05 0.035  0.15 0.035  0.2 0.029  0.25 0.033  0.35 0.033  0.4 0.027  0.45 0.031  0.55 0.031  0.6 0.025  0.65 0.029  0.75 0.029  0.8 0.023  0.85 0.027  0.95 0.027  1.0 0.021
+	RadialSidesMin = 12
+	RadialSidesMax = 12
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.05
+	CapMode = Hemisphere
+	SurfaceNoiseKeys = 0.0 0.05
+	Flutes = -0.2 -0.2 -0.2 -0.2
+	FluteScaleKeys = 0.0 2.0
+	FluteAmplitudeNoise = 0.05
+	SurfaceTwistKeys = 0.0 0.0  1.0 150.0
+	SurfaceTwistNoise = 0.05
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.4
+	BranchRegionEnd = 0.95
+	BranchPerpOffset = 0.75
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 85.0  1.0 60.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0  1.0 0.6
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.5  1.0 1.5
+	BranchDensityNoise = 1.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 16.0
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch EuphorbiaBranch0
+	{
+	DescendantBranches = EuphorbiaBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 140.0
+	LengthIsProportional = 1
+	LengthNoise = 0.12
+	PruningMode = Either
+	NoiseKeys = 0.0 0.5
+	TropismType = Up
+	TropismFixedAttachAngle = 1
+	Tropism = 1.2
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 2
+	RadiusKeys = 0.0 0.025  0.05 0.029  0.15 0.029  0.2 0.023  0.25 0.027  0.35 0.027  0.4 0.021  0.45 0.025  0.55 0.025  0.6 0.019  0.65 0.023  0.75 0.023  0.8 0.017  0.85 0.021  0.95 0.021  1.0 0.015
+	RadialSidesMin = 12
+	RadialSidesMax = 12
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.05
+	CapMode = Hemisphere
+	SurfaceNoiseKeys = 0.0 0.05
+	Flutes = -0.2 -0.2 -0.2 -0.2
+	FluteScaleKeys = 0.0 2.0
+	FluteAmplitudeNoise = 0.05
+	SurfaceTwistKeys = 0.0 0.0  1.0 120.0
+	SurfaceTwistNoise = 0.05
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.4
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.75
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 85.0  1.0 60.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0  1.0 0.8
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.5  1.0 2.5
+	BranchDensityNoise = 1.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 16.0
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch EuphorbiaTrunk
+	{
+	DescendantBranches = EuphorbiaBranch0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 240.0
+	LengthIsProportional = 0
+	LengthNoise = 0.12
+	PruningMode = None
+	NoiseKeys = 0.0 0.3
+	TropismType = Up
+	TropismFixedAttachAngle = 0
+	Tropism = 0.6
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 2
+	RadiusKeys = 0.0 0.04  0.1 0.025  0.15 0.024  1.0 0.015
+	RadialSidesMin = 12
+	RadialSidesMax = 12
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.1
+	CapMode = Hemisphere
+	SurfaceNoiseKeys = 0.0 0.15
+	Flutes = -0.2 -0.2 -0.2 -0.2 -0.2 -0.2
+	FluteScaleKeys = 0.0 0.8
+	FluteAmplitudeNoise = 0.1
+	SurfaceTwistKeys = 0.0 0.0  1.0 60.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+tree Euphorbia
+	{
+	CommonName = "Euphorbia, Large Succulent"
+	CommonType = "Euphorbia"
+	ScientificName = "Euphorbiaceae"
+	ApproximateFaceCount = 50000
+	PaletteImage = "IMG_MISCPLANTS"
+	PaletteImageMask = "IMG_MISCPLANTS_MASK"
+	PaletteImageIndex = 2
+	Description = "Large succulent euphorbia growing in my yard"
+	BranchingStructure = EuphorbiaTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.8 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicEuphorbia"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 2
+	Scale = 1.0
+	}
+
+
+//
+// Society Garlic
+//
+
+flower SocietyGarlicFlower
+	{
+	Shape = Cone
+	ShapeSegments = 1
+	Density = 1.0
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 0.5
+	Diameter = 1.1
+	LengthIsProportional = 0
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None	
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0	
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.98
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.5
+	StemLengthNoise = 0.2
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  45.0  1.0 20.0
+	BranchAngleNoise = 0.4
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 75.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.2
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 0.1
+	InternodeLengthNoise = 0.0
+	}
+
+
+
+
+branch SocietyGarlicStalk
+	{
+	type = Flower
+	DescendantBranches = SocietyGarlicFlower
+	SubMatID = 1
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 24.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.05
+	TropismType = Down
+	TropismFixedAttachAngle = 1
+	Tropism = 1.0
+	TropismNoise = 0.2
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.005  1.0 0.0025
+	RadialSidesMin = 4
+	RadialSidesMax = 4
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.045
+	BranchRegionEnd = 0.05
+	BranchPerpOffset = 1.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 2.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 75.0
+	Branch1RollIncNoise = 0.05
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.1
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 0.01
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch SocietyGarlicBranch0
+	{
+	type = Leaf
+	SubMatID = 0
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 18.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.05
+	TropismType = Down
+	TropismFixedAttachAngle = 1
+	Tropism = 1.0
+	TropismNoise = 0.2
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.015  1.0 0.0015
+	RadialSidesMin = 2
+	RadialSidesMax = 2
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 90.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.05
+	BranchPerpOffset = 1.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 20.0  1.0 2.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 2.0  1.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 75.0
+	Branch1RollIncNoise = 0.05
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.1
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 0.01
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch SocietyGarlicTrunk
+	{
+	type = Leaf
+	DescendantBranches = SocietyGarlicBranch0 SocietyGarlicStalk
+	Invisible = 1
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 18.0
+	LengthIsProportional = 0
+	LengthNoise = 0.2
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.25  0.05 0.001  0.051 0.001  1.0 0.001
+	RadialSidesMin = 8
+	RadialSidesMax = 8
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys
+	BranchNRollNoise = 0.0
+	NumNodes = 21
+	InternodeLengthKeys = 0.0 1.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+tree SocietyGarlic
+	{
+	CommonName = "Society Garlic"
+	CommonType = "Garlic"
+	ScientificName = "Tulbaghia violacea"
+	ApproximateFaceCount = 7000
+	PaletteImage = "IMG_MISCPLANTS"
+	PaletteImageMask = "IMG_MISCPLANTS_MASK"
+	PaletteImageIndex = 3
+	Description = "Society garlic (10 gallon) w/purple flowers"
+	BranchingStructure = SocietyGarlicTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.7 0.2
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicSocietyGarlic"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 3
+	Scale = 1.0
+	}
+
+
+//
+// Banyan
+//
+
+leaf BanyanLeaf
+	{
+	Shape = Square
+	ShapeSegments = 1
+	SubMatID = 4
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 16.0
+	Diameter = 1.5
+	LengthIsProportional = 0
+	LengthNoise = 0.05
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0
+	StemLength = 2.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0  45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral	
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 8.0
+	InternodeLengthNoise = 0.2
+	}
+
+branch BanyanBranch2
+	{
+	DescendantBranches = BanyanLeaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 1100.0
+	LengthIsProportional = 1
+	LengthNoise = 0.2
+	PruningMode = Either
+	NoiseKeys = 0.0 0.2
+	TropismType = Up
+	TropismFixedAttachAngle = 0
+	Tropism = 0.7
+	TropismNoise = 0.2
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.016  1.0 0.004
+	RadialSidesMin = 3
+	RadialSidesMax = 3
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 90.0  1.0 37.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 137.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.3
+	NumNodes = 4
+	InternodeLengthKeys = 0.0 46.0
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch BanyanBranch1
+	{
+	DescendantBranches = BanyanBranch2
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 1200.0
+	LengthIsProportional = 1
+	LengthNoise = 0.2
+	PruningMode = Either
+	NoiseKeys = 0.0 0.4
+	TropismType = Up
+	TropismFixedAttachAngle = 0
+	Tropism = 0.9
+	TropismNoise = 0.2
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.02  1.0 0.005
+	RadialSidesMin = 3
+	RadialSidesMax = 6
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 110.0  1.0 50.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 137.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.3
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 84.0
+	InternodeLengthNoise = 0.1
+	}
+
+root BanyanPillarRoot
+	{
+	SubMatID = 3
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 1800.0
+	LengthIsProportional = 1
+	LengthNoise = 0.0
+	PruningMode = Clip
+	NoiseKeys = 0.0 0.1
+	TropismType = Down
+	TropismFixedAttachAngle = 0
+	Tropism = 2.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.007  1.0 0.02
+	RadialSidesMin = 8
+	RadialSidesMax = 24
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.05
+	Flutes = 1.0 1.0 1.0 1.0 1.0
+	FluteScaleKeys = 0.0 0.0  0.2 0.0  0.21 0.0  1.0 0.5
+	FluteAmplitudeNoise = 0.8
+	SurfaceTwistKeys = 0.0 0.0  0.2 0.0  0.21 0.0  1.0 60.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.5
+	BranchRegionEnd = 0.8
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 90.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.37
+	BranchDensityNoise = 1.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Spiral
+	BranchNRollNoise = 0.3
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 96.0
+	InternodeLengthNoise = 0.2
+	}
+
+
+branch BanyanBranch0
+	{
+	DescendantBranches = BanyanBranch1 BanyanPillarRoot
+	SubMatID = 2
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 1500.0
+	LengthIsProportional = 1
+	LengthNoise = 0.2
+	PruningMode = None
+	NoiseKeys = 0.0 0.25
+	TropismType = Plagio
+	TropismFixedAttachAngle = 0
+	Tropism = 0.6
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.03  1.0 0.015
+	RadialSidesMin = 8
+	RadialSidesMax = 16
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.05
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.85
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 80.0  1.0 50.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 137.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.3
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 20.0
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch BanyanTrunk
+	{
+	type = Trunk
+	DescendantBranches = BanyanBranch0
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 300.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.3
+	TropismType = Up
+	TropismFixedAttachAngle = 1
+	Tropism = 0.6
+	TropismNoise = 0.2
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 2
+	RadiusKeys = 0.0 0.2  0.2 0.08  0.21 0.08  1.0 0.05
+	RadialSidesMin = 8
+	RadialSidesMax = 40
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = Hemisphere
+	SurfaceNoiseKeys = 0.0 0.05
+	Flutes = 0.25  0.5  0.3  0.2  0.4  0.3  0.5
+	FluteScaleKeys = 0.0 2.0   0.5 0.0  0.51 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.5
+	SurfaceTwistKeys = 0.0 60.0  0.5 0.0  0.51 0.0  1.0 0.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.05
+	BranchPerpOffset = 1.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 20.0  1.0 1.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 3.0  1.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 75.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.3
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 15.0
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch BanyanWigglers
+	{
+	type = Trunk
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 1
+	Length = 600.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.1
+	TropismType = None
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 9.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 45.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.03  0.2 0.008  0.21 0.008  1.0 0.007
+	RadialSidesMin = 8
+	RadialSidesMax = 32
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.5
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.25  0.5  0.3  0.2  0.4  0.3  0.5
+	FluteScaleKeys = 0.0 3.0   0.5 0.0  0.51 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.5
+	SurfaceTwistKeys = 0.0 60.0  0.5 0.0  0.51 0.0  1.0 0.0
+	SurfaceTwistNoise = 0.1
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.05
+	BranchPerpOffset = 1.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.05
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 3.0  1.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 75.0
+	Branch1RollIncNoise = 0.3
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.3
+	NumNodes = 26
+	InternodeLengthKeys = 0.0 7.5
+	InternodeLengthNoise = 0.1
+	}
+
+
+branch BanyanPseudoTrunk
+	{
+	DescendantBranches = BanyanTrunk BanyanWigglers
+	Invisible = 1
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 300.0
+	LengthIsProportional = 0
+	LengthNoise = 0.2
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 1
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.25  0.02 0.001  0.021 0.001  1.0 0.001
+	RadialSidesMin = 8
+	RadialSidesMax = 8
+	RadialSidesPerInch = 3.0
+	RadiusNoise = 0.0
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 0.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys
+	BranchNRollNoise = 0.0
+	NumNodes = 51
+	InternodeLengthKeys = 0.0 1.0
+	InternodeLengthNoise = 0.0
+	}
+
+
+tree Banyan
+	{
+	CommonName = "Banyan tree"
+	CommonType = "Banyan"
+	ScientificName = "Ficus benghalensis"
+	ApproximateFaceCount = 100000
+	PaletteImage = "IMG_DECIDS"
+	PaletteImageMask = "IMG_DECIDS_MASK"
+	PaletteImageIndex = 4
+	Description = "Banyan tree w/pillar roots"
+	BranchingStructure = BanyanPseudoTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.7 0.0
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicBanyan"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 5
+	Scale = 0.9
+	}
+
+
+//
+// Scotch Pine
+//
+
+leaf ScotchPineLeaf
+	{
+	Shape = SquareX
+	ShapeSegments = 1
+	SubMatID = 3
+	DisplayAsBlob = 1
+	CanDropForLOD = 0
+	Length = 10.0
+	Diameter = 0.67
+	LengthIsProportional = 0
+	LengthNoise = 0.0
+	PruningMode = None
+	NoiseKeys = 0.0 0.0
+	TropismType = None
+	TropismFixedAttachAngle = 0
+	Tropism = 0.0
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+
+	BranchRegionStart = 0.2
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 1.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 37.25
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 7
+	InternodeLengthKeys = 0.0 5.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ScotchPineBranch1
+	{
+	DescendantBranches = ScotchPineLeaf
+	SubMatID = 2
+	DisplayAsBlob = 1
+	CanDropForLOD = 1
+	Length = 110.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = Either
+	NoiseKeys = 0.0 0.05
+	TropismType = Up
+	TropismFixedAttachAngle = 1
+	Tropism = 0.25
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.016  1.0 0.004
+	RadialSidesMin = 3
+	RadialSidesMax = 3
+	RadialSidesPerInch = 4.0
+	RadiusNoise = 0.05
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.0
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.1
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 45.0  1.0 37.0
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.25
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 4
+	InternodeLengthKeys = 0.0 5.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ScotchPineApicalBranch
+	{
+	DescendantBranches = ScotchPineBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 260.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = Either
+	NoiseKeys = 0.0 0.3
+	TropismType = Down
+	TropismFixedAttachAngle = 1
+	Tropism = 0.4
+	TropismNoise = 0.25
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.016  1.0 0.004
+	RadialSidesMin = 3
+	RadialSidesMax = 6
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.275
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 80.0  1.0 50.0
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.1
+	Phylotaxis = Apical
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 9.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ScotchPineBranch0
+	{
+	DescendantBranches = ScotchPineBranch1
+	SubMatID = 1
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 260.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = Either
+	NoiseKeys = 0.0 0.3
+	TropismType = Down
+	TropismFixedAttachAngle = 1
+	Tropism = 0.4
+	TropismNoise = 0.25
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 0
+	RadiusKeys = 0.0 0.016  1.0 0.004
+	RadialSidesMin = 3
+	RadialSidesMax = 6
+	RadialSidesPerInch = 2.0
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.0	
+	FluteScaleKeys = 0.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 0
+	BranchRegionStart = 0.275
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 80.0  1.0 50.0
+	BranchAngleNoise = 0.1
+	LengthScaleKeys = 0.0 1.0
+	LengthScaleTaper = 1
+	BranchDensityKeys = 0.0 1.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 72.0
+	Branch1RollIncNoise = 0.1
+	Phylotaxis = RanSpiral
+	BranchNRollNoise = 0.0
+	NumNodes = 6
+	InternodeLengthKeys = 0.0 9.0
+	InternodeLengthNoise = 0.0
+	}
+
+branch ScotchPineTrunk
+	{
+	DescendantBranches = ScotchPineBranch0 ScotchPineApicalBranch
+	SubMatID = 0
+	DisplayAsBlob = 0
+	CanDropForLOD = 0
+	Length = 600.0
+	LengthIsProportional = 1
+	LengthNoise = 0.1
+	PruningMode = None
+	NoiseKeys = 0.0 0.1
+	TropismType = Up
+	TropismFixedAttachAngle = 0
+	Tropism = 0.6
+	TropismNoise = 0.0
+	TropismVector = 1.0 0.0 0.0
+	InitialAngle = 0.0
+	InitialAngleIsRandom = 0
+	PitchKeys = 0.0 0.0
+	YawKeys = 0.0 0.0
+	RollKeys = 0.0 0.0
+	PatchRecursion = 1
+	RadiusKeys = 0.0 0.02 1.0 0.005
+	RadialSidesMin = 4
+	RadialSidesMax = 32
+	RadialSidesPerInch = 1.2
+	RadiusNoise = 0.1
+	CapMode = None
+	SurfaceNoiseKeys = 0.0 0.1
+	Flutes = 0.25 0.25 0.4
+	FluteScaleKeys = 0.0 1.5  0.50 0.0  0.75 0.0  1.0 0.0
+	FluteAmplitudeNoise = 0.0
+	SurfaceTwistKeys = 0.0 0.0
+	SurfaceTwistNoise = 0.0
+	SurfaceTwistInitial = 0.0
+	SurfaceTwistInitialIsRandom = 1
+	BranchRegionStart = 0.0
+	BranchRegionEnd = 1.0
+	BranchPerpOffset = 0.0
+	StemLength = 0.0
+	StemLengthNoise = 0.0
+	BranchTurnKeys = 0.0 0.0
+	BranchTurnNoise = 0.0
+	BranchAngleKeys = 0.0 0.0
+	BranchAngleNoise = 0.0
+	LengthScaleKeys = 0.0 0.0
+	LengthScaleTaper = 0
+	BranchDensityKeys = 0.0 0.0
+	BranchDensityNoise = 0.0
+	Branch1RollKeys = 0.0 0.0
+	Branch1RollNoise = 0.0
+	Branch1RollBase = 0.0
+	Branch1RollInc = 0.0
+	Branch1RollIncNoise = 0.0
+	Phylotaxis = Keys		
+	BranchNRollNoise = 0.0
+	NumNodes = 11
+	InternodeLengthKeys = 0.0 1.0
+	InternodeLengthNoise = 0.0
+	}
+
+tree ScotchPine
+	{
+	CommonName = "Scotch Pine"
+	CommonType = "Pine"
+	ScientificName = "Pinus sylvestris"
+	ApproximateFaceCount = 60000
+	PaletteImage = "IMG_CONIFERS"
+	PaletteImageMask = "IMG_CONIFERS_MASK"
+	PaletteImageIndex = 1
+	Description = "Scotch pine in summer, mature"
+	BranchingStructure = ScotchPineTrunk
+	ViewportCanopyOpacity = 0.5
+	ViewportCanopyColor = 0.0 0.7 0.2
+	MaterialLibrary = "Nature.mat"
+	Material = "BasicScotchPine"
+	IsOnDefaultPalette = 1
+	CanopySlices = 12
+	SubMatID = 4
+	Scale = 1.0
+	}
+
+

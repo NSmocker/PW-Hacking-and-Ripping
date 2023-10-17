@@ -1,0 +1,4 @@
+---- Debug Init ----
+
+Current directory: D:\3Ds Max 9\plugins
+Resource DLL: D:\3Ds Max 9\plugins\JSR184ExporterRes.dll

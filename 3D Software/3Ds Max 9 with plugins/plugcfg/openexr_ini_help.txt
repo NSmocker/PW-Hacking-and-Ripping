@@ -1,0 +1,113 @@
+3dsMax OpenEXR Bitmap I/O plugin
+openexr.ini file Key Value Guide
+
+This file was generated automatically by the SplutterFish OpenEXR Bitmap I/O plugin. 
+Within you will find the list of acceptable key values for the various entries in 
+the openexr.ini file.  This file is created and updated every time the openexr.ini 
+file is written.  This ensures that you always have the codes that will work with your 
+current version, in a convenient location.
+
+For keys that have minimum and maximum allowable values, such as BlackPoint, there
+will be two numbers enclosed in brackets.  The first number is the minimum allowed key 
+value, the second number is the maximum allowed value for the key.  For keys with text 
+based values, such as RGBABitDepth, the list of allowed key values will be enclosed in 
+brackets.  You can only assign one.  Check the openexr.ini file to see examples.
+
+NOTE: Key names and values are case sensitive.
+
+Section: ExrDefaultOptions - Keys for controlling the source of defaults when creating a new
+instance of the Bitmap IO plugin.
+  UseInternalImportDefaults: [TRUE,FALSE]
+  UseInternalExportDefaults: [TRUE,FALSE]
+
+
+Section: ExrNetServerParamOverrideOptions - Keys for controlling whether network 
+render output params are set by the .ini file, or the parameters in the max scene file. 
+Primarily used for MaxScript control of openEXR output format parameters 
+using (for example) #filepostload callbacks. 
+
+  NetServersUseExportIniFileSettings: [TRUE,FALSE]
+  NetServersUseImportIniFileSettings: [TRUE,FALSE]
+
+
+Section: ExrImportInternalDefaultParams - Keys for setting the internal default load parameters 
+when the UseInternalImportDefaults key is set to TRUE.
+
+  Dflt_ApplyColorTransform: [TRUE,FALSE]
+  Dflt_Exponent:            [0.0,9999999.0]
+  Dflt_BlackPoint:          [-9999999.0,9999999.0]  (must be less than Dflt_WhitePoint)
+  Dflt_WhitePoint:          [-9999999.0,9999999.0]  (must be greater than Dflt_BlackPoint)
+  Dflt_RGBLevel:            [-9999999.0,9999999.0]
+  Dflt_RGBOffset:           [-9999999.0,9999999.0]
+
+
+Section: ExrExportInternalDefaultParams - Keys for setting the internal default save parameters 
+when the UseInternalExportDefaults key is set to TRUE.  This includes which of the extended
+attributes and channels to write by default.  The default attributes and channels will always
+be added regardless of the UseInternalExportDefaults key value.  You are free to remove them
+via the UI later.
+
+  Dflt_RGBABitDepth:           [INT32,HALF,FLOAT]
+  Dflt_SaveRedChannel:         [TRUE,FALSE]
+  Dflt_SaveGreenChannel:       [TRUE,FALSE]
+  Dflt_SaveBlueChannel:        [TRUE,FALSE]
+  Dflt_SaveAlphaChannel:       [TRUE,FALSE]
+  Dflt_UseRealPixels:          [TRUE,FALSE]
+  Dflt_ApplyColorTransform:    [TRUE,FALSE]
+  Dflt_Exponent:               [0.0,9999999.000000]
+  Dflt_Compression:            [NONE,RLE,ZIP,ZIP16,PIZ]
+  Dflt_OverrideFrameNumDigits: [TRUE,FALSE]
+  Dflt_FrameNumDigits:         [0,6]
+
+Default Extended Attributes:
+  Dflt_AddAttr_Comment:        [TRUE,FALSE]
+  Dflt_AddAttr_ComputerName:   [TRUE,FALSE]
+  Dflt_AddAttr_SystemTime:     [TRUE,FALSE]
+  Dflt_AddAttr_LocalTime:      [TRUE,FALSE]
+  Dflt_AddAttr_VersionEXR:     [TRUE,FALSE]
+  Dflt_AddAttr_Version3dsMax:  [TRUE,FALSE]
+
+Default Extended Channels:
+  Dflt_AddChan_ZBuffer:        [TRUE,FALSE]
+  Dflt_AddChan_ObjectID:       [TRUE,FALSE]
+  Dflt_AddChan_MaterialID:     [TRUE,FALSE]
+  Dflt_AddChan_RenderID:       [TRUE,FALSE]
+  Dflt_AddChan_UV:             [TRUE,FALSE]
+  Dflt_AddChan_Velocity:       [TRUE,FALSE]
+  Dflt_AddChan_Normal:         [TRUE,FALSE]
+  Dflt_AddChan_Coverage:       [TRUE,FALSE]
+
+
+Section: ExrImportParams - Keys for controlling loading of OpenEXR files.
+These keys are automatically updated with the last settings specified in the UI.
+When the UseInternalImportDefaults key is set to FALSE, the following .ini settings
+will be used.
+
+  StorageType:         [INT24,INT32,INT48,INT64,LOG24,LOG24A,LOG32,RLPIX,FLOAT32]
+  ApplyColorTransform: [TRUE,FALSE]
+  Exponent:            [0.0,9999999.0]
+  BlackPoint:          [-9999999.0,9999999.0]  (must be less than WhitePoint)
+  WhitePoint:          [-9999999.0,9999999.0]  (must be greater than BlackPoint)
+  RGBLevel:            [-9999999.0,9999999.0]
+  RGBOffset:           [-9999999.0,9999999.0]
+
+
+Section: ExrExportParams - Keys for controlling saving of OpenEXR files.
+These keys are automatically updated with the last settings specified in the UI.
+When the UseInternalExportDefaults key is set to FALSE, the following .ini settings
+will be used.
+
+  RGBABitDepth:           [INT32,HALF,FLOAT]
+  SaveRedChannel:         [TRUE,FALSE]
+  SaveGreenChannel:       [TRUE,FALSE]
+  SaveBlueChannel:        [TRUE,FALSE]
+  SaveAlphaChannel:       [TRUE,FALSE]
+  UseRealPixels:          [TRUE,FALSE]
+  ApplyColorTransform:    [TRUE,FALSE]
+  Exponent:               [0.0,9999999.000000]
+  Compression:            [NONE,RLE,ZIP,ZIP16,PIZ]
+  OverrideFrameNumDigits: [TRUE,FALSE]
+  FrameNumDigits:         [0,6]
+
+
+end of file --------------------------------------------------------------

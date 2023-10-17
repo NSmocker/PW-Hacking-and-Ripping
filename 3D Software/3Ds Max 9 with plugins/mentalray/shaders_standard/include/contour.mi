@@ -1,0 +1,788 @@
+#*****************************************************************************
+# Copyright 1986-2004 by mental images GmbH, Fasanenstr. 81, D-10623 Berlin,
+# Germany. All rights reserved.
+#*****************************************************************************
+# Created:      29.02.96
+# Module:       shader
+# Purpose:      .mi declarations for built-in contour functions and shaders
+#
+# Exports:
+#
+#       contour_store_function
+#       contour_contrast_function_levels
+#
+#       contour_shader_simple        
+#       contour_shader_curvature
+#       contour_shader_depthfade
+#       etc.
+#
+#       contour_only          output contour image
+#       contour_composite     output contour image composited onto usual image
+#       contour_ps            output contour image as PostScript file
+#       contour_mi            output contour image as mi file
+#
+# History: 
+#
+#	21 august 2003 - Pierre-Felix Breton:  defaults settings work
+#	12 Juillet 2004 - Pierre-Felix Breton: ranges and limits work
+#
+# Description:
+# Store this file in /usr/include/mi/contour.mi, and use 
+# $include <contour.mi> in every .mi file that uses any contour shader.
+#
+#*****************************************************************************
+
+min version "2.0"
+max version "3.4.99"
+
+
+
+# Contour store functions
+#   - input:   state, material color 
+#   - output:  user-defined info
+
+declare shader 
+    struct {
+        vector 	 "point",
+	vector   "normal",
+	color    "color",
+	material "material",
+	integer  "level",
+	integer  "label",
+	integer  "index",
+	vector   "normal_geom"
+    } "contour_store_function" ()
+    version 3
+
+	gui "gui_contour_store_function" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_1Contour_Store_Shaders.html#contourstorefunction",
+			"addApply" "contour_store",
+			"uiName" "Contour Store Function (contour)",
+			"category" "Contour Store",
+			"nonConnectable"
+		)
+	}
+
+end declare
+
+declare shader
+    material "contour_store_function_simple" () # for fast, simple contours
+    version 2 				
+	
+	gui "gui_contour_store_function_simple" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_1Contour_Store_Shaders.html#contourstorefunctionsimple",
+			"addApply" "contour_store",
+			"uiName" "Contour Store Function Simple (contour)",
+			"category" "Contour Store",
+			"hidden",
+			"nonConnectable"
+		)
+	}	
+				
+end declare
+
+
+# Contour contrast functions
+#   - input:   state, info1, info2, params (such as zdelta, ndelta)
+#   - output:  Boolean (miTrue iff there should be a contour) 
+
+declare shader
+    "contour_contrast_function_levels" (
+	scalar  "zdelta",     # depth diff to cause contour (in scene coords)
+	scalar  "ndelta",     # normal difference to cause contour (in degrees)
+	boolean "diff_mat",   # should borders between materials get contours?
+	boolean "diff_label", # should different object labels cause contours?
+	boolean "diff_index", # should diff. triangle indices cause contours?
+ 	boolean "contrast",   # should color contrasts get contours?
+	integer "min_level",  # min level (layer) that gets contours
+	integer "max_level"   # max level (layer) that gets contours
+    )
+    version 3
+
+	gui "gui_contour_contrast_function_levels" {							#	21 august 2003 - Pierre-Felix Breton:  defaults settings work
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_2Contour_Contrast_Shaders.html#contourcontrastfunctionlevels",
+			"addApply" "contour_contrast",
+			"uiName" "Contour Contrast Function Levels (contour)",
+			"category" "Contour Contrast",
+			"nonConnectable"
+		)
+		control "zdelta" "scalar" (
+			"uiName" "Z Step Threshold",
+			"value" 1000,
+			"range" 0 10000000,
+                        "units" "world"
+		)
+		control "ndelta" "scalar" (
+			"uiName" "Angle Step Threshold",
+			"value" 20,
+			"range" 0 180
+		)
+		control "diff_mat" "boolean" (
+			"uiName" "Material contours",
+			"value" 1
+		)
+		control "diff_label" "boolean" (
+			"uiName" "Material ID contours",
+			"hidden",
+			"value" 0
+		)
+		control "diff_index" "boolean" (
+			"uiName" "Face contours",
+			"value" 0
+		)
+		control "contrast" "boolean" (
+			"uiName" "Color Contrast contours",
+			"value" 0
+		)
+		control "min_level" "boolean" (
+			"uiName" "Min Depth",
+			"value" 0,
+			"range" 0 1000000 
+		)
+		control "max_level" "boolean" (
+			"uiName" "Max Depth",
+			"value" 1,
+			"range" 0 1000000 
+		)
+
+	}
+
+end declare
+
+declare shader
+    "contour_contrast_function_simple" ()   # for fast, simple contours
+    version 3 				
+	
+	gui "gui_contour_contrast_function_simple" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_2Contour_Contrast_Shaders.html#contourcontrastfunctionsimple",
+			"addApply" "contour_contrast",
+			"uiName" "Contour Contrast Function Simple (contour)",
+			"category" "Contour Contrast",
+			"hidden",
+			"nonConnectable"
+		)
+	}	
+				
+end declare
+
+
+# Contour shaders
+#   - input:   state, info1, info2, params (such as color, width, clip. planes)
+#   - output:  color, width
+# The contour shaders are called (with specific parameters) as part of 
+# the material definition
+
+declare shader
+    "contour_shader_simple" (
+	color  "color",        # contour color
+	scalar "width"         # contour width
+    )
+    version 3
+
+	gui "gui_contour_shader_simple" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshadersimple",
+			"addApply" "contour_shader",
+			"uiName" "Simple (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "width" "scalar" (
+			"uiName" "Width (%)",
+			"value" 0.5,
+			"range" 0.0 100.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_randomwidth" (
+	color  "color",        # contour color
+	scalar "width"         # contour width 
+    )      
+    version 2
+
+	gui "gui_contour_shader_randomwidth" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/",
+			"addApply" "contour_shader",
+			"uiName" "Random Width (contour)",
+			"category" "Contour",
+			"hidden",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "width" "scalar" (
+			"uiName" "Width",
+			"value" 0.05,
+			"range" 0.0 5.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_randomtransparency" (
+	color  "color",        # contour color
+	scalar "width"         # contour width
+    )
+    version 2
+
+	gui "gui_contour_shader_randomtransparency" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/",
+			"addApply" "contour_shader",
+			"uiName" "Random Transparency (contour)",
+			"category" "Contour",
+			"hidden",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "width" "scalar" (
+			"uiName" "Width",
+			"value" 1.0,
+			"range" 0.0 100.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_curvature" (
+	color  "color",        # contour color
+	scalar "min_width",    # min contour width
+	scalar "max_width"     # max contour width
+    )
+    version 2
+
+	gui "gui_contour_shader_curvature" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshadercurvature",
+			"addApply" "contour_shader",
+			"uiName" "Curvature (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "min_width" "scalar" (
+			"uiName" "Min Width (%)",
+			"value" 0.05,
+			"range" 0.0 100.0
+		)
+		control "max_width" "scalar" (
+			"uiName" "Max Width (%)",
+			"value" 1.0,
+			"range" 0.0 100.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_factorcolor" (
+	scalar "factor",       # factor times the material color
+	scalar "width"
+    )
+    version 2
+
+	gui "gui_contour_shader_factorcolor" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderfactorcolor",
+			"addApply" "contour_shader",
+			"uiName" "Factor Color (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "factor" "scalar" (
+			"uiName" "Factor",
+			"value" 1.0,
+                        "range" 0 1000000
+		)
+		control "width" "scalar" (
+			"uiName" "Width (%)",
+			"value" 0.05,
+			"range" 0.0 100.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_depthfade" (
+	scalar "near_z",       # linearly interpolate from this depth ... 
+	color  "near_color",
+	scalar "near_width", 
+	scalar "far_z",        # ... to this 
+	color  "far_color",
+	scalar "far_width"
+    )
+    version 3
+
+	gui "gui_contour_shader_depthfade" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderdepthfade",
+			"addApply" "contour_shader",
+			"uiName" "Depth Fade (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "near_z" "scalar" (
+			"uiName" "Near Z",
+			"value" 0,
+                        "units" "world",
+                         "range" 0 10000000
+		)
+		control "near_color" "color" (
+			"uiName" "Near Color",
+			"value" 0 0 0
+		)
+		control "near_width" "scalar" (
+			"uiName" "Near Width (%)",
+			"value" 0.1,
+			"range" 0.0 100.0
+		)
+		control "far_z" "scalar" (
+			"uiName" "Far Z",
+			"value" 500,
+                        "units" "world",
+                         "range" 0 10000000
+		)
+		control "far_color" "color" (
+			"uiName" "Far Color",
+			"value" 1 1 1
+		)
+		control "far_width" "scalar" (
+			"uiName" "Far Width (%)",
+			"value" 0.01,
+			"range" 0.0 100.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_framefade" (
+	integer "frame1",       # linearly interpolate from this frame number
+	color   "color1",
+	scalar  "width1", 
+	integer "frame2",       # ... to this 
+	color   "color2",
+	scalar  "width2"
+    )
+    version 2
+
+	gui "gui_contour_shader_framefade" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderframefade",
+			"addApply" "contour_shader",
+			"uiName" "Frame Fade (contour)",
+			"category" "Contour",
+			"hidden",
+			"nonConnectable"
+		)
+		control "frame1" "integer" (
+			"uiName" "Start Frame",
+			"value" 0
+		)
+		control "color1" "color" (
+			"uiName" "Start Color",
+			"value" 0 0 0
+		)
+		control "width1" "scalar" (
+			"uiName" "Start Width",
+			"value" 0,
+			"range" 0.0 5.0
+		)
+		control "frame2" "integer" (
+			"uiName" "End Frame",
+			"value" 100
+		)
+		control "color2" "color" (
+			"uiName" "End Color",
+			"value" 1 1 1
+		)
+		control "width2" "scalar" (
+			"uiName" "End Width",
+			"value" 3,
+			"range" 0.0 5.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_layerthinner" (
+	color  "color",    # contour color
+	scalar "width",    # contour width at top layer
+	scalar "factor"    # factor to make the contour thinner for each layer
+    )
+    version 2
+
+	gui "gui_contour_shader_layerthinner" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderlayerthinner",
+			"addApply" "contour_shader",
+			"uiName" "Layer Thinner (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "width" "scalar" (
+			"uiName" "Width (%)",
+			"value" 0.5,
+			"range" 0.0 100.0
+		)
+		control "factor" "scalar" (
+			"uiName" "Depth Factor",
+			"value" .5,
+			"range" 0 1000000.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_widthfromcolor" (
+	color  "color",        # contour color
+	scalar "min_width",    # min contour width
+	scalar "max_width"     # max contour width
+    )
+    version 2
+
+	gui "gui_contour_shader_widthfromcolor" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderwidthfromcolor",
+			"addApply" "contour_shader",
+			"uiName" "Width From Color (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "min_width" "scalar" (
+			"uiName" "Min Width (%)",
+			"value" 0.05,
+			"range" 0.0 100.0
+		)
+		control "max_width" "scalar" (
+			"uiName" "Max Width (%)",
+			"value" 0.5,
+			"range" 0.0 100.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_widthfromlightdir" (
+	color  "color",        # contour color
+	scalar "min_width",    # min width of contour
+	scalar "max_width",    # max width of contour
+	vector "light_dir"     # direction to main light source
+    )
+    version 3
+
+	gui "gui_contour_shader_widthfromlightdir" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderwidthfromlightdir",
+			"addApply" "contour_shader",
+			"uiName" "Width From Light Dir (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "min_width" "scalar" (
+			"uiName" "Min Width (%)",
+			"value" 0.05,
+			"range" 0.0 100.0
+		)
+		control "max_width" "scalar" (
+			"uiName" "Max Width (%)",
+			"value" 0.5,
+			"range" 0.0 100.0
+		)
+		control "light_dir" "vector" (
+			"uiName" "Light Direction",
+			"value" 0 0 1.0
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_widthfromlight" (
+	color  "color",        # contour color
+	scalar "min_width",    # min width of contour
+	scalar "max_width",    # max width of contour
+	light  "light"         # light source name
+    )
+    version 2
+
+	gui "gui_contour_shader_widthfromlight" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshaderwidthfromlight",
+			"addApply" "contour_shader",
+			"uiName" "Width From Light (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" 0 0 0
+		)
+		control "min_width" "scalar" (
+			"uiName" "Min Width (%)",
+			"value" 0.05,
+			"range" 0.0 100.0
+		)
+		control "max_width" "scalar" (
+			"uiName" "Max Width (%)",
+			"value" 0.5,
+			"range" 0.0 100.0
+		)
+		control "light" "light" (
+			"uiName" "Light"
+		)
+	}
+
+end declare
+
+declare shader
+    "contour_shader_combi" (
+	scalar "near_z",       # linearly interpolate from this depth ... 
+	color  "near_color",
+	scalar "near_width", 
+	scalar "far_z",        # ... to this 
+	color  "far_color",
+	scalar "far_width",
+	scalar "factor",       # factor to make contour thinner for each layer
+	light  "light",        # light source name (or 0 for no light dependnc)
+	scalar "light_min_factor" # min width factor for light src dependency
+    )
+    version 3
+
+	gui "gui_contour_shader_combi" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_3Material_Contour_Shaders.html#contourshadercombi",
+			"addApply" "contour_shader",
+			"uiName" "Combi (contour)",
+			"category" "Contour",
+			"nonConnectable"
+		)
+		control "near_z" "scalar" (
+			"uiName" "Near Z",
+			"value" 0,
+                        "units" "world",
+                         "range" 0 10000000
+		)
+		control "near_color" "color" (
+			"uiName" "Near Color",
+			"value" 0 0 0
+		)
+		control "near_width" "scalar" (
+			"uiName" "Near Width (%)",
+			"value" 0.05,
+			"range" 0.0 100.0
+		)
+		control "far_z" "scalar" (
+			"uiName" "Far Z",
+			"value" 500,
+                        "units" "world",
+                         "range" 0 10000000
+		)
+		control "far_color" "color" (
+			"uiName" "Far Color",
+			"value" 1 1 1
+		)
+		control "far_width" "scalar" (
+			"uiName" "Far Width (%)",
+			"value" 0.5,
+			"range" 0.0 100.0
+		)
+		control "factor" "scalar" (
+			"uiName" "Depth Factor",
+			"value" .5
+		)
+		control "light" "light" (
+			"uiName" "Light"
+		)
+		control "light_min_factor" "scalar" (
+			"uiName" "Light Min Width Factor",
+			"value" 1.0,
+			"range" 0 10000000
+		)
+	}
+
+end declare
+
+
+
+#
+# Contour output shaders
+#
+
+# Output contour image
+declare shader
+    "contour_only" (
+	color   "background", # background color (default black)
+        boolean "glow",       # glowing contours?
+	boolean "maxcomp"     # composite contours using max or alpha blend?
+    )
+    version 3
+
+	gui "gui_contour_only" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_4Contour_Output_Shaders.html#contouronly",
+			"addApply" "contour_output",
+			"uiName" "Contour Only (contour)",
+			"category" "Contour Output",
+			"nonConnectable"
+		)
+		control "background" "color" (
+			"uiName" "Background Color",
+			"value" 1.0 1.0 1.0
+		)
+		control "glow" "boolean" (
+			"uiName" "Glowing Contours",
+		)
+		control "maxcomp" "boolean" (
+			"uiName" "Composite using max color",
+		)
+	}
+
+end declare
+
+# Output contour image composited onto usual image
+declare shader
+    "contour_composite" (
+        boolean "glow",       # glowing contours?
+	boolean "maxcomp"     # composite contours using max or alpha blend?
+    )
+    version 2
+
+	gui "gui_contour_composite" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_4Contour_Output_Shaders.html#contourcomposite",
+			"addApply" "contour_output",
+			"uiName" "Contour Composite (contour)",
+			"category" "Contour Output",
+			"nonConnectable"
+		)
+		control "glow" "boolean" (
+			"uiName" "Glowing Contours",
+		)
+		control "maxcomp" "boolean" (
+			"uiName" "Composite using max color",
+		)
+	}
+
+end declare
+
+# Output contour image as PostScript
+declare shader
+    "contour_ps" (
+	integer "paper_size",  # 0--10: letter, executive, legal, a3, a4, a5,
+			       #        a6, b4, b5, b6, 11x17
+	scalar  "paper_scale",
+	scalar  "paper_transform_b",
+	scalar  "paper_transform_d",
+	boolean "title",
+	boolean "landscape",
+	vector  "ink_stroke_dir",
+	scalar  "ink_min_frac",
+        string  "file_name"
+    ) 
+    version 4
+
+	gui "gui_contour_ps" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-3_4Contour_Output_Shaders.html#contourps",
+			"addApply" "contour_output",
+			"uiName" "Contour PS (contour)",
+			"category" "Contour Output",
+			"nonConnectable"
+		)
+		control "paper_size" "integer" (
+			"uiName" "Paper Size",
+			"value" 0,
+			"range" 0 10
+		)
+		control "paper_transform_b" "scalar" (
+			"uiName" "Transform B",
+			"value" 0
+		)
+		control "paper_transform_d" "scalar" (
+			"uiName" "Transform D",
+			"value" 0
+		)
+		control "paper_scale" "scalar" (
+			"uiName" "Scale",
+			"value" 1,
+			"range" 0 10000000
+		)
+		control "title" "boolean" (
+			"uiName" "Title",
+			"value" 1
+		)
+		control "landscape" "boolean" (
+			"uiName" "Landscape",
+			"value" 1
+		)
+		control "ink_stroke_dir" "vector" (
+			"uiName" "Stoke Dir"
+		)
+		control "ink_min_frac" "scalar" (
+			"uiName" "Min Frac"
+		)
+		control "file_name" "string" (
+			"uiName" "Filename",
+			"filesaveButton" "Postscript(*.ps)|*.ps|All(*.*)|*.*|"
+		)
+	}
+
+end declare

@@ -1,0 +1,1652 @@
+#*****************************************************************************
+# Copyright 1986-2004 by mental images GmbH, Fasanenstr. 81, D-10623 Berlin,
+# Germany. All rights reserved.
+#*****************************************************************************
+# Author:   Norm (physical), Zap (fast)
+# Created:  28.04.2004
+# Module:   subsurface
+# Purpose:  .mi declarations for subsurface Phenomena/shaders
+#
+# Exports:
+#                   Physically accurate subsurface scattering
+#   misss_physical         - true optically accurate SSS (as a shader)
+#                   Physically accurate subsurface scattering Phenomena
+#   misss_physical_phen    - true optically accurate SSS (as a material Phenomenon)
+#                   Fast simulated subsurface scattering and skin shading component shaders
+#   misss_fast_shader      - the fast SSS shader
+#   misss_skin_specular    - skin specularity
+#   misss_lightmap_write   - SSS lightmap prepare function
+#   misss_lambert_gamma    - nonlinear lambert
+#   misss_call_shader      - passthrough shader to call another shader
+#   misss_fast_simple_phen - general translucent object (material Phenomenon)
+#   misss_fast_skin_phen   - optimized for skin (material Phenomenon)
+#   misss_fast_skin_phen_d - optimized for skin with displacement (material Phenomenon)
+#
+# History:
+#   05.07.04 zap:  Fixed the bug of unassigned variables getting defaults
+#   17.06.04 zap:  fixed the 'category' and 'hidden' attibutes
+#   15.06.04 zap:  made "screen_composit" visble, hid some shaders (in MAX)
+#   09.06.04 zap:  hid and set all "approx" to "on"
+#   08.06.04 zap:  added proper defaults everywhere
+#   01.06.04 zap:  added passthrough shader and environment mapping
+#   27.05.04 zap:  misss_lightmap_sample => misss_lambert_gamma
+#   11.05.04 zap:  converted to structured parameters, 1st version for MAX7
+#   01.05.04 zap:  added fast simulated sss functions
+#
+#****************************************************************************/
+
+min version "3.3.1"
+max version "3.4.99"
+
+declare shader
+    "misss_physical" (
+        color   "material"                default 0.1 0.1 0.1,
+        color   "transmission"            default 0.8 0.8 0.8,
+        scalar  "ior"                     default 1.0,
+        vector  "absorption_coeff"        default 0.1 0.1 0.1,
+        vector  "scattering_coeff"        default 1.0 1.0 1.0,     
+        scalar  "scale_conversion"        default 1.0,
+        scalar  "scattering_anisotropy"   default 0.8,
+        scalar  "depth"                   default 1.0,
+        integer "max_samples"             default 16,         
+        integer "max_photons"             default 64,
+        scalar  "max_radius"              default 3.0,
+        boolean "approx_diffusion"        default on,
+        boolean "approx_single_scatter"   default on,
+        boolean "approx_multiple_scatter" default on,
+        array light "lights"
+    )
+    version 3
+    apply material, photon
+    gui "gui_misss_physical" {
+        control "Global" "Global" (
+            "uiName" "SSS Physical Shader (mi)",
+        )
+        control "material" "color" (
+            "uiName"  "Material",
+            "value" 0.1 0.1 0.1
+        )
+        control "transmission" "color" (
+            "uiName" "Transmission",
+            "value" 0.8 0.8 0.8
+        )
+        control "ior" "scalar" (
+            "uiName" "Index of refraction",
+            "value" 1.0,
+            "range" 0.5 10.0
+        )
+        control "absorption_coeff" "vector" (
+            "uiName" "Absorb. Coeff.",
+            "value" 0.1 0.1 0.1
+        )
+        control "scattering_coeff" "vector" (
+            "uiName" "Scatter. Coeff.",
+            "value" 1.0 1.0 1.0
+        )
+        control "scale_conversion" "scalar" (
+            "uiName" "Scale conversion",
+            "value" 1.0
+        )
+        control "scattering_anisotropy" "scalar" (
+            "uiName" "Scattering anisotropy",
+            "value" 0.8,
+            "range" -1.0 1.0
+        )
+        control "depth" "scalar" (
+            "uiName" "Depth",
+            "value" 1.0
+        )
+        control "max_samples" "integer" (
+            "uiName" "Max samples",
+            "value"  16,
+            "range" 0 1000000
+        )
+        control "max_photons" "integer" (
+            "uiName" "Max photons",
+            "value" 64,
+            "range" 0 1000000
+        )
+        control "max_radius" "scalar" (
+            "uiName" "Max radius",
+            "value"  3.0,
+            "range" 0.0 1000000.0
+        )
+        control "approx_diffusion" "boolean" (
+            "uiName" "Approx. diffusion",
+            "value" 1,
+            "hidden"
+        )
+        control "approx_single_scatter" "boolean" (
+            "uiName" "Approx. single scattering",
+            "value" 1,
+            "hidden"
+        )
+        control "approx_multiple_scatter" "boolean" (
+            "uiName" "Approx. multiple scattering",
+            "value" 1,
+            "hidden"
+        )
+        control "lights" "array lights" (
+            "uiName" "Lights",
+            # "hidden"
+        )
+    }
+end declare
+
+
+declare phenomenon
+    material "misss_physical_phen" (
+        color   "material"                default 0.1 0.1 0.1,
+        color   "transmission"            default 0.8 0.8 0.8,
+        scalar  "ior"                     default 1.0,
+        vector  "absorption_coeff"        default 0.1 0.1 0.1,
+        vector  "scattering_coeff"        default 1.0 1.0 1.0,     
+        scalar  "scale_conversion"        default 1.0,
+        scalar  "scattering_anisotropy"   default 0.8,
+        scalar  "depth"                   default 1.0,
+        integer "max_samples"             default 16,         
+        integer "max_photons"             default 64,
+        scalar  "max_radius"              default 3.0,
+        boolean "approx_diffusion"        default on,
+        boolean "approx_single_scatter"   default on,
+        boolean "approx_multiple_scatter" default on,
+        array light "lights"
+    )
+    version 3
+
+    shader "physshader" "misss_physical" (
+        "material"                = interface "material",
+        "transmission"            = interface "transmission",
+        "ior"                     = interface "ior",
+        "absorption_coeff"        = interface "absorption_coeff",
+        "scattering_coeff"        = interface "scattering_coeff",     
+        "scale_conversion"        = interface "scale_conversion",
+        "scattering_anisotropy"   = interface "scattering_anisotropy",
+        "depth"                   = interface "depth",
+        "max_samples"             = interface "max_samples",
+        "max_photons"             = interface "max_photons",
+        "max_radius"              = interface "max_radius",
+        "approx_diffusion"        = interface "approx_diffusion",
+        "approx_single_scatter"   = interface "approx_single_scatter",
+        "approx_multiple_scatter" = interface "approx_multiple_scatter",
+        "lights"                  = interface "lights",
+    )
+
+    material "mtl" 
+      = "physshader"
+      photon = "physshader"
+    end material
+
+    root material "mtl"
+
+    gui "gui_misss_physical_phen" {
+        control "Global" "Global" (
+            "uiName" "SSS Physical Material (mi)",
+            "category" "Material"
+        )
+        control "material" "color" (
+            "uiName"  "Material",
+            "value" 0.1 0.1 0.1
+        )
+        control "transmission" "color" (
+            "uiName" "Transmission",
+            "value" 0.8 0.8 0.8
+        )
+        control "ior" "scalar" (
+            "uiName" "Index of refraction",
+            "value" 1.0,
+            "range" 0.5 10.0
+        )
+        control "absorption_coeff" "vector" (
+            "uiName" "Absorb. Coeff.",
+            "value" 0.1 0.1 0.1
+        )
+        control "scattering_coeff" "vector" (
+            "uiName" "Scatter. Coeff.",
+            "value" 1.0 1.0 1.0
+        )
+        control "scale_conversion" "scalar" (
+            "uiName" "Scale conversion",
+            "value" 1.0
+        )
+        control "scattering_anisotropy" "scalar" (
+            "uiName" "Scattering anisotropy",
+            "value" 0.8,
+            "range" -1.0 1.0
+        )
+        control "depth" "scalar" (
+            "uiName" "Depth",
+            "value" 1.0
+        )
+        control "max_samples" "integer" (
+            "uiName" "Max samples",
+            "value"  16,
+            "range" 0 1000000
+        )
+        control "max_photons" "integer" (
+            "uiName" "Max photons",
+            "value" 64,
+            "range" 0 1000000
+        )
+        control "max_radius" "scalar" (
+            "uiName" "Max radius",
+            "value"  3.0,
+            "range" 0 1000000
+        )
+        control "approx_diffusion" "boolean" (
+            "uiName" "Approx. diffusion",
+            "value" 1,
+            "hidden"
+        )
+        control "approx_single_scatter" "boolean" (
+            "uiName" "Approx. single scattering",
+            "value" 1,
+            "hidden"
+        )
+        control "approx_multiple_scatter" "boolean" (
+            "uiName" "Approx. multiple scattering",
+            "value" 1,
+            "hidden"
+        )
+        control "lights" "array lights" (
+            "uiName" "Lights",
+            # "hidden"
+        )
+    }
+end declare
+
+declare shader
+    color "misss_fast_shader" (
+        color texture "lightmap",
+        color texture "depthmap",
+        shader        "bump",
+        shader        "diffuse_illum",
+        color         "diffuse_color"    default 1 1 1,
+        shader        "specular_illum",
+
+        scalar        "diffuse_weight"   default 0.5,
+        color         "front_sss_color"  default 0.8 0.4 0.1,
+        scalar        "front_sss_weight" default 0.5,
+        scalar        "front_sss_radius" default 10,
+        color         "back_sss_color"   default 0.8 0.4 0.1,
+        scalar        "back_sss_weight"  default 0.5,
+        scalar        "back_sss_radius"  default 10,
+        scalar        "back_sss_depth",  # unassigned (zero) means "same as radius"
+        scalar        "scale_conversion" default 1.0,
+        boolean       "screen_composit"  default on,
+        boolean       "output_sss_only",
+        scalar        "falloff"          default 2.0,
+        integer       "samples"          default 64,
+    )
+    apply material
+    version 4
+    gui "gui_misss_fast_shader" {
+        control "Global" "Global" (
+            "uiName" "SSS Fast Render Shader (mi)",
+            "category" "Illumination",
+            "hidden" # Remove "hidden" to make your own shading graphs for SSS
+        )
+        control "lightmap" "color texture" (
+            "nonConnectable",
+            "uiName" "Lightmap"
+        )
+        control "depthmap" "color texture" (
+            "nonConnectable",
+            "uiName" "Depthmap",
+            "hidden"
+        )
+        control "diffuse_illum" "shader" (
+            "uiName" "Diffuse Illum."
+        )
+        control "diffuse_color" "color" (
+            "uiName" "Overall diffuse color",
+            "noAlpha",
+        )
+        control "specular_illum" "shader" (
+            "uiName" "Specular Illum."
+        )
+        control "diffuse_weight" "scalar" (
+            "uiName" "Unscattered diffuse weight"
+        )
+        control "bump" "shader" (
+            "uiName" "Bump shader",
+            "value" "max_Bump",
+            "applyTypes" "bump"
+        )
+        control "front_sss_color" "color" (
+            "uiName" "Front surface scatter color",
+            "noAlpha",
+            "value" 0.8 0.4 0.1
+        )
+        control "front_sss_weight" "scalar" (
+            "uiName" "Front surface scatter weight",
+            "value" 0.5
+        )
+        control "front_sss_radius" "scalar" (
+            "uiName" "Front surface scatter radius",
+            "value" "10mm",
+            "units" "world"
+        )
+        control "back_sss_color" "color" (
+            "uiName" "Back surface scatter color",
+            "noAlpha",
+            "value" 0.8 0.4 0.1
+        )
+        control "back_sss_weight" "scalar" (
+            "uiName" "Back surface scatter weight",
+            "value" 0.5
+        )
+        control "back_sss_radius" "scalar" (
+            "uiName" "Back surface scatter radius",
+            "value" "10mm",
+            "units" "world"
+        )
+        control "back_sss_depth" "scalar" (
+            "uiName" "Back surface scatter depth",
+            "value" "10mm",
+            "units" "world"
+        )
+        control "samples" "integer" (
+            "uiName" "Number of samples",
+            "value" 64
+        )
+        control "scale_conversion" "scalar" (
+            "uiName" "Scale conversion factor",
+            "value" 1.0
+        )
+        control "falloff" "scalar" (
+            "uiName" "Falloff strength",
+            "value" 2.0,
+            "range" -10.0 10.0
+        )
+        control "output_sss_only" "boolean" (
+            "uiName" "Show only scattering (for debugging)",
+            "nonConnectable",
+            "value" 0
+        )
+        control "screen_composit" "boolean" (
+            "uiName" "'Screen' (soft) compositing of layers",
+            "nonConnectable",
+            "value" 1
+        )        
+    }
+end declare
+
+declare shader
+    color "misss_skin_specular" (
+        scalar  "overall_weight"        default 1.0,
+        scalar  "edge_factor"           default 5.0,
+
+        color   "primary_spec_color"    default 0.8 0.9 1.0,
+        scalar  "primary_weight"        default 0.2,
+        scalar  "primary_edge_weight"   default 1.0,
+        scalar  "primary_shinyness"     default 5.0,
+
+        color   "secondary_spec_color"  default 0.9 0.95 1.0,
+        scalar  "secondary_weight"      default 0.2,
+        scalar  "secondary_edge_weight" default 0.0,
+        scalar  "secondary_shinyness"   default 33.0,
+
+        scalar  "reflect_weight"        default 0.0,
+        scalar  "reflect_edge_weight"   default 0.0,
+        scalar  "reflect_shinyness"     default 2.0,
+        boolean "reflect_environment_only" default off,
+
+        integer     "mode",     
+        array light "lights"
+    )
+    version 4
+    apply material
+    gui "gui_misss_skin_specular" {
+        control "Global" "Global" (
+            "uiName" "SSS Specular Reflections for Skin (mi)",
+            "category" "Illumination",
+            "hidden" # Remove "hidden" to use the shader for specularity
+        )
+        control "overall_weight" "scalar" (
+            "uiName" "Overall specular Weight",
+            "value" 1.0
+        )
+
+        control "primary_spec_color" "color" (
+            "uiName" "Specular Color #1",
+            "noAlpha",
+            "value" 0.8 0.9 1
+        )
+        control "primary_weight" "scalar" (
+            "uiName" "Specular Weight #1",
+            "value" 0.2
+        )
+        control "primary_edge_weight" "scalar" (
+            "uiName" "Specular Edge Weight #1",
+            "value" 0.8
+        )
+        control "primary_shinyness" "scalar" (
+            "uiName" "Shininess #1",
+            "value" 3.0
+        )
+
+        control "secondary_spec_color" "color" (
+            "uiName" "Specular Color #2",
+            "noAlpha",
+            "value" .9  .95 1
+        )
+        control "secondary_weight" "scalar" (
+            "uiName" "Specular Weight #2",
+            "value" 0.2
+        )
+        control "secondary_edge_weight" "scalar" (
+            "uiName" "Specular Edge Weight #2",
+            "value" 0.0
+        )
+        control "secondary_shinyness" "scalar" (
+            "uiName" "Shininess #2",
+            "value" 33.0
+        )
+
+        control "reflect_weight" "scalar" (
+            "uiName" "Reflection Weight",
+            "value" 0
+        )
+        control "reflect_edge_weight" "scalar" (
+            "uiName" "Reflection Edge Weight",
+            "value" 0
+        )
+        control "reflect_environment_only" "boolean" (
+            "uiName" "Only reflect environment",
+            "value" 0
+        )
+        control "reflect_shinyness" "scalar" (
+            "uiName" "Reflection glossiness (0 = mirror reflection)",
+            "value" 2.0
+        )
+        control "edge_factor" "scalar" (
+            "uiName" "Edge narrowness (higher = narrower)",
+            "value" 5,
+            "range" 0 100
+        )
+    }
+end declare
+
+#-------------------------------------------- Lightmap
+
+declare shader
+    struct {
+        vector      "point",
+        vector      "normal"
+    }
+    "misss_lightmap_write" (
+        color texture   "lightmap",         #output lightmap
+        color texture   "depthmap",         #output depthmap
+        string          "lightmap_group",   #lightmap group (will autocreate the lightmap)
+        scalar          "lightmap_size",    #lightmap size in percent of screen size
+        integer         "write_lightmap",   #actually write lightmaps to file (0 = none, 1=named, 2=all)
+        scalar          "scatter_bias",     #scatter bias
+        shader          "input"             #shader to sample the lightmap with
+    )
+    version 4
+    apply lightmap
+    gui "gui_misss_lightmap_write" {    
+        control "Global" "Global" (
+            "uiName" "SSS Lightmap Write (mi)",
+            "category" "Light Map",
+            "autobrowse" "lightmap",
+            "hidden" # Remove "hidden" to write your own SSS lightmaps
+        )
+        control "lightmap" "color texture" (
+            # When used inside a Phenomenon, this is not used
+            # Otherwise, should point to a floating point color texture
+            "uiName" "Lightmap",
+            "nonConnectable",
+            "writableTexture"
+        )
+        control "depthmap" "color texture" (
+            # When used inside a Phenomenon, this is not used
+            # Otherwize, leave unassigned (not user settable)
+            "uiName" "Depthmap",
+            "nonConnectable",
+            "hidden"
+        )
+        control "lightmap_group" "string" (
+            # This parameter is only for use inside a Phenomenon
+            # When this shader is used explicitly, you must pass
+            # the lightmap yourself
+            "uiName" "Light map group (only use inside phen!!)",
+            "nonConnectable",
+            "hidden"
+        )
+        control "lightmap_size" "scalar" (
+            # This parameter is only for use inside a Phenomenon
+            "uiName" "Light map size (in percent of screen size)",
+            "value" 50,
+            "nonConnectable",
+            "hidden"
+        )
+        control "write_lightmap" "integer" (
+            # This parameter is only for use inside a Phenomenon
+            "uiName" "Write to file (0 = no, 1 = named, 2 = all)",
+            "nonConnectable",
+            "hidden"
+        )
+        control "scatter_bias" "scalar" (
+            "uiName" "Scatter Bias (+/- 1.0)",
+            "value" 0.1,
+            "range" -1.0 1.0
+        )
+        control "input" "shader" (
+            "uiName" "Sampler",
+            "value" "misss_lambert_gamma"
+        )
+    }
+end declare
+
+declare shader
+    color "misss_lambert_gamma" (
+        color           "ambient"       default 0 0 0,
+        color           "ambience"      default 0 0 0,
+        color           "diffuse"       default 1 1 1,
+        boolean         "indirect"      default on,      
+        scalar          "diffuse_curve" default 0.75, 
+        integer         "flip"          default 0,          
+        integer         "mode",          
+        array light     "lights"         
+    )
+    version 4
+    apply texture
+
+    gui "gui_misss_lambert_gamma" {   
+        control "Global" "Global" (
+            "uiName" "SSS Lambert Gamma (mi)",
+            "category" "Illumination",
+            "hidden" # Remove "hidden" to use in your own lightmapping
+        )
+        control "indirect" "boolean" (
+            "uiName" "Include Indirect Illumination",
+            "nonConnectable",
+            "value" 1
+        )        
+        control "flip" "enumeration" (
+            "nonConnectable",
+            "uiName" "Flip"
+        )        
+        control "diffuse_curve" "scalar" (
+            "uiName" "Diffuse gamma curve",
+            "value" 0.75
+        )        
+        control "diffuse" "color" (
+            "uiName" "Diffuse",
+            "value" 1 1 1
+        )        
+        control "ambient" "color" (
+            "uiName" "Ambient / Extra light"
+        )        
+        control "ambience" "color" (
+            "uiName" "Ambience"
+        )        
+        control "mode" "integer" (
+            "nonConnectable",
+            "uiName" "Mode",
+        )        
+        control "lights" "array light" (
+            "uiName" "Lights"
+        )        
+    }
+end declare
+
+# --- passthrough shader ----
+declare shader 
+    color "misss_call_shader" (
+        shader  "shader",
+        shader  "default_shader",
+        integer "mode"
+    )
+    version 2
+    apply material, texture, environment, photon, shadow, displace
+    gui "gui_misss_call_shader" {   
+        control "Global" "Global" (
+            "uiName" "SSS Passthrough Shader (mi)",
+            "hidden" # Should be hidden, not useful outside of being a building block for Phenomena
+        )
+    }
+end declare
+
+
+#
+#   ---- The various Phenomena ------
+#
+
+declare phenomenon 
+    material "misss_fast_simple_phen" (
+        color texture "lightmap",
+        color texture "depthmap",
+        string        "lightmap_group",
+        scalar        "lightmap_size"  default 50,
+        integer       "samples"        default 64,
+        shader        "bump",
+        struct "d" {
+            color         "ambient",
+            color         "overall_color"    default 1 1 1,
+            color         "diffuse_color"    default 1 1 1,
+            scalar        "diffuse_weight"   default 0.5,
+            color         "front_sss_color"  default 0.8 0.4 0.1,
+            scalar        "front_sss_weight" default 0.5,
+            scalar        "front_sss_radius" default 10,
+            color         "back_sss_color"   default 0.8 0.4 0.1,
+            scalar        "back_sss_weight"  default 0.5,
+            scalar        "back_sss_radius"  default 10,
+            scalar        "back_sss_depth"   default 10
+        },
+        struct "s" {
+            color         "specular"         default 0.5 0.5 0.5,
+            scalar        "exponent"         default 33
+        },
+        struct "a" {
+            scalar        "lightmap_gamma"   default 0.75,
+            boolean       "indirect"         default on,
+            scalar        "scale_conversion" default 1.0,
+            scalar        "scatter_bias"     default 0.1,
+            scalar        "falloff"          default 2.0,
+            boolean       "screen_composit"  default on
+        },
+        integer      "mode",      # light selection mode 0..2
+        array light  "lights"
+    )
+
+    shader "diffuse" "misss_lambert_gamma" (
+        "ambient"         = interface "d.ambient",
+        "ambience"        = interface "d.diffuse_color",
+        "diffuse"         = interface "d.diffuse_color",
+        "diffuse_curve"   1.0,
+        "indirect"        on,
+        "mode"            = interface "mode",
+        "lights"          = interface "lights"
+    )
+
+    shader "specular" "misss_skin_specular" (
+        "overall_weight"         1.0, 
+        "primary_weight"         1.0,
+        "primary_spec_color"     = interface "s.specular",
+        "primary_shinyness"      = interface "s.exponent",
+
+        "mode"                   = interface "mode",
+        "lights"                 = interface "lights"
+    )
+    
+    shader "mtlsh" "misss_fast_shader" (
+        "lightmap"               = interface "lightmap",
+        "depthmap"               = interface "depthmap",
+        "bump"                   = interface "bump",
+        "diffuse_illum"          "diffuse",
+        "diffuse_color"          = interface "d.overall_color",
+        "diffuse_weight"         = interface "d.diffuse_weight",
+        "specular_illum"         "specular",
+        "screen_composit"        = interface "a.screen_composit",
+        "front_sss_color"        = interface "d.front_sss_color",
+        "front_sss_weight"       = interface "d.front_sss_weight",
+        "front_sss_radius"       = interface "d.front_sss_radius",
+        "back_sss_color"         = interface "d.back_sss_color",
+        "back_sss_weight"        = interface "d.back_sss_weight",
+        "back_sss_radius"        = interface "d.back_sss_radius",
+        "back_sss_depth"         = interface "d.back_sss_depth",
+        "scale_conversion"       = interface "a.scale_conversion",
+        "falloff"                = interface "a.falloff",
+        "samples"                = interface "samples"
+    )
+    shader "lm_sample" "misss_lambert_gamma" (
+        "ambient"                = interface "d.ambient",
+        "ambience"               1 1 1 1,
+        "diffuse"                1 1 1 1,
+        "indirect"               = interface "a.indirect",
+        "diffuse_curve"          = interface "a.diffuse_curve",
+        "mode"                   = interface "mode",
+        "lights"                 = interface "lights"
+    )
+
+    shader "lm_write" "misss_lightmap_write" (
+        "lightmap"               = interface "lightmap",
+        "depthmap"               = interface "depthmap",
+        "lightmap_group"         = interface "lightmap_group",
+        "lightmap_size"          = interface "lightmap_size",
+        "scatter_bias"           = interface "a.scatter_bias",
+        "input"                  "lm_sample"
+    )
+    
+    material "subsurface" opaque
+        = "mtlsh"
+        lightmap = "lm_write"
+    end material
+
+    root material "subsurface"
+
+    gui "gui_misss_fast_simple_phen" {
+        control "Global" "Global" (
+            "uiName" "SSS Fast Material (mi)",
+            "category" "Material",
+        )
+        control "lightmap" "color texture" (
+            "uiName" "Lightmap",
+            "writableTexture",
+            "hidden"
+        )
+        control "depthmap" "color texture" (
+            "uiName" "Depthmap",
+            "writableTexture",
+            "hidden"
+        )
+        control "lightmap_group" "string" (
+            "uiName" "Scatter group name",
+            "nonConnectable",
+            "value" "A"
+        )
+        control "lightmap_size" "scalar" (
+            "uiName" "Lightmap size (in % of render size)",
+            "nonConnectable",
+            "value" 50
+        ) 
+        control "samples" "integer" (
+            "uiName" "Number of samples",
+            "value" 64
+        )
+        control "bump" "shader" (
+            "uiName" "Bump shader",
+            "value" "max_Bump",
+            "applyTypes" "bump"
+        )
+        control "d" "struct" (
+            "uiName" "Diffuse Sub Surface Scattering"
+        )
+        {           
+            control "ambient" "color" (
+                "uiName" "Ambient / Extra light",
+                "noAlpha",
+                "value" 0 0 0 0
+            )
+            control "overall_color" "color" (
+                "uiName" "Overall diffuse coloration",
+                "noAlpha",
+                "value" 1 1 1
+            )
+            control "diffuse_color" "color" (
+                "uiName" "Unscattered diffuse color",
+                "noAlpha",
+                "value" 1 1 1,
+            )
+            control "diffuse_weight" "scalar" (
+                "uiName" "Unscattered diffuse weight",
+                "value" 0.5,
+            )
+            control "front_sss_color" "color" (
+                "uiName" "Front surface scatter color",
+                "noAlpha",
+                "value" 0.8 0.4 0.1
+            )
+            control "front_sss_weight" "scalar" (
+                "uiName" "Front surface scatter weight",
+                "value" 0.5
+            )
+            control "front_sss_radius" "scalar" (
+                "uiName" "Front surface scatter radius",
+                "value" "10mm",
+                "units" "world"
+            )
+            control "back_sss_color" "color" (
+                "uiName" "Back surface scatter color",
+                "noAlpha",
+                "value" 0.8 0.4 0.1
+            )
+            control "back_sss_weight" "scalar" (
+                "uiName" "Back surface scatter weight",
+                "value" 0.5
+            )
+            control "back_sss_radius" "scalar" (
+                "uiName" "Back surface scatter radius",
+                "value" "10mm",
+                "units" "world"
+            )
+            control "back_sss_depth" "scalar" (
+                "uiName" "Back surface scatter depth",
+                "value" "10mm",
+                "units" "world"
+            )
+        }
+        control "s" "struct" (
+            "uiName" "Specular reflection"
+        )
+        {           
+            control "specular" "color" (
+                "uiName" "Specular color",
+                "noAlpha",
+                "value" 0.5 0.5 0.5
+            )
+            control "exponent" "scalar" (
+                "uiName" "Shininess",
+                "value" 33
+            )
+        }
+        control "a" "struct" (
+            "uiName" "Advanced options"
+        )
+        {           
+            control "indirect" "boolean" (
+                "uiName" "Scatter indirect illumination",
+                "nonConnectable",
+                "value"  on,
+            )
+            control "lightmap_gamma" "scalar" (
+                "uiName" "Lightmap gamma curve",
+                "nonConnectable",
+                "value"  0.75,
+                "range"  0.0 5.0
+            )
+            control "scale_conversion" "scalar" (
+                "uiName" "Scale conversion factor",
+                "value" 1.0
+            )
+            control "scatter_bias" "scalar" (
+                "uiName" "Scatter Bias (+/- 1.0)",
+                "nonConnectable",
+                "value"  0.1,
+                "range"  -1 1
+            )
+            control "falloff" "scalar" (
+                "uiName" "Falloff strength",
+                "value" 2.0,
+                "range" -10.0 10.0
+            )
+            control "screen_composit" "boolean" (
+                "uiName" "'Screen' (soft) compositing of layers",
+                "nonConnectable",
+                "value" 1
+            )        
+        }
+        control "mode" "integer" (
+            "nonConnectable",
+            "hidden",
+            "uiName" "Mode"
+        )        
+        control "lights" "array light" (
+            "uiName" "Lights",
+            "hidden"
+        )        
+    }
+end declare
+
+
+declare phenomenon 
+    material "misss_fast_skin_phen" (
+        color texture  "lightmap",
+        color texture  "depthmap",
+        string         "lightmap_group",
+        scalar         "lightmap_size" default 50,
+        integer        "samples" default 64,
+        shader         "bump",
+        struct "d" {
+            color   "ambient" default 0 0 0 0 ,
+            color   "overall_color" default 1 1 1,
+            color   "diffuse_color" default .95 .95 1 ,
+            scalar  "diffuse_weight" default 0.3 ,
+
+            color   "front_sss_color" default 1 0.85 0.6 ,
+            scalar  "front_sss_weight" default 0.5 ,
+            scalar  "front_sss_radius" default 8,
+            color   "mid_sss_color" default .95 0.5 0.2,
+            scalar  "mid_sss_weight" default 0.4,
+            scalar  "mid_sss_radius" default 25,
+            color   "back_sss_color" default 0.7 0.1 0.1 ,
+            scalar  "back_sss_weight" default 0.5,
+            scalar  "back_sss_radius" default 25,
+            scalar  "back_sss_depth" default 25
+        },
+        struct "s" {
+            scalar  "overall_weight" default 1.0,
+            scalar  "edge_factor" default 5.0, 
+            color   "primary_spec_color" default 0.75 0.9 1,
+            scalar  "primary_weight" default 0.3,
+            scalar  "primary_edge_weight" default 0.8 ,
+            scalar  "primary_shinyness" default 5.0 ,
+
+            color   "secondary_spec_color" default 0.9 0.95 1.0 ,
+            scalar  "secondary_weight" default 0.3,
+            scalar  "secondary_edge_weight" default 0.0,
+            scalar  "secondary_shinyness" default 33.0,
+
+            scalar  "reflect_weight" default 0 ,
+            scalar  "reflect_edge_weight" default 0 ,
+            scalar  "reflect_shinyness" default 2,
+            boolean "reflect_environment_only" default off,
+            shader  "environment"
+        },
+        struct "a" {
+            scalar  "lightmap_gamma"   default 0.75,
+            boolean "indirect" default on,
+            scalar  "scale_conversion" default 1.0,
+            scalar  "scatter_bias"     default 0.12,
+            scalar  "falloff"          default 2.0,
+            boolean "screen_composit"  default on
+        },
+        integer     "mode",      # light selection mode 0..2
+        array light "lights"
+    )
+
+    shader "diffuse" "misss_lambert_gamma" (
+        "ambient"         = interface "d.ambient",
+        "ambience"        = interface "d.diffuse_color",
+        "diffuse"         = interface "d.diffuse_color",
+        "diffuse_curve"   1.0,
+        "indirect"        on,
+        "mode"            = interface "mode",
+        "lights"          = interface "lights"
+    )
+
+    shader "specular" "misss_skin_specular" (
+        "overall_weight"           = interface "s.overall_weight", 
+
+        "primary_weight"           = interface "s.primary_weight",
+        "primary_edge_weight"      = interface "s.primary_edge_weight",
+        "primary_spec_color"       = interface "s.primary_spec_color",
+        "primary_shinyness"        = interface "s.primary_shinyness",
+
+        "secondary_weight"         = interface "s.secondary_weight",
+        "secondary_edge_weight"    = interface "s.secondary_edge_weight",
+        "secondary_spec_color"     = interface "s.secondary_spec_color",
+        "secondary_shinyness"      = interface "s.secondary_shinyness",
+
+        "reflect_weight"           = interface "s.reflect_weight",
+        "reflect_edge_weight"      = interface "s.reflect_edge_weight",
+        "reflect_environment_only" = interface "s.reflect_environment_only",
+        "reflect_shinyness"        = interface "s.reflect_shinyness",
+
+        "edge_factor"              = interface "s.edge_factor",
+
+        "mode"                     = interface "mode",
+        "lights"                   = interface "lights"
+    )
+    
+    shader "shallowscatter" "misss_fast_shader" (
+        "lightmap"                 = interface "lightmap",
+        "depthmap"                 = interface "depthmap",
+        "diffuse_illum"            "diffuse",
+        "diffuse_color"            1 1 1 1,
+        "diffuse_weight"           = interface "d.diffuse_weight",
+        "front_sss_color"          = interface "d.front_sss_color",
+        "front_sss_weight"         = interface "d.front_sss_weight",
+        "front_sss_radius"         = interface "d.front_sss_radius",
+        "back_sss_radius"          0,
+        "back_sss_weight"          0,
+        "screen_composit"          = interface "a.screen_composit",
+        "scale_conversion"         = interface "a.scale_conversion",
+        "falloff"                  = interface "a.falloff",
+        "samples"                  = interface "samples"
+    )
+
+    shader "deepscatter" "misss_fast_shader" (
+        "lightmap"                 = interface "lightmap",
+        "depthmap"                 = interface "depthmap",
+        "bump"                     = interface "bump",
+        "diffuse_illum"            "shallowscatter",
+        "diffuse_color"            = interface "d.overall_color",
+        "diffuse_weight"           1.0,
+        "specular_illum"           "specular",
+        "screen_composit"          = interface "a.screen_composit",
+        "front_sss_color"          = interface "d.mid_sss_color",
+        "front_sss_weight"         = interface "d.mid_sss_weight",
+        "front_sss_radius"         = interface "d.mid_sss_radius",
+        "back_sss_color"           = interface "d.back_sss_color",
+        "back_sss_weight"          = interface "d.back_sss_weight",
+        "back_sss_radius"          = interface "d.back_sss_radius",
+        "back_sss_depth"           = interface "d.back_sss_depth",
+        "scale_conversion"         = interface "a.scale_conversion",
+        "falloff"                  = interface "a.falloff",
+        "samples"                  = interface "samples"
+    )
+
+    shader "lm_sample" "misss_lambert_gamma" (
+        "ambient"                  = interface "d.ambient",
+        "ambience"                 1 1 1,
+        "diffuse"                  1 1 1,
+        "indirect"                 = interface "a.indirect",
+        "diffuse_curve"            = interface "a.lightmap_gamma",
+        "mode"                     = interface "mode",
+        "lights"                   = interface "lights"
+    )
+
+    shader "lm_write"   "misss_lightmap_write" (
+        "lightmap"                 = interface "lightmap",
+        "depthmap"                 = interface "depthmap",
+        "lightmap_group"           = interface "lightmap_group",
+        "lightmap_size"            = interface "lightmap_size",
+        "scatter_bias"             = interface "a.scatter_bias",
+        "input"                    "lm_sample"
+    )
+
+    shader "env_shader" "misss_call_shader" (
+        "shader" = interface "s.environment"
+    )
+
+    material "subsurface" opaque
+        = "deepscatter"
+        lightmap    = "lm_write"
+        environment = "env_shader"
+        # Uncomment to get displacement
+        # displace    = "dis_shader"
+    end material
+    
+    root material "subsurface"
+
+    gui "gui_misss_fast_skin_phen" {
+        control "Global" "Global" (
+            "uiName" "SSS Fast Skin Material (mi)",
+            "category" "Material",
+        )
+        control "lightmap" "color texture" (
+            "uiName" "Lightmap",
+            "writableTexture",
+            "hidden"
+        )
+        control "depthmap" "color texture" (
+            "uiName" "Depthmap",
+            "writableTexture",
+            "hidden"
+        )
+        control "lightmap_group" "string" (
+            "uiName" "Scatter group name",
+            "nonConnectable",
+            "value" "A"
+        ) 
+        control "lightmap_size" "scalar" (
+            "uiName" "Lightmap size (in % of render size)",
+            "nonConnectable",
+            "value" 50
+        )
+        control "samples" "integer" (
+            "uiName" "Number of samples",
+            "value" 64
+        )         
+        control "bump" "shader" (
+            "uiName" "Bump shader",
+            "value" "max_Bump",
+            "applyTypes" "bump"
+        )
+        control "d" "struct" (
+            "uiName" "3-Layer Diffuse Subsurface Scattering"
+        )
+        {           
+            control "ambient" "color" (
+                "uiName" "Ambient / Extra light",
+                "noAlpha",
+                "value" 0 0 0 0
+            )
+            control "overall_color" "color" (
+                "uiName" "Overall diffuse coloration",
+                "noAlpha",
+                "value" 1 1 1
+            )
+            control "diffuse_color" "color" (
+                "uiName" "Unscattered diffuse color",
+                "noAlpha",
+                "value" 0.95 0.95 1,
+            )
+            control "diffuse_weight" "scalar" (
+                "uiName" "Unscattered diffuse weight",
+                "value" 0.3,
+            )
+            control "front_sss_color" "color" (
+                "uiName" "Epidermal (top) layer scatter color",
+                "noAlpha",
+                "value" 1 0.85 0.6
+            )
+            control "front_sss_weight" "scalar" (
+                "uiName" "Epidermal (top) layer scatter weight",
+                "value" 0.5
+            )
+            control "front_sss_radius" "scalar" (
+                "uiName" "Epidermal (top) layer scatter radius",
+                "value" "8mm",
+                "units" "world"
+            )
+
+            control "mid_sss_color" "color" (
+                "uiName" "Subdermal layer scatter color",
+                "noAlpha",
+                "value" 0.95 0.5 0.2
+            )
+            control "mid_sss_weight" "scalar" (
+                "uiName" "Subdermal layer scatter weight",
+                "value" 0.4
+            )
+            control "mid_sss_radius" "scalar" (
+                "uiName" "Subdermal layer scatter radius",
+                "value" "25mm",
+                "units" "world"
+            )
+
+            control "back_sss_color" "color" (
+                "uiName" "Back surface (through) scatter color",
+                "noAlpha",
+                "value" 0.7 0.1 0.1
+            )
+            control "back_sss_weight" "scalar" (
+                "uiName" "Back surface (through) scatter weight",
+                "value" 0.5
+            )
+            control "back_sss_radius" "scalar" (
+                "uiName" "Back surface (through) scatter radius",
+                "value" "25mm",
+                "units" "world"
+            )
+            control "back_sss_depth" "scalar" (
+                "uiName" "Back surface (through) scatter depth",
+                "value" "25mm",
+                "units" "world"
+            )
+        }
+        control "s" "struct" (
+            "uiName" "2-Layer Specularity and Reflections"
+        )
+        {        
+            control "overall_weight" "scalar" (
+                "uiName" "Overall specular Weight",
+                "value" 1.0
+            )
+
+            control "primary_spec_color" "color" (
+                "uiName" "Specular Color #1",
+                "noAlpha",
+                "value" 0.75 0.9 1
+            )
+            control "primary_weight" "scalar" (
+                "uiName" "Specular Weight #1",
+                "value" 0.3
+            )
+            control "primary_edge_weight" "scalar" (
+                "uiName" "Specular Edge Weight #1",
+                "value" 0.8
+            )
+            control "primary_shinyness" "scalar" (
+                "uiName" "Shininess #1",
+                "value" 5.0
+            )
+
+            control "secondary_spec_color" "color" (
+                "uiName" "Specular Color #2",
+                "noAlpha",
+                "value" .9 .95 1
+            )
+            control "secondary_weight" "scalar" (
+                "uiName" "Specular Weight #2",
+                "value" 0.3
+            )
+            control "secondary_edge_weight" "scalar" (
+                "uiName" "Specular Edge Weight #2",
+                "value" 0.0
+            )
+            control "secondary_shinyness" "scalar" (
+                "uiName" "Shininess #2",
+                "value" 33.0
+            )
+
+            control "reflect_weight" "scalar" (
+                "uiName" "Reflection Weight",
+                "value" 0
+            )
+            control "reflect_edge_weight" "scalar" (
+                "uiName" "Reflection Edge Weight",
+                "value" 0
+            )
+            control "reflect_environment_only" "boolean" (
+                "uiName" "Only reflect environment",
+                "value" 0
+            )
+            control "environment" "shader" (
+                "uiName" "Local environment"
+            )
+            control "reflect_shinyness" "scalar" (
+                "uiName" "Reflection glossiness (0 = mirror reflection)",
+                "value" 2
+            )
+            control "edge_factor" "scalar" (
+                "uiName" "Edge narrowness (higher = narrower)",
+                "value" 5,
+                "range" 0 100
+            )
+        }
+        control "a" "struct" (
+            "uiName" "Advanced options"
+        )
+        {           
+            control "indirect" "boolean" (
+                "uiName" "Scatter indirect illumination",
+                "nonConnectable",
+                "value"  on,
+            )
+            control "lightmap_gamma" "scalar" (
+                "uiName" "Lightmap gamma curve",
+                "nonConnectable",
+                "value"  0.75,
+                "range"  0.0 5.0
+            )
+            control "scale_conversion" "scalar" (
+                "uiName" "Scale conversion factor",
+                "value" 1.0
+            )
+            control "scatter_bias" "scalar" (
+                "uiName" "Scatter Bias (+/- 1.0)",
+                "nonConnectable",
+                "value"  0.12,
+                "range"  -1 1
+            )
+            control "falloff" "scalar" (
+                "uiName" "Falloff strength",
+                "value" 2.0,
+                "range" -10.0 10.0
+            )
+            control "screen_composit" "boolean" (
+                "uiName" "'Screen' (soft) compositing of layers",
+                "nonConnectable",
+                "value" 1
+            )        
+        }
+        control "mode" "integer" (
+            "nonConnectable",
+            "uiName" "Mode",
+            "hidden"
+        )        
+        control "lights" "array light" (
+            "uiName" "Lights",
+            "hidden"
+        )        
+    }
+end declare
+
+
+declare phenomenon 
+    material "misss_fast_skin_phen_d" (
+        color texture  "lightmap",
+        color texture  "depthmap",
+        string         "lightmap_group",
+        scalar         "lightmap_size" default 50,
+        integer        "samples" default 64,
+        shader         "displace",
+        shader         "bump",
+        struct "d" {
+            color   "ambient" default 0 0 0 0 ,
+            color   "overall_color" default 1 1 1,
+            color   "diffuse_color" default .95 .95 1 ,
+            scalar  "diffuse_weight" default 0.3 ,
+
+            color   "front_sss_color" default 1 0.85 0.6 ,
+            scalar  "front_sss_weight" default 0.5 ,
+            scalar  "front_sss_radius" default 8,
+            color   "mid_sss_color" default .95 0.5 0.2,
+            scalar  "mid_sss_weight" default 0.4,
+            scalar  "mid_sss_radius" default 25,
+            color   "back_sss_color" default 0.7 0.1 0.1 ,
+            scalar  "back_sss_weight" default 0.5,
+            scalar  "back_sss_radius" default 25,
+            scalar  "back_sss_depth" default 25
+        },
+        struct "s" {
+            scalar  "overall_weight" default 1.0,
+            scalar  "edge_factor" default 5.0, 
+            color   "primary_spec_color" default 0.75 0.9 1,
+            scalar  "primary_weight" default 0.3,
+            scalar  "primary_edge_weight" default 1.0 ,
+            scalar  "primary_shinyness" default 5.0 ,
+
+            color   "secondary_spec_color" default 0.9 0.95 1.0 ,
+            scalar  "secondary_weight" default 0.3,
+            scalar  "secondary_edge_weight" default 0.0,
+            scalar  "secondary_shinyness" default 33.0,
+
+            scalar  "reflect_weight" default 0 ,
+            scalar  "reflect_edge_weight" default 0 ,
+            scalar  "reflect_shinyness" default 2,
+            boolean "reflect_environment_only" default off,
+            shader  "environment"
+        },
+        struct "a" {
+            scalar  "lightmap_gamma"   default 0.75,
+            boolean "indirect" default on,
+            scalar  "scale_conversion" default 1.0,
+            scalar  "scatter_bias"     default 0.12,
+            scalar  "falloff"          default 2.0,
+            boolean "screen_composit"  default on
+        },
+        integer     "mode",      # light selection mode 0..2
+        array light "lights"
+    )
+
+    shader "diffuse" "misss_lambert_gamma" (
+        "ambient"         = interface "d.ambient",
+        "ambience"        = interface "d.diffuse_color",
+        "diffuse"         = interface "d.diffuse_color",
+        "diffuse_curve"   1.0,
+        "indirect"        on,
+        "mode"            = interface "mode",
+        "lights"          = interface "lights"
+    )
+
+    shader "specular" "misss_skin_specular" (
+        "overall_weight"           = interface "s.overall_weight", 
+
+        "primary_weight"           = interface "s.primary_weight",
+        "primary_edge_weight"      = interface "s.primary_edge_weight",
+        "primary_spec_color"       = interface "s.primary_spec_color",
+        "primary_shinyness"        = interface "s.primary_shinyness",
+
+        "secondary_weight"         = interface "s.secondary_weight",
+        "secondary_edge_weight"    = interface "s.secondary_edge_weight",
+        "secondary_spec_color"     = interface "s.secondary_spec_color",
+        "secondary_shinyness"      = interface "s.secondary_shinyness",
+
+        "reflect_weight"           = interface "s.reflect_weight",
+        "reflect_edge_weight"      = interface "s.reflect_edge_weight",
+        "reflect_environment_only" = interface "s.reflect_environment_only",
+        "reflect_shinyness"        = interface "s.reflect_shinyness",
+
+        "edge_factor"              = interface "s.edge_factor",
+
+        "mode"                     = interface "mode",
+        "lights"                   = interface "lights"
+    )
+    
+    shader "shallowscatter" "misss_fast_shader" (
+        "lightmap"                 = interface "lightmap",
+        "depthmap"                 = interface "depthmap",
+        "diffuse_illum"            "diffuse",
+        "diffuse_color"            1 1 1 1,
+        "diffuse_weight"           = interface "d.diffuse_weight",
+        "front_sss_color"          = interface "d.front_sss_color",
+        "front_sss_weight"         = interface "d.front_sss_weight",
+        "front_sss_radius"         = interface "d.front_sss_radius",
+        "screen_composit"          = interface "a.screen_composit",
+        "scale_conversion"         = interface "a.scale_conversion",
+        "falloff"                  = interface "a.falloff",
+        "samples"                  = interface "samples"
+    )
+
+    shader "deepscatter" "misss_fast_shader" (
+        "lightmap"                 = interface "lightmap",
+        "depthmap"                 = interface "depthmap",
+        "bump"                     = interface "bump",
+        "diffuse_illum"            "shallowscatter",
+        "diffuse_color"            = interface "d.overall_color",
+        "diffuse_weight"           1.0,
+        "specular_illum"           "specular",
+        "screen_composit"          = interface "a.screen_composit",
+        "front_sss_color"          = interface "d.mid_sss_color",
+        "front_sss_weight"         = interface "d.mid_sss_weight",
+        "front_sss_radius"         = interface "d.mid_sss_radius",
+        "back_sss_color"           = interface "d.back_sss_color",
+        "back_sss_weight"          = interface "d.back_sss_weight",
+        "back_sss_radius"          = interface "d.back_sss_radius",
+        "back_sss_depth"           = interface "d.back_sss_depth",
+        "scale_conversion"         = interface "a.scale_conversion",
+        "falloff"                  = interface "a.falloff",
+        "samples"                  = interface "samples"
+    )
+
+    shader "lm_sample" "misss_lambert_gamma" (
+        "ambient"                  = interface "d.ambient",
+        "ambience"                 1 1 1,
+        "diffuse"                  1 1 1,
+        "indirect"                 = interface "a.indirect",
+        "diffuse_curve"            = interface "a.lightmap_gamma",
+        "mode"                     = interface "mode",
+        "lights"                   = interface "lights"
+    )
+
+    shader "lm_write"   "misss_lightmap_write" (
+        "lightmap"                 = interface "lightmap",
+        "depthmap"                 = interface "depthmap",
+        "lightmap_group"           = interface "lightmap_group",
+        "lightmap_size"            = interface "lightmap_size",
+        "scatter_bias"             = interface "a.scatter_bias",
+        "input"                    "lm_sample"
+    )
+
+    shader "env_shader" "misss_call_shader" (
+        "shader" = interface "s.environment"
+    )
+
+    shader "dis_shader" "misss_call_shader" (
+        "shader" = interface "displace"
+    )
+
+    material "subsurface" opaque
+        = "deepscatter"
+        lightmap    = "lm_write"
+        environment = "env_shader"
+        displace    = "dis_shader"
+    end material
+    
+    root material "subsurface"
+
+    gui "gui_misss_fast_skin_phen_d" {
+        control "Global" "Global" (
+            "uiName" "SSS Fast Skin Material+Displace (mi)",
+            "category" "Material",
+        )
+        control "lightmap" "color texture" (
+            "uiName" "Lightmap",
+            "writableTexture",
+            "hidden"
+        )
+        control "depthmap" "color texture" (
+            "uiName" "Depthmap",
+            "writableTexture",
+            "hidden"
+        )
+        control "lightmap_group" "string" (
+            "uiName" "Scatter group name",
+            "nonConnectable",
+            "value" "A"
+        ) 
+        control "lightmap_size" "scalar" (
+            "uiName" "Lightmap size (in % of render size)",
+            "nonConnectable",
+            "value" 50
+        )
+        control "samples" "integer" (
+            "uiName" "Number of samples",
+            "value" 64
+        )         
+        control "bump" "shader" (
+            "uiName" "Bump shader",
+            "value" "max_Bump",
+            "applyTypes" "bump"
+        )
+        control "displace" "shader" (
+            "uiName" "Displacement",
+            "value" "max_Displacement"
+        )
+        control "d" "struct" (
+            "uiName" "3-Layer Diffuse Subsurface Scattering"
+        )
+        {           
+            control "ambient" "color" (
+                "uiName" "Ambient / Extra light",
+                "noAlpha",
+                "value" 0 0 0 0
+            )
+            control "overall_color" "color" (
+                "uiName" "Overall diffuse coloration",
+                "noAlpha",
+                "value" 1 1 1
+            )
+            control "diffuse_color" "color" (
+                "uiName" "Unscattered diffuse color",
+                "noAlpha",
+                "value" 0.95 0.95 1,
+            )
+            control "diffuse_weight" "scalar" (
+                "uiName" "Unscattered diffuse weight",
+                "value" 0.3,
+            )
+            control "front_sss_color" "color" (
+                "uiName" "Epidermal (top) layer scatter color",
+                "noAlpha",
+                "value" 1 0.85 0.6
+            )
+            control "front_sss_weight" "scalar" (
+                "uiName" "Epidermal (top) layer scatter weight",
+                "value" 0.5
+            )
+            control "front_sss_radius" "scalar" (
+                "uiName" "Epidermal (top) layer scatter radius",
+                "value" "8mm",
+                "units" "world"
+            )
+
+            control "mid_sss_color" "color" (
+                "uiName" "Subdermal layer scatter color",
+                "noAlpha",
+                "value" 0.95 0.5 0.2
+            )
+            control "mid_sss_weight" "scalar" (
+                "uiName" "Subdermal layer scatter weight",
+                "value" 0.4
+            )
+            control "mid_sss_radius" "scalar" (
+                "uiName" "Subdermal layer scatter radius",
+                "value" "25mm",
+                "units" "world"
+            )
+
+            control "back_sss_color" "color" (
+                "uiName" "Back surface (through) scatter color",
+                "noAlpha",
+                "value" 0.7 0.1 0.1
+            )
+            control "back_sss_weight" "scalar" (
+                "uiName" "Back surface (through) scatter weight",
+                "value" 0.5
+            )
+            control "back_sss_radius" "scalar" (
+                "uiName" "Back surface (through) scatter radius",
+                "value" "25mm",
+                "units" "world"
+            )
+            control "back_sss_depth" "scalar" (
+                "uiName" "Back surface (through) scatter depth",
+                "value" "25mm",
+                "units" "world"
+            )
+        }
+        control "s" "struct" (
+            "uiName" "2-Layer Specularity and Reflections"
+        )
+        {        
+            control "overall_weight" "scalar" (
+                "uiName" "Overall specular Weight",
+                "value" 1.0
+            )
+
+            control "primary_spec_color" "color" (
+                "uiName" "Specular Color #1",
+                "noAlpha",
+                "value" 0.75 0.9 1
+            )
+            control "primary_weight" "scalar" (
+                "uiName" "Specular Weight #1",
+                "value" 0.3
+            )
+            control "primary_edge_weight" "scalar" (
+                "uiName" "Specular Edge Weight #1",
+                "value" 1.0
+            )
+            control "primary_shinyness" "scalar" (
+                "uiName" "Shininess #1",
+                "value" 5.0
+            )
+
+            control "secondary_spec_color" "color" (
+                "uiName" "Specular Color #2",
+                "noAlpha",
+                "value" .9 .95 1
+            )
+            control "secondary_weight" "scalar" (
+                "uiName" "Specular Weight #2",
+                "value" 0.3
+            )
+            control "secondary_edge_weight" "scalar" (
+                "uiName" "Specular Edge Weight #2",
+                "value" 0.0
+            )
+            control "secondary_shinyness" "scalar" (
+                "uiName" "Shininess #2",
+                "value" 33.0
+            )
+
+            control "reflect_weight" "scalar" (
+                "uiName" "Reflection Weight",
+                "value" 0
+            )
+            control "reflect_edge_weight" "scalar" (
+                "uiName" "Reflection Edge Weight",
+                "value" 0
+            )
+            control "reflect_environment_only" "boolean" (
+                "uiName" "Only reflect environment",
+                "value" 0
+            )
+            control "environment" "shader" (
+                "uiName" "Local environment"
+            )
+            control "reflect_shinyness" "scalar" (
+                "uiName" "Reflection glossiness (0 = mirror reflection)",
+                "value" 2
+            )
+            control "edge_factor" "scalar" (
+                "uiName" "Edge narrowness (higher = narrower)",
+                "value" 5,
+                "range" 0 100
+            )
+        }
+        control "a" "struct" (
+            "uiName" "Advanced options"
+        )
+        {           
+            control "indirect" "boolean" (
+                "uiName" "Scatter indirect illumination",
+                "nonConnectable",
+                "value"  on,
+            )
+            control "lightmap_gamma" "scalar" (
+                "uiName" "Lightmap gamma curve",
+                "nonConnectable",
+                "value"  0.75,
+                "range"  0.0 5.0
+            )
+            control "scale_conversion" "scalar" (
+                "uiName" "Scale conversion factor",
+                "value" 1.0
+            )
+            control "scatter_bias" "scalar" (
+                "uiName" "Scatter Bias (+/- 1.0)",
+                "nonConnectable",
+                "value"  0.12,
+                "range"  -1 1
+            )
+            control "falloff" "scalar" (
+                "uiName" "Falloff strength",
+                "value" 2.0,
+                "range" -10.0 10.0
+            )
+            control "screen_composit" "boolean" (
+                "uiName" "'Screen' (soft) compositing of layers",
+                "nonConnectable",
+                "value" 1
+            )        
+        }
+        control "mode" "integer" (
+            "nonConnectable",
+            "uiName" "Mode",
+            "hidden"
+        )        
+        control "lights" "array light" (
+            "uiName" "Lights",
+            "hidden"
+        )        
+    }
+end declare

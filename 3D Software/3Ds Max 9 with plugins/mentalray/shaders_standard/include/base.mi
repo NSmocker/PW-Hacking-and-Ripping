@@ -1,0 +1,2342 @@
+#*****************************************************************************
+# Copyright 1986-2005 by mental images GmbH, Fasanenstr. 81, D-10623 Berlin,
+# Germany. All rights reserved.
+#*****************************************************************************
+# Created:	21.10.1997
+# Module:	baseshader
+# Purpose:	.mi declarations for built-in Phenomena baseshaders
+#
+# Exports:
+#					texture space mapping
+#	mib_texture_vector
+#	mib_texture_remap
+#	mib_texture_rotate
+#	mib_bump_basis
+#	mib_bump_map
+#	mib_passthrough_bump_map
+#					Environments and Compositing
+#	mib_lookup_spherical
+#	mib_lookup_cube1
+#	mib_lookup_cube6
+#	mib_lookup_background
+#	mib_lookup_cylindrical
+#					Textures
+#	mib_texture_lookup
+#	mib_texture_filter_lookup
+#	mib_texture_checkerboard
+#	mib_texture_polkadot
+#	mib_texture_polkasphere
+#	mib_texture_turbulence
+#	mib_texture_wave
+#					Sample Compositing
+#	mib_reflect
+#	mib_refract
+#	mib_transparency
+#	mib_opacity
+#       mib_continue
+#	mib_dielectric
+#	mib_ray_marcher
+#	mib_twosided
+#	mib_refraction_index
+#       mib_bent_normal_env
+#       mib_glossy_reflection
+#       mib_glossy_refraction
+#					Illumination
+#	mib_illum_lambert
+#	mib_illum_phong
+#	mib_illum_blinn
+#	mib_illum_cooktorr
+#	mib_illum_ward
+#	mib_illum_ward_deriv
+#	mib_illum_hair
+#					Volume
+#	mib_volume
+#					Data Conversion
+#	mib_color_alpha
+#	mib_color_average
+#	mib_color_intensity
+#	mib_color_interpolate
+#	mib_color_mix
+#	mib_color_spread
+#					Geometry
+#	mib_geo_cube
+#	mib_geo_sphere
+#	mib_geo_cone
+#	mib_geo_cylinder
+#	mib_geo_square
+#	mib_geo_instance
+#	mib_geo_instance_mlist
+#	mib_geo_add_uv_texsurf
+#	mib_geo_torus
+#
+#					Light
+#	mib_light_point
+#	mib_light_spot
+#	mib_light_infinite
+#	mib_light_photometric
+#
+#					Light utils
+#	mib_cie_d
+#	mib_blackbody
+#
+#					Photon
+#	mib_photon_basic
+#					Lightmap
+#	mib_lightmap_write
+#	mib_lightmap_sample
+#
+#					Lens
+#	mib_lens_clamp
+#	mib_lens_stencil
+#					Occlusion
+#       mib_amb_occlusion
+#
+#					Hair
+#
+#
+# History:
+#	28.10.97 gunter:  added geometry shaders
+#	17.11.97 thomas:  added ambience parameter to illuminance base shaders
+#	08.12.97 henrik:  renamed mib_twoside to mib_twosided
+#	12.01.98 thomas:  added mib_opacity
+#	29.01.98 henrik:  added mib_photon_basic
+#	26.05.98 thomas:  introduced project in texture_vector and bump_basis
+#	16.09.99 steve:	  added color_base in mib_color_mix (now version 2)
+#	11.01.00 thomas:  added offset parameter to mib_texture_remap
+#	26.01.00 thomas:  added clamp parameter to mib_bump_map*
+#	11.01.02 carsten: added mib_illum_hair
+#	14.11.03 jurgen:  added mib_light_photometric, lens shaders
+#       27.05.04 alf:     added mib_continue
+#       26.07.04 alf:     added mib_amb_occlusion
+#       17.02.05 alf:     added mib_fg_occlusion    
+#       13.05.05 alf:     added mib_glossy_reflection,refraction
+#
+#****************************************************************************/
+
+min version "2.0.20"
+max version "3.4.99"
+
+#-------------------------------------------- texture space mapping
+
+declare shader
+	vector "mib_texture_vector" (
+		integer		"select",
+		integer		"selspace",
+		integer		"vertex",
+		integer		"project"
+	)
+	version 2
+	gui "gui_mib_texture_vector" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_2Texture_Space_Mapping.html#mibtexturevector",
+			"uiName" "Texture Vector (base)",
+			"category" "Texture Space Mapping",
+			"hidden"
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	vector "mib_texture_remap" (
+		vector		"input",
+		transform	"transform",
+		vector		"repeat",
+		boolean		"alt_x",
+		boolean		"alt_y",
+		boolean		"alt_z",
+		boolean		"torus_x",
+		boolean		"torus_y",
+		boolean		"torus_z",
+		vector		"min",
+		vector		"max",
+		vector		"offset"
+	)
+	version 1
+	gui "gui_mib_texture_remap" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_2Texture_Space_Mapping.html#mibtextureremap",
+			"uiName" "Texture Remap (base)",
+			"category" "Texture Space Mapping"
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	struct {
+		vector		"u",
+		vector		"v"
+	} "mib_texture_rotate" (
+		vector		"input",
+		scalar		"angle",
+		scalar		"min",
+		scalar		"max"
+	)
+	version 1
+	gui "gui_mib_texture_rotate" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_2Texture_Space_Mapping.html#mibtexturerotate",
+			"uiName" "Texture Rotate (base)",
+			"category" "Texture Space Mapping"
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	struct {
+		vector		"u",
+		vector		"v"
+	} "mib_bump_basis" (
+		integer		"project",
+		integer		"ntex"
+	)
+	version 2
+	apply texture
+	gui "gui_mib_bump_basis" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_2Texture_Space_Mapping.html#mibbumpbasis",
+			"uiName" "Bump Basis (base)",
+			"category" "Texture Space Mapping",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	vector "mib_bump_map" (
+		vector		"u",
+		vector		"v",
+		vector		"coord",
+		vector		"step",
+		scalar		"factor",
+		boolean		"torus_u",
+		boolean		"torus_v",
+		boolean		"alpha",
+		color texture	"tex",
+		boolean		"clamp"
+	)
+	version 2
+	apply texture
+	gui "gui_mib_bump_map" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_2Texture_Space_Mapping.html#mibbumpmap",
+			"uiName" "Bump Map (base)",
+			"category" "Texture Space Mapping",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_passthrough_bump_map" (
+		vector		"u",
+		vector		"v",
+		vector		"coord",
+		vector		"step",
+		scalar		"factor",
+		boolean		"torus_u",
+		boolean		"torus_v",
+		boolean		"alpha",
+		color texture	"tex",
+		boolean		"clamp"
+	)
+	version 2
+	apply texture
+	gui "gui_mib_passthrough_bump_map" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_2Texture_Space_Mapping.html#mibpassthroughbumpmap",
+			"uiName" "Passthrough Bump Map (base)",
+			"addApply" "bump",
+			"category" "Texture Space Mapping",
+			"hidden"
+		)
+	}
+end declare
+
+# -------------------
+# -- mib_bump_map2 --
+# -------------------
+declare shader
+    color "mib_bump_map2" (
+        scalar          "factor",
+        scalar          "scale",
+        color texture   "tex",
+        color           "color"
+	)
+	version 1
+	gui "gui_mib_bump_map2" {
+		control "Global" "Global" (
+			"addApply" "bump",
+			"hidden"
+		)
+	}
+end declare
+
+#-------------------------------------------- Environments and Compositing
+
+declare shader
+	color "mib_lookup_spherical" (
+		vector		"dir",
+		scalar		"rotate",
+		color texture   "tex"
+	)
+	version 1
+	apply environment
+	gui "gui_mib_lookup_spherical" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_3Environments.html#miblookupspherical",
+			"uiName" "Lookup Spherical (base)",
+			"category" "Environments and Compositing",
+			"autobrowse" "tex",
+			"hidden"
+		)
+		control "dir" "vector" (
+			"uiName" "Direction"
+		)
+		control "rotate" "scalar" (
+			"uiName" "Rotate",
+			"value" 1
+		)
+		control "tex" "color texture" (
+			"uiName" "Texture"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_lookup_cube1" (
+		vector		"point",
+		vector		"dir",
+		vector		"size",
+		color texture   "tex"
+	)
+	version 1
+	apply environment
+	gui "gui_mib_lookup_cube1" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/shd-1_3Environments.html#miblookupcube1",
+		"uiName" "Lookup Cube1 (base)",
+		"category" "Environments and Compositing",
+		"autobrowse" "tex",
+		"hidden"
+		)
+		control "point" "vector" (
+			"uiName" "Point"
+		)
+		control "dir" "vector" (
+			"uiName" "Direction"
+		)
+		control "size" "vector" (
+			"uiName" "Size",
+			"value" 100 100 100
+		)
+		control "tex" "color texture" (
+			"uiName" "Texture"
+		)	
+	}
+end declare
+
+declare shader
+	color "mib_lookup_cube6" (
+		vector		"point",
+		vector		"dir",
+		vector		"size",
+		color texture   "tex_mx",
+		color texture   "tex_px",
+		color texture   "tex_my",
+		color texture   "tex_py",
+		color texture   "tex_mz",
+		color texture   "tex_pz"
+	)
+	version 1
+	apply environment
+	gui "gui_mib_lookup_cube6" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_3Environments.html#miblookupcube1",
+			"uiName" "Lookup Cube6 (base)",
+			"category" "Environments and Compositing",
+			"hidden"
+		)
+		control "point" "vector" (
+			"uiName" "Point"
+		)
+		control "dir" "vector" (
+			"uiName" "Direction"
+		)
+		control "size" "vector" (
+			"uiName" "Size",
+			"value" 100 100 100
+		)
+		control "tex_mx" "color texture" (
+			"uiName" "Left -x"
+		)
+		control "tex_px" "color texture" (
+			"uiName" "Right +x"
+		)
+		control "tex_my" "color texture" (
+			"uiName" "Front -y"
+		)
+		control "tex_py" "color texture" (
+			"uiName" "Back +y"
+		)
+		control "tex_mz" "color texture" (
+			"uiName" "Down -z"
+		)
+		control "tex_pz" "color texture" (
+			"uiName" "Up +z"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_lookup_background" (
+		vector		"zoom",
+		vector		"pan",
+		boolean		"torus_u",
+		boolean		"torus_v",
+		color texture   "tex"
+	)
+	version 1
+	apply texture, environment, lens
+	gui "gui_mib_lookup_background" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_3Environments.html#miblookupbackground",
+			"uiName" "Lookup Background (base)",
+			"category" "Environments and Compositing",
+			"autobrowse" "tex",
+			"hidden"
+		)
+		control "zoom" "vector" (
+			"uiName" "Zoom",
+			"value" 1 1 1
+		)
+		control "pan" "vector" (
+			"uiName" "Pan",
+			"value" 0 0 0
+		)
+		control "torus_u" "boolean" (
+			"uiName" "Tile U",
+			"value" 0
+		)
+		control "torus_v" "boolean" (
+			"uiName" "Tile V",
+			"value" 0
+		)
+		control "tex" "color texture" (
+			"uiName" "Texture"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_lookup_cylindrical" (
+		transform	"xform",
+		scalar		"begin",
+		scalar		"end",
+		color texture	"tex"
+	)
+	version 1
+	apply environment
+	gui "gui_mib_lookup_cylindrical" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_3Environments.html#miblookupcylindrical",
+			"uiName" "Lookup Cylindrical (base)",
+			"category" "Environments and Compositing",
+			"autobrowse" "tex",
+			"hidden"
+		)
+		control "xform" "transform" (
+			"uiName" "Transform"
+		)
+		control "begin" "scalar" (
+			"uiName" "Begin",
+			"value" 0
+		)
+		control "end" "scalar" (
+			"uiName" "End",
+			"value" 100
+		)
+		control "tex" "color texture" (
+			"uiName" "Texture"
+		)
+	}
+end declare
+
+#-------------------------------------------- Textures
+
+declare shader
+	color "mib_texture_lookup" (
+		color texture	"tex",
+		vector		"coord"
+	)
+	version 1
+	apply texture
+	gui "gui_mib_texture_lookup" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtexturelookup",
+			"uiName" "Texture Lookup (base)",
+			"category" "Texture",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_texture_lookup2" (
+		color texture	"tex",
+		scalar		"factor"
+	)
+	version 1
+	apply texture
+	gui "gui_mib_texture_lookup2" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_texture_filter_lookup" (
+		color texture	"tex",
+		vector		"coord",
+		scalar		"eccmax",
+		scalar		"maxminor",
+		scalar		"disc_r",
+		boolean		"bilinear",
+		integer		"space",
+		shader		"remap"
+	)
+	version 3
+	apply texture
+	gui "gui_mib_texture_filter_lookup" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtexturefilterlookup",
+			"uiName" "Texture Filter Lookup (base)",
+			"category" "Texture",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_texture_checkerboard" (
+		vector		"coord",
+		scalar		"xsize",
+		scalar		"ysize",
+		scalar		"zsize",
+		color		"color000",
+		color		"color001",
+		color		"color010",
+		color		"color011",
+		color		"color100",
+		color		"color101",
+		color		"color110",
+		color		"color111"
+	)
+	version 1
+	apply texture
+	gui "gui_mib_texture_checkerboard" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtexturecheckerboard",
+			"uiName" "Texture CheckerBoard (base)",
+			"category" "Texture",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_texture_polkadot" (
+		vector		"coord",
+		scalar		"radius",
+		color		"fgcolor",
+		color		"bgcolor"
+	)
+	version 1
+	apply texture
+	gui "gui_mib_texture_polkadot" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtexturepolkadot",
+			"uiName" "Texture Polka Dot (base)",
+			"category" "Texture",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_texture_polkasphere" (
+		vector		"coord",
+		scalar		"radius",
+		color		"fgcolor",
+		color		"bgcolor"
+	)
+	version 1
+	apply texture
+	gui "gui_mib_texture_polkasphere" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtexturepolkasphere",
+			"uiName" "Texture Polka Sphere (base)",
+			"category" "Texture",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	scalar "mib_texture_turbulence" (
+		vector		"coord",
+		scalar		"spacing",
+		scalar		"strength",
+		scalar		"power",
+		integer		"iteration",
+		integer		"polar_dim"
+	)
+	version 1
+	apply texture
+	gui "gui_mib_texture_turbulence" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtextureturbulence",
+			"uiName" "Texture Turbulence (base)",
+			"category" "Texture",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_texture_wave" (
+		vector		"coord",
+		scalar		"amplitude_x",
+		scalar		"amplitude_y",
+		scalar		"amplitude_z",
+		scalar		"offset"
+	)
+	version 1
+	apply texture
+	
+	gui "gui_mib_texture_wave" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_4Textures.html#mibtexturewave",
+			"uiName" "Texture Wave (base)",
+			"category" "Texture"
+		)
+	}
+end declare
+
+#-------------------------------------------- Sample Compositing
+
+declare shader
+	color "mib_reflect" (
+		color		"input",
+		color		"reflect",
+		boolean		"notrace"
+	)
+	version 2
+	gui "gui_mib_reflect" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/shd-1_5Sample_Compositing.html#mibreflect",
+		"uiName" "Reflect (base)",
+		"category" "Sample Compositing"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "reflect" "color" (
+			"uiName" "Reflection",
+			"value" .5 .5 .5
+		)
+		control "notrace" "boolean" (
+			"uiName" "Disable Raytracing",
+			"value" 0
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	color "mib_refract" (
+		color		"input",
+		color		"refract",
+		scalar		"ior"
+	)
+	version 2
+	gui "gui_mib_refract" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/shd-1_5Sample_Compositing.html#mibrefract",
+		"uiName" "Refract (base)",
+		"category" "Sample Compositing"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "refract" "color" (
+			"uiName" "Refraction",
+			"value" .5 .5 .5
+		)
+		control "ior" "scalar" (
+			"uiName" "Index of refraction",
+			"value" 1.5
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	color "mib_transparency" (
+		color		"input",
+		color		"transp"
+	)
+	version 2
+	gui "gui_mib_transparency" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/shd-1_5Sample_Compositing.html#mibtransparency",
+		"uiName" "Transparency (base)",
+		"category" "Sample Compositing"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "transp" "color" (
+			"uiName" "Transparency",
+			"value" .5 .5 .5
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	color "mib_continue" (
+		color		"input",
+		color		"transp"
+	)
+	version 1
+	gui "gui_mib_continue" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_opacity" (
+		color		"input",
+		color		"opacity"
+	)
+	version 2
+	gui "gui_mib_opacity" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/shd-1_5Sample_Compositing.html#mibopacity",
+		"uiName" "Opacity (base)",
+		"category" "Sample Compositing"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "opacity" "color" (
+			"uiName" "Opacity",
+			"value" .5 .5 .5
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	color "mib_twosided" (
+		color		"front",
+		color		"back"
+	)
+	version 1
+	gui "gui_mib_twosided" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/",
+		"uiName" "Two-Sided (base)",
+		"category" "Sample Compositing"
+		)
+		control "front" "color" (
+			"uiName" "Front",
+			"value" .7 .7 .7
+		)
+		control "back" "color" (
+			"uiName" "Back",
+			"value" .2 .2 .2
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	struct {
+		scalar		"ior",
+		boolean		"enter"
+	} "mib_refraction_index" (
+		scalar		"mtl_ior"
+	)
+	version 1
+	gui "gui_mib_refraction_index" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_5Sample_Compositing.html#mibtwosided",
+			"uiName" "Refraction Index (base)",
+			"category" "Sample Compositing",
+			"hidden"
+		)
+		control "mtl_ior" "scalar" (
+			"uiName" "Index of refraction",
+			"value" 1.5
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	color "mib_dielectric" (
+		color		"input",
+		color		"absorb",
+		scalar		"refract",
+		scalar		"ior"
+	)
+	version 1
+	gui "gui_mib_dielectric" {	
+		control "Global" "Global" (
+		"helpCHM" "MI_Shaders/mr help.chm",
+		"helpLink" "/shd-1_5Sample_Compositing.html#mibdielectric",
+		"uiName" "Dielectric (base)",
+		"category" "Sample Compositing"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "absorb" "color" (
+			"uiName" "Absorption",
+			"value" .5 .5 .5
+		)
+		control "refract" "scalar" (
+			"uiName" "Refraction",
+			"value" .5
+		)
+		control "ior" "scalar" (
+			"uiName" "Index of refraction",
+			"value" 1.5
+		)
+	}
+	apply material
+end declare
+
+declare shader
+	color "mib_ray_marcher" (
+		shader		"shader",
+		scalar		"distance",
+		integer		"num",
+		integer		"subdiv",
+		color		"contrast"
+	)
+	version 1
+	gui "gui_mib_ray_marcher" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_5Sample_Compositing.html#mibraymarcher",
+			"uiName" "Ray Marcher (base)",
+			"category" "Sample Compositing",
+			"hidden"
+		)
+		control "shader" "shader" (
+			"uiName" "Shader"
+		)
+		control "distance" "scalar" (
+			"uiName" "Distance"
+		)
+		control "num" "integer" (
+			"uiName" "Num"
+		)
+		control "subdiv" "integer" (
+			"uiName" "Subdivisions"
+		)
+		control "contrast" "color" (
+			"uiName" "Contrast",
+			"value" 0.05 0.05 0.05
+		)
+	}
+	apply material
+end declare
+
+#-------------------------------------------- Illumination
+
+declare shader
+	color "mib_illum_lambert" (
+		color		"ambience",
+		color		"ambient",
+		color 		"diffuse",
+		integer		"mode",      # light selection mode 0..2
+		array light	"lights"
+	)
+	version 2
+	apply material
+
+	gui "gui_mib_illum_lambert" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_6Illumination.html#mibillumlambert",
+			"addApply" "illum",
+			"uiName" "Illum Lambert (base)",
+			"category" "Illumination",
+			"hidden"
+		)
+        control "ambience" "color" (
+			"uiName" "Ambience",
+            "value" 0.0 0.0 0.0
+        )
+        control "ambient" "color" (
+			"uiName" "Ambient",
+            "value" 0.0 0.0 0.0
+        )
+        control "diffuse" "color" (
+			"uiName" "Diffuse",
+            "value" 0.7 0.7 0.7
+        )
+        control "mode" "integer" (
+            "hidden"
+        )
+        control "lights" "array light" (
+            "hidden"
+        )
+	}
+
+end declare
+
+declare shader
+	color "mib_illum_phong" (
+		color		"ambience",
+		color		"ambient",
+		color 		"diffuse",
+		color 		"specular",
+		scalar		"exponent",  # phong exponent
+		integer		"mode",      # light selection mode 0..2
+		array light	"lights"
+	)
+	version 2
+	apply material
+
+	gui "gui_mib_illum_phong" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_6Illumination.html#mibillumphong",
+			"addApply" "illum",
+			"uiName" "Illum Phong (base)",
+			"category" "Illumination",
+			"hidden"
+		)
+        control "ambience" "color" (
+			"uiName" "Ambience",
+            "value" 0.0 0.0 0.0
+        )
+        control "ambient" "color" (
+			"uiName" "Ambient",
+            "value" 0.0 0.0 0.0
+        )
+        control "diffuse" "color" (
+			"uiName" "Diffuse",
+            "value" 0.7 0.7 0.7
+        )
+        control "specular" "color" (
+			"uiName" "Specular",
+            "value" 1 1 1
+        )
+        control "exponent" "scalar" (
+			"uiName" "Exponent",
+            "value" 100
+        )
+        control "mode" "integer" (
+            "hidden"
+        )
+        control "lights" "array light" (
+            "hidden"
+        )	
+	}
+
+end declare
+
+declare shader
+	color "mib_illum_ward" (
+		color		"ambience",
+		color		"ambient",
+		color 		"diffuse",
+		color 		"glossy",
+		scalar		"shiny_u",   # shinyness in u direction
+		scalar		"shiny_v",   # shinyness in v direction
+		vector		"u",         # u direction
+		vector		"v",         # v direction
+		integer		"mode",      # light selection mode 0..2
+		array light	"lights"
+	)
+	version 1
+	apply material
+
+	gui "gui_mib_illum_ward" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_6Illumination.html#mibillumward",
+			"addApply" "illum",
+			"uiName" "Illum Ward (base)",
+			"category" "Illumination",
+			"hidden"
+		)
+        control "ambience" "color" (
+			"uiName" "Ambience",
+            "value" 0.0 0.0 0.0
+        )
+        control "ambient" "color" (
+			"uiName" "Ambient",
+            "value" 0.0 0.0 0.0
+        )
+        control "diffuse" "color" (
+			"uiName" "Diffuse",
+            "value" 0.7 0.7 0.7
+        )
+        control "glossy" "color" (
+			"uiName" "Glossy",
+            "value" 1 1 1
+        )
+        control "shiny_u" "scalar" (
+			"uiName" "Shinnyness in U",
+            "value" 2
+        )
+        control "shiny_v" "scalar" (
+			"uiName" "Shinnyness in V",
+            "value" 2
+        )
+        control "u" "vector" (
+			"uiName" "U Direction"
+        )
+        control "v" "vector" (
+			"uiName" "V Direction"
+        )
+        control "mode" "integer" (
+            "hidden"
+        )
+        control "lights" "array light" (
+            "hidden"
+        )	
+	}
+end declare
+
+declare shader
+	color "mib_illum_ward_deriv" (
+		color		"ambience",
+		color		"ambient",
+		color 		"diffuse",
+		color 		"glossy",
+		scalar		"shiny_u",   # shinyness in u direction
+		scalar		"shiny_v",   # shinyness in v direction
+		integer		"mode",      # light selection mode 0..2
+		array light	"lights"
+	)
+	version 1
+	derivative 1 	# requires surface derivatives
+	apply material
+
+	gui "gui_mib_illum_ward_deriv" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_6Illumination.html#mibillumwardderiv",
+			"addApply" "illum",
+			"uiName" "Illum Ward Deriv (base)",
+			"category" "Illumination",
+			"hidden"
+		)
+        control "diffuse" "color" (
+            "value" 0.7 0.7 0.7
+        )
+	}
+	
+end declare
+
+declare shader
+	color "mib_illum_blinn" (
+		color		"ambience",
+		color		"ambient",
+		color 		"diffuse",
+		color 		"specular",
+		scalar		"roughness", # average microfacet slope
+		scalar          "ior",       # rel. ior
+		integer		"mode",      # light selection mode 0..2
+		array light	"lights"
+	)
+	version 2
+	apply material
+
+	gui "gui_mib_illum_blinn" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_6Illumination.html#mibillumblinn",
+			"addApply" "illum",
+			"uiName" "Illum Blinn (base)",
+			"category" "Illumination",
+			"hidden"
+		)
+        control "ambience" "color" (
+			"uiName" "Ambience",
+            "value" 0.0 0.0 0.0
+        )
+        control "ambient" "color" (
+			"uiName" "Ambient",
+            "value" 0.0 0.0 0.0
+        )
+        control "diffuse" "color" (
+			"uiName" "Diffuse",
+            "value" 0.7 0.7 0.7
+        )
+        control "specular" "color" (
+			"uiName" "Specular",
+            "value" 1 1 1
+        )
+        control "roughness" "scalar" (
+			"uiName" "Roughness",
+            "value" .18
+        )
+        control "ior" "scalar" (
+			"uiName" "Index of Refraction",
+            "value" 10
+        )
+        control "mode" "integer" (
+            "hidden"
+        )
+        control "lights" "array light" (
+            "hidden"
+        )
+	}
+	
+end declare
+
+declare shader
+	color "mib_illum_cooktorr" (
+		color		"ambience",
+		color		"ambient",
+		color 		"diffuse",
+		color 		"specular",
+		scalar		"roughness", # average microfacet slope
+		color      "ior",       # rel. ior for three wavelengths
+		integer		"mode",      # light selection mode 0..2
+		array light	"lights"
+	)
+	version 2
+	apply material
+
+	gui "gui_mib_illum_cooktorr" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_6Illumination.html#mibillumcooktorr",
+			"addApply" "illum",
+			"uiName" "Illum CookTorr (base)",
+			"category" "Illumination",
+			"hidden"
+		)
+        control "ambience" "color" (
+			"uiName" "Ambience",
+            "value" 0.0 0.0 0.0
+        )
+        control "ambient" "color" (
+			"uiName" "Ambient",
+            "value" 0.0 0.0 0.0
+        )
+        control "diffuse" "color" (
+			"uiName" "Diffuse",
+            "value" 0.7 0.7 0.7
+        )
+        control "specular" "color" (
+			"uiName" "Specular",
+            "value" 1 1 1
+        )
+        control "roughness" "scalar" (
+			"uiName" "Roughness",
+            "value" .18
+        )
+        control "ior" "vector" (
+			"uiName" "Index of Refraction",
+            "value" 4 80 8
+        )
+        control "mode" "integer" (
+            "hidden"
+        )
+        control "lights" "array light" (
+            "hidden"
+        )
+	}
+	
+end declare
+
+declare shader
+	color "mib_illum_hair" (
+		color		"ambience",
+		color		"ambient",
+		color		"diffuse",
+		color		"specular",
+		scalar		"exponent",
+		integer		"mode",
+		array light	"lights"
+	)
+	version 1
+	apply material
+
+	gui "gui_mib_illum_hair" {
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/",
+			"addApply" "illum",
+			"uiName" "Illum Hair (base)",
+			"category" "Illumination",	
+			"hidden"	
+		)
+        control "diffuse" "color" (
+            "value" 0.7 0.7 0.7
+        )
+	}
+	
+end declare
+
+
+#-------------------------------------------- Volume
+
+declare shader
+	color "mib_volume" (
+		color		"color",
+		scalar		"max",
+		boolean		"lightrays"
+	)
+	gui "gui_mib_volume" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/",
+			"uiName" "Volume (base)",
+			"category" "Volume",
+			"hidden"
+		)
+	}	
+	version 1
+	apply volume
+end declare
+
+
+#-------------------------------------------- Data Conversion
+
+declare shader
+	color "mib_color_alpha" (
+		color		"input",
+		scalar		"factor"
+	)
+	gui "gui_mib_color_alpha" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_7Data_Conversion.html#mibcoloralpha",
+		"uiName" "Color Alpha (base)",
+		"category" "Conversion",
+		"hidden"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "factor" "scalar" (
+			"uiName" "Factor",
+			"value" 1.0
+		)
+	}
+	apply texture
+	version 2
+end declare
+
+declare shader
+	color "mib_color_average" (
+		color		"input",
+		scalar		"factor"
+	)
+	gui "gui_mib_color_average" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_7Data_Conversion.html#mibcoloraverage",
+		"uiName" "Color Average (base)",
+		"category" "Conversion",
+		"hidden"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "factor" "scalar" (
+			"uiName" "Factor",
+			"value" 1.0
+		)
+	}
+	version 2
+	apply texture
+end declare
+
+declare shader
+	color "mib_color_intensity" (
+		color		"input",
+		scalar		"factor"
+	)
+	gui "gui_mib_color_intensity" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_7Data_Conversion.html#mibcolorintensity",
+		"uiName" "Color Intensity (base)",
+		"category" "Conversion",
+		"hidden"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "factor" "scalar" (
+			"uiName" "Factor",
+			"value" 1.0
+		)
+	}
+	version 2
+	apply texture
+end declare
+
+declare shader
+	color "mib_color_interpolate" (
+		scalar		"input",
+		integer		"num",
+		scalar		"weight_1",
+		scalar		"weight_2",
+		scalar		"weight_3",
+		scalar		"weight_4",
+		scalar		"weight_5",
+		scalar		"weight_6",
+		color		"color_0",
+		color		"color_1",
+		color		"color_2",
+		color		"color_3",
+		color		"color_4",
+		color		"color_5",
+		color		"color_6",
+		color		"color_7"
+	)
+	gui "gui_mib_color_interpolate" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_7Data_Conversion.html#mibcolorinterpolate",
+		"uiName" "Color Interpolate (base)",
+		"category" "Conversion",
+		"hidden"
+		)
+		control "input" "scalar" (
+			"uiName" "Input",
+			"value" 0
+		)
+		control "num" "integer" (
+			"uiName" "Number of Colors",
+			"value" 0
+		)
+		control "weight_1" "scalar" (
+			"uiName" "Weight 1",
+			"value" 0
+		)
+		control "weight_2" "scalar" (
+			"uiName" "Weight 2",
+			"value" 0
+		)
+		control "weight_3" "scalar" (
+			"uiName" "Weight 3",
+			"value" 0
+		)
+		control "weight_4" "scalar" (
+			"uiName" "Weight 4",
+			"value" 0
+		)
+		control "weight_5" "scalar" (
+			"uiName" "Weight 5",
+			"value" 0
+		)
+		control "weight_6" "scalar" (
+			"uiName" "Weight 6",
+			"value" 0
+		)
+		control "color_0" "color" (
+			"uiName" "Color 0",
+			"value" 0 0 0
+		)
+		control "color_1" "color" (
+			"uiName" "Color 1",
+			"value" 0 0 0
+		)
+		control "color_2" "color" (
+			"uiName" "Color 2",
+			"value" 0 0 0
+		)
+		control "color_3" "color" (
+			"uiName" "Color 3",
+			"value" 0 0 0
+		)
+		control "color_4" "color" (
+			"uiName" "Color 4",
+			"value" 0 0 0
+		)
+		control "color_5" "color" (
+			"uiName" "Color 5",
+			"value" 0 0 0
+		)
+		control "color_6" "color" (
+			"uiName" "Color 6",
+			"value" 0 0 0
+		)
+		control "color_7" "color" (
+			"uiName" "Color 7",
+			"value" 0 0 0
+		)
+	}
+	version 1
+	apply texture
+end declare
+
+declare shader
+	color "mib_color_mix" (
+		integer		"num",
+		integer		"mode_0",
+		integer		"mode_1",
+		integer		"mode_2",
+		integer		"mode_3",
+		integer		"mode_4",
+		integer		"mode_5",
+		integer		"mode_6",
+		integer		"mode_7",
+		scalar		"weight_0",
+		scalar		"weight_1",
+		scalar		"weight_2",
+		scalar		"weight_3",
+		scalar		"weight_4",
+		scalar		"weight_5",
+		scalar		"weight_6",
+		scalar		"weight_7",
+		color		"color_0",
+		color		"color_1",
+		color		"color_2",
+		color		"color_3",
+		color		"color_4",
+		color		"color_5",
+		color		"color_6",
+		color		"color_7",
+		color		"color_base"
+	)
+	gui "gui_mib_color_mix" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_7Data_Conversion.html#mibcolormix",
+		"uiName" "Color Mix (base)",
+		"category" "Conversion",
+		"hidden"
+		)
+		control "num" "integer" (
+			"uiName" "Number of Colors",
+			"value" 0
+		)
+		control "mode_0" "integer" (
+			"uiName" "Mode 0",
+			"value" 0
+		)
+		control "mode_1" "integer" (
+			"uiName" "Mode 1",
+			"value" 0
+		)
+		control "mode_2" "integer" (
+			"uiName" "Mode 2",
+			"value" 0
+		)
+		control "mode_3" "integer" (
+			"uiName" "Mode 3",
+			"value" 0
+		)
+		control "mode_4" "integer" (
+			"uiName" "Mode 4",
+			"value" 0
+		)
+		control "mode_5" "integer" (
+			"uiName" "Mode 5",
+			"value" 0
+		)
+		control "mode_6" "integer" (
+			"uiName" "Mode 6",
+			"value" 0
+		)
+		control "mode_7" "integer" (
+			"uiName" "Mode 7",
+			"value" 0
+		)
+		control "weight_0" "scalar" (
+			"uiName" "Weight 0",
+			"value" 0
+		)
+		control "weight_1" "scalar" (
+			"uiName" "Weight 1",
+			"value" 0
+		)
+		control "weight_2" "scalar" (
+			"uiName" "Weight 2",
+			"value" 0
+		)
+		control "weight_3" "scalar" (
+			"uiName" "Weight 3",
+			"value" 0
+		)
+		control "weight_4" "scalar" (
+			"uiName" "Weight 4",
+			"value" 0
+		)
+		control "weight_5" "scalar" (
+			"uiName" "Weight 5",
+			"value" 0
+		)
+		control "weight_6" "scalar" (
+			"uiName" "Weight 6",
+			"value" 0
+		)
+		control "weight_7" "scalar" (
+			"uiName" "Weight 7",
+			"value" 0
+		)
+		control "color_0" "color" (
+			"uiName" "Color 0",
+			"value" 0 0 0
+		)
+		control "color_1" "color" (
+			"uiName" "Color 1",
+			"value" 0 0 0
+		)
+		control "color_2" "color" (
+			"uiName" "Color 2",
+			"value" 0 0 0
+		)
+		control "color_3" "color" (
+			"uiName" "Color 3",
+			"value" 0 0 0
+		)
+		control "color_4" "color" (
+			"uiName" "Color 4",
+			"value" 0 0 0
+		)
+		control "color_5" "color" (
+			"uiName" "Color 5",
+			"value" 0 0 0
+		)
+		control "color_6" "color" (
+			"uiName" "Color 6",
+			"value" 0 0 0
+		)
+		control "color_7" "color" (
+			"uiName" "Color 7",
+			"value" 0 0 0
+		)
+		control "color_base" "color" (
+			"uiName" "Base Color",
+			"value" 0 0 0
+		)
+	}
+	version 2
+	apply texture
+end declare
+
+declare shader
+	struct {
+		color		"out_0",
+		color		"out_1",
+		color		"out_2",
+		color		"out_3",
+		color		"out_4",
+		color		"out_5",
+		color		"out_6",
+		color		"out_7"
+	} "mib_color_spread" (
+		color		"input",
+		integer		"num",
+		integer		"mode_0",
+		integer		"mode_1",
+		integer		"mode_2",
+		integer		"mode_3",
+		integer		"mode_4",
+		integer		"mode_5",
+		integer		"mode_6",
+		integer		"mode_7",
+		color		"weight_0",
+		color		"weight_1",
+		color		"weight_2",
+		color		"weight_3",
+		color		"weight_4",
+		color		"weight_5",
+		color		"weight_6",
+		color		"weight_7"
+	)
+	version 1
+	gui "gui_mib_color_spread" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_7Data_Conversion.html#mibcolorspread",
+			"uiName" "Color Spread (base)",
+			"category" "Conversion",
+			"hidden"
+		)
+		control "input" "color" (
+			"uiName" "Input",
+			"value" .7 .7 .7
+		)
+		control "num" "integer" (
+			"uiName" "Number of Colors",
+			"value" 0
+		)
+		control "mode_0" "integer" (
+			"uiName" "Mode 0",
+			"value" 0
+		)
+		control "mode_1" "integer" (
+			"uiName" "Mode 1",
+			"value" 0
+		)
+		control "mode_2" "integer" (
+			"uiName" "Mode 2",
+			"value" 0
+		)
+		control "mode_3" "integer" (
+			"uiName" "Mode 3",
+			"value" 0
+		)
+		control "mode_4" "integer" (
+			"uiName" "Mode 4",
+			"value" 0
+		)
+		control "mode_5" "integer" (
+			"uiName" "Mode 5",
+			"value" 0
+		)
+		control "mode_6" "integer" (
+			"uiName" "Mode 6",
+			"value" 0
+		)
+		control "mode_7" "integer" (
+			"uiName" "Mode 7",
+			"value" 0
+		)
+		control "weight_0" "scalar" (
+			"uiName" "Weight 0",
+			"value" 0 0 0
+		)
+		control "weight_1" "scalar" (
+			"uiName" "Weight 1",
+			"value" 0 0 0
+		)
+		control "weight_2" "scalar" (
+			"uiName" "Weight 2",
+			"value" 0 0 0
+		)
+		control "weight_3" "scalar" (
+			"uiName" "Weight 3",
+			"value" 0 0 0
+		)
+		control "weight_4" "scalar" (
+			"uiName" "Weight 4",
+			"value" 0 0 0
+		)
+		control "weight_5" "scalar" (
+			"uiName" "Weight 5",
+			"value" 0 0 0
+		)
+		control "weight_6" "scalar" (
+			"uiName" "Weight 6",
+			"value" 0 0 0
+		)
+		control "weight_7" "scalar" (
+			"uiName" "Weight 7",
+			"value" 0 0 0
+		)
+	}
+	apply texture
+end declare
+
+#-------------------------------------------- Geometry
+
+declare shader
+	geometry "mib_geo_cube" (
+	)
+	version 1
+	apply geometry
+	gui "gui_mib_geo_cube" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Cube (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	geometry "mib_geo_torus" (
+		scalar 		"radius",
+		scalar		"thickness",
+		integer		"uSpans",
+		integer		"vSpans"
+	)
+	gui "gui_mib_geo_torus" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Torus (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+		control "radius" "scalar" (
+			"uiName" "Radius",
+			"value" .5
+		)
+		control "thickness" "scalar" (
+			"uiName" "Thickness",
+			"value" .1
+		)
+		control "uSpans" "integer" (
+			"uiName" "U Segments",
+			"value" 30
+		)
+		control "vSpans" "integer" (
+			"uiName" "V Segments",
+			"value" 10
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_sphere" (
+		integer		"u_subdiv",
+		integer		"v_subdiv"
+	)
+	gui "gui_mib_geo_sphere" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Sphere (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+		control "u_subdiv" "integer" (
+			"uiName" "U Segments",
+			"value" 20
+		)
+		control "v_subdiv" "integer" (
+			"uiName" "V Segments",
+			"value" 20
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_cone" (
+		integer		"u_subdiv",
+		integer		"v_subdiv",
+		boolean		"capped"
+	)
+	gui "gui_mib_geo_cone" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Cone (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+		control "u_subdiv" "integer" (
+			"uiName" "U Segments",
+			"value" 30
+		)
+		control "v_subdiv" "integer" (
+			"uiName" "V Segments",
+			"value" 10
+		)
+		control "capped" "boolean" (
+			"uiName" "Capped",
+			"value" 1
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_cylinder" (
+		integer		"u_subdiv",
+		integer		"v_subdiv",
+		boolean		"bottom_capped",
+		boolean		"top_capped"
+	)
+	gui "gui_mib_geo_cylinder" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Cylinder (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+		control "u_subdiv" "integer" (
+			"uiName" "U Segments",
+			"value" 30
+		)
+		control "v_subdiv" "integer" (
+			"uiName" "V Segments",
+			"value" 10
+		)
+		control "bottom_capped" "boolean" (
+			"uiName" "Bottom Cap",
+			"value" 1
+		)
+		control "top_capped" "boolean" (
+			"uiName" "Top Cap",
+			"value" 1
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_square" (
+	)
+	gui "gui_mib_geo_square" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Plane (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_instance" (
+		geometry	"object",
+		transform	"matrix",
+		shader		"material"
+	)
+	gui "gui_mib_geo_instance" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Instance (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_instance_mlist" (
+		geometry	"object",
+		transform	"matrix",
+		array material	"material"
+	)
+	gui "gui_mib_geo_instance_mlist" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Geo Instnace mlist (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+declare shader
+	geometry "mib_geo_add_uv_texsurf" (
+		geometry	"object"
+	)
+	gui "gui_mib_geo_add_uv_texsurf" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "\shd-1_8Geometry.html",
+			"uiName" "Add UV Texsurf (base)",
+			"category" "Geometry",
+			"hidden"
+		)
+	}
+	version 1
+	apply geometry
+end declare
+
+#-------------------------------------------- Photon
+
+declare shader
+	color "mib_photon_basic" (
+		color		"diffuse",
+		color		"specular",
+		color		"transp",
+		scalar		"ior_frac"
+	)
+	version 1
+	apply photon
+	gui "gui_mib_photon_basic" {
+	control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_9Photon.html#mibphotonbasic",
+		"uiName" "Photon Basic (base)",
+		"category" "Photon"
+		)
+        control "diffuse" "color" (
+			"uiName" "Diffuse",
+            "value" 0.7 0.7 0.7
+        )
+        control "specular" "color" (
+			"uiName" "Specular",
+            "value" 1 1 1
+        )
+        control "transp" "color" (
+			"uiName" "Transparency",
+            "value" 0 0 0
+        )
+        control "ior_frac" "scalar" (
+			"uiName" "Index of Refraction",
+            "value" 1.5
+        )
+	}
+end declare
+
+#-------------------------------------------- Lights
+
+declare shader
+	color "mib_light_infinite" (
+		color		"color",
+		boolean		"shadow",
+		scalar		"factor"
+	)
+	version 1
+	apply light
+	gui "gui_mib_light_infinite" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_10Light.html#miblightinfinite",
+			"uiName" "Light Infinite (base)",
+			"category" "Light"
+		)
+		 control "color" "color" ("uiName" "Color","value" 1.0 1.0 1.0)
+		 control "factor" "float" ("uiName" "Shadow Transparency","value" 0.0, "range" 0.0 1.0)
+		 control "shadow" "boolean" ("uiName" "Shadows","value" 0)
+	}
+end declare
+
+declare shader
+	color "mib_light_point" (
+		color		"color",
+		boolean		"shadow",
+		scalar		"factor",
+		boolean		"atten",
+		scalar		"start",
+		scalar		"stop"
+	)
+	version 1
+	apply light
+	gui "gui_mib_light_point" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_10Light.html#miblightpoint",
+			"uiName" "Light Point (base)",
+			"category" "Light"
+		)
+		control "color" "color" ("uiName" "Color","value" 1.0 1.0 1.0)
+ 		control "shadow" "boolean" ("uiName" "Shadows","value" 0)
+ 		control "factor" "float" ("uiName" "Shadow Transparency","value" 0.0, "range" 0.0 1.0)
+                control "atten" "boolean" ("uiName" "Attenuation","value" 0)
+		control "start" "scalar" ("uiName" "Start", "units" "world", "range" 0.0 1000000,"value" 0.0)
+		control "stop" "scalar" ("uiName" "End", "units" "world","range" 0.0 1000000,"value" 40.0)
+
+	}
+end declare
+
+declare shader
+	color "mib_light_spot" (
+		color		"color",
+		boolean		"shadow",
+		scalar		"factor",
+		boolean		"atten",
+		scalar		"start",
+		scalar		"stop",
+		scalar		"cone"
+	)
+	version 1
+	apply light
+	gui "gui_mib_light_spot" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_10Light.html#miblightspot",
+			"uiName" "Light Spot (base)",
+			"category" "Light"
+		)
+		control "color" "color" ("uiName" "Color","value" 1.0 1.0 1.0)
+ 		control "shadow" "boolean" ("uiName" "Shadows","value" 0)
+ 		control "factor" "float" ("uiName" "Shadow Transparency","value" 0.0, "range" 0.0 1.0)
+                control "atten" "boolean" ("uiName" "Attenuation","value" 0)
+		control "start" "scalar" ("uiName" "Start", "units" "world", "range" 0.0 1000000,"value" 0.0)
+		control "stop" "scalar" ("uiName" "End", "units" "world","range" 0.0 1000000,"value" 40.0)
+                control "cone" "scalar" ("uiName" "Falloff Angle (grad)", "range" 0.0 1000000, "value" 1.0)
+
+	}
+end declare
+
+declare shader
+	color "mib_light_photometric" (
+		color		"color",
+		boolean		"shadow",
+		scalar		"factor",
+		scalar		"start",
+		scalar		"stop",
+		lightprofile	"profile"
+	)
+	version 1
+	apply light
+	gui "gui_mib_light_photometric" {	
+		control "Global" "Global" (
+			"uiName" "Light Photometric (base)",
+			"category" "Light",
+			"hidden"
+		)
+		control "start" "scalar" ("units" "world")
+		control "stop" "scalar" ("units" "world")
+	}
+end declare
+
+#-------------------------------------------- Light utils
+
+declare shader
+	color "mib_cie_d" (
+		scalar		"temperature",
+		scalar		"intensity"
+	)
+	version 1
+	apply light
+	gui "gui_mib_cie_d" {	
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "mib_blackbody" (
+		scalar		"temperature",
+		scalar		"intensity"
+	)
+	version 1
+	apply light
+	gui "gui_mib_blackbody" {	
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+end declare
+
+#-------------------------------------------- Shadow
+
+declare shader
+	color "mib_shadow_transparency" (
+		color		"color",
+		color		"transp",
+		integer		"mode",
+		array light	"light"
+	)
+	version 1
+	apply shadow
+	gui "gui_mib_shadow_transparency" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+			"helpLink" "/shd-1_11Shadow.html#mibshadowtransparency",
+		"uiName" "Shadow Transparency (base)",
+		"category" "Shadow"
+		)
+		control "color" "color" (
+			"uiName" "Color",
+			"value" .7 .7 .7
+		)
+		control "transp" "color" (
+			"uiName" "Transparency",
+		)
+		control "mode" "enum" (
+			"uiName" "Mode",
+            "value" 3,
+			"hidden"
+		)
+		control "light" "array light" (
+			"uiName" "Lights",
+			"hidden"
+		)
+	}
+end declare
+
+#-------------------------------------------- Lens
+
+declare shader
+	color "mib_lens_stencil" (
+		scalar		"floor",	# tex vals below -> floor_color
+		scalar		"ceiling",	# tex vals above -> ceil_color
+		color		"floor_color",  # two stencil colors
+		color		"ceil_color",
+		scalar texture	"stencil"	# stencil values
+	)
+	version 1
+	apply lens
+	gui "gui_mib_lens_stencil" {	
+		control "Global" "Global" (
+			"uiName" "Lens Stencil (base)",
+			"hidden"
+		)
+	}	
+end declare
+
+declare shader
+	color "mib_lens_clamp" (
+		scalar		"floor",	# anything smaller -> 0
+		scalar		"ceiling",	# anything larger  -> 1
+		boolean		"luminance",	# rgb or luminance
+		color		"floor_color",
+		color		"ceil_color"
+	)
+	version 1
+	apply lens
+	gui "gui_mib_lens_clamp" {	
+		control "Global" "Global" (
+			"uiName" "Lens Clamp (base)",
+			"hidden"
+		)
+	}		
+end declare
+
+#-------------------------------------------- Lightmap
+
+declare shader
+	struct {
+		vector 		"point",
+		vector 		"normal",
+		vector 		"tex"
+	}
+	"mib_lightmap_write" (
+		color texture 	"texture",	#output texture
+		vector texture	"coord",	#texture coords to use
+		color texture	"input"		#to evaluate the texture output
+	)
+	version 1
+	apply lightmap
+	gui "gui_mib_lightmap_write" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+		    "helpLink" "/shd-1_12Light_Mapping.html#miblightmapwrite",
+		    "uiName" "Lightmap Write (base)",
+		    "category" "Light Map",
+			"autobrowse" "texture",
+			"hidden"
+		)
+        control "texture" "color texture" (
+			"uiName" "Texture",
+            "writableTexture"
+        )
+        control "coord" "vector texture" (
+            "textureInfo" "max_texmap",
+			"uiName" "Coordinates",
+            "value" "max_base_UVGenerator"
+        )
+        control "input" "color texture" (
+            "textureInfo" "max_texmap",
+			"uiName" "Surface Sampler",
+            "value" "mib_lightmap_sample"
+        )
+	}
+end declare
+
+declare shader
+	color "mib_lightmap_sample" (
+		boolean 	"indirect",	#use indirect illumination?
+		integer		"flip",		#0=no, 1=yes , 2=both
+		array light 	"lights"	#direct illumination
+	)
+	version 1
+	apply texture
+
+	gui "gui_mib_lightmap_sample" {	
+		control "Global" "Global" (
+			"helpCHM" "MI_Shaders/mr help.chm",
+		    "helpLink" "/shd-1_12Light_Mapping.html#miblightmapsample",
+		    "uiName" "Lightmap Sample (base)",
+		    "category" "Light Map",
+			"hidden"
+		)
+        control "indirect" "boolean" (
+			"uiName" "Include Indirect Illumination",
+            "value" 1
+        )        
+        control "flip" "enumeration" (
+			"uiName" "Flip"
+        )        
+        control "lights" "array lights" (
+			"uiName" "Lights"
+        )        
+	}
+end declare
+
+#
+# Simple ambient occlusion shader 
+#
+
+declare shader
+	color "mib_amb_occlusion" (
+		integer "samples"      default 16,
+		color   "bright"       default 1 1 1 1,
+		color   "dark"         default 0 0 0 0,
+		scalar  "spread"       default 0.8,
+		scalar  "max_distance" default 0,
+		boolean "reflective"   default off,
+		integer "output_mode"  default 0,
+        boolean "occlusion_in_alpha" default off,
+        # Version 2 parameters
+        scalar  "falloff"        default 1.0,
+        integer "id_inclexcl"    default 0,
+        integer "id_nonself"     default 0
+	)
+	version 2
+	apply texture, light
+    gui "gui_mib_amb_occlusion" {
+        control "Global" "Global" (
+            "uiName" "Ambient/Reflective Occlusion (base)",
+            "category" "Texture"
+        )
+        control "samples" "integer" (
+            "uiName" "Samples",
+            "range" 0 10000,
+            "value" 16
+        )
+        control "bright" "color" (
+            "uiName" "Bright",
+            "value" 1 1 1 1
+        )
+        control "dark" "color" (
+            "uiName" "Dark",
+            "value" 0 0 0 1
+        )
+        control "spread" "scalar" (
+            "uiName" "Spread",
+            "value" 0.75,
+        )
+        control "max_distance" "scalar" (
+            "uiName" "Max distance",
+            "units" "world",
+            "value" 0.0,
+        )
+        control "reflective" "boolean" (
+            "uiName" "Reflective",
+            "value" 0
+        )
+        control "output_mode" "integer" (
+            "uiName" "Type (0 = occ, 1 = env., 2 = bnorm)",
+            "value" 0
+        )
+        control "occlusion_in_alpha" "boolean" (
+            "uiName" "Return occlusion in alpha",
+            "value" 0
+        )
+        control "falloff" "scalar" (
+            "uiName" "Falloff",
+            "value" 1.0
+        )      
+        control "id_inclexcl" "integer" (
+            "uiName" "Incl./Excl. Object ID (Neg. = Exclude)",
+            "value" 0
+        )
+        control "id_nonself" "integer" (
+            "uiName" "Non-Self-Occluding Object ID",
+            "range" 0 10000,
+            "value" 0
+        )                  
+    }	
+end declare
+
+#
+#  Create occlusion values using final gathering
+#
+
+declare shader
+    color "mib_fg_occlusion" (
+        color "result_when_fg_is_off" default 1 1 1 1
+    )
+    version 1
+    apply texture, light
+	gui "gui_mib_fg_occlusion" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+end declare
+
+#
+# bent normal shader, good to combine with mib_amb_occlusion
+#
+
+declare shader
+	color "mib_bent_normal_env" (
+        color      "bent_normals" default 0 0 0 1,
+    	boolean    "occlusion_in_alpha" default on,
+        color      "occlusion" default 1 1 1,
+        scalar     "strength" default 0.2,
+        shader     "environment",
+        integer    "coordinate_space" default 2,
+        integer    "env_samples" default 1,
+        scalar     "samples_spread" default 0.0,
+        transform  "matrix" default 1 0 0 0
+                                    0 1 0 0
+                                    0 0 1 0
+                                    0 0 0 1
+	)
+	version 1
+	apply texture
+
+    gui "gui_mib_bent_normal_env" {
+        control "Global" "Global" (
+            "hidden"
+        )      
+    }	
+end declare
+

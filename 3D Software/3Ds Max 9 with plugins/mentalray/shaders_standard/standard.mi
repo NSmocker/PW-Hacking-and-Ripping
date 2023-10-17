@@ -1,0 +1,37 @@
+#*****************************************************************************
+# Copyright 2005 by Autodesk
+# 
+#*****************************************************************************
+# Author:	Daniel Levesque
+# Created:	05 April 2004
+# Purpose:	Main file for including all the standard shader definitions.
+#****************************************************************************/
+
+registry "{_AUTODESK_REG_3DSMAX_LOAD_STANDARD_SHADERS}"
+
+	# Add "link" and "mi" statements here, to load your shaders.
+
+	link "base.dll"
+	mi "base.mi"
+
+	link "contour.dll"
+	mi "contour.mi"
+
+	link "physics.dll"
+	mi "physics.mi"
+
+	link "lume.dll"
+	mi "lume.mi"
+
+	link "subsurface.dll"
+	mi "subsurface.mi"
+
+	link "3dsmax8.dll"
+	mi "3dsmax8.mi"
+
+	mi "physics_phen.mi"
+
+	link "3dsmaxhair.dll"
+	mi "3dsmaxhair.mi"
+	
+end registry 

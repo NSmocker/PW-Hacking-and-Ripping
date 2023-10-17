@@ -1,0 +1,107 @@
+BODY
+{
+    BACKGROUND: #bbbbbb;
+    COLOR: #eeeeee;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    FONT-SIZE: 10pt
+}
+A:link
+{
+    COLOR: #ffffff;
+	text-decoration: none;
+}
+A:visited
+{
+    COLOR: #cccccc;
+	text-decoration: none;
+}
+A:active
+{
+    COLOR: #ffffff;
+	text-decoration: none;
+}
+A:hover
+{
+    COLOR: #ffffff
+}
+IMG
+{
+    BORDER-BOTTOM: #555555 2pt;
+    BORDER-LEFT: #555555 2pt;
+    BORDER-RIGHT: #555555 2pt;
+    BORDER-TOP: #555555 2pt;
+    VERTICAL-ALIGN: top
+}
+UL
+{
+    LIST-STYLE: square;
+	FONT-SIZE: 9pt;
+	COLOR: #bbbbbb;
+}
+OL
+{
+	FONT-SIZE: 9pt;
+	COLOR: #dddddd;
+}
+H1
+{
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    FONT-SIZE: 14pt;
+    ALIGN: left
+}
+H2
+{
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    FONT-SIZE: 12pt
+}
+H3
+{
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    FONT-SIZE: 10pt
+}
+H4
+{
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    FONT-SIZE: 10pt;
+	word-wrap: normal
+}
+H5
+{
+    COLOR: #ffffff;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    BACKGROUND: #555555;
+    FONT-SIZE: 10pt
+}
+TD
+{
+    BORDER-BOTTOM: #444444 1pt solid;
+    BORDER-LEFT: #444444 1pt solid;
+    BORDER-RIGHT: #444444 1pt solid;
+    BORDER-TOP: #444444 1pt solid;
+    FONT-FAMILY: arial, helvetica, sans-serif;
+    FONT-SIZE: 10pt;
+    PADDING-BOTTOM: 4pt;
+    PADDING-LEFT: 6pt;
+    PADDING-RIGHT: 4pt;
+    PADDING-TOP: 4pt;
+    VERTICAL-ALIGN: top;
+    FONT-COLOR: #eeeeee;
+}
+HR
+{
+    COLOR: #aaaaaa
+}
+TABLE
+{
+    BORDER-BOTTOM: #444444 0pt solid;
+    BORDER-LEFT: #444444 0pt solid;
+    BORDER-RIGHT: #444444 0pt solid;
+    BORDER-TOP: #444444 0pt solid;
+    BACKGROUND: #555555;
+    Width: 100%;
+}
+

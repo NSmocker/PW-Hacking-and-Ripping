@@ -1,0 +1,171 @@
+min version "3.3"
+declare shader
+	color "shaveMRHairComp" (
+		scalar		"trigger",
+		integer		"mode",
+		boolean		"cleanupPrims",
+		integer		"imageWidth",
+		integer		"imageHeight",
+		array integer	"pixels"
+	)
+	version 1
+   gui "gui_shaveMRHairComp" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+	apply texture
+end declare
+
+declare shader
+	geometry "shaveMRHairGeom" (
+		scalar		"trigger",
+		integer		"mode",
+		integer		"numHairs",
+		boolean		"shadowsOnly",
+		array scalar	"speculars",
+		array scalar	"glosses",
+		array scalar	"ambdiffs",
+		array scalar	"opacities",
+		array integer	"faceVertices",
+		array integer	"faceStarts",
+		array integer	"faceEnds",
+		array scalar	"rootRadii",
+		array scalar	"tipRadii",
+		array color	"rootColours",
+		array color	"tipColours",
+		array vector	"velocities",
+		array vector	"vertices"
+	)
+	version 1
+   gui "gui_shaveMRHairGeom" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+   apply geometry
+end declare
+
+declare shader
+	geometry "shaveMRHairGeomDRA" (
+		scalar		"trigger",
+		integer		"mode",
+		boolean		"motionBlur",
+		boolean		"shadowsOnly",
+		string		"hairDataFile",
+		array integer	"hairData"
+	)
+	version 1
+   apply geometry
+   gui "gui_shaveMRHairGeomDRA" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+end declare
+
+declare shader
+	color "shaveMRHairIllum" (
+		integer		"mode"
+	)
+	version 1
+   gui "gui_shaveMRHairIllum" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+   apply texture
+end declare
+
+declare shader
+	color "shaveMRHairShadows" (
+		scalar		"trigger",
+		integer		"mode",
+		boolean		"motionBlur",
+		boolean		"useNativeIllumination",
+		scalar		"shadowDensity",
+		array light	"shadowLights",
+		struct		"occlusions"
+		{
+			integer		"numVerts",
+			integer		"numFaces",
+			integer		"numFaceVerts",
+			array integer	"faceVertIndices",
+			array integer	"faceStarts",
+			array integer	"faceEnds",
+			array vector	"vertColors",
+			array vector	"verts",
+			array vector	"vertVelocities",
+			array vector	"vertUVs",
+			array vector	"vertNormals"
+		},
+		string		"hairDataFile",
+		array integer	"hairData"
+	)
+	version 1
+   gui "gui_shaveMRHairShadows" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+   apply volume
+end declare
+
+declare shader
+	color "shaveMRRenderComp" (
+		scalar		"trigger",
+		integer		"mode",
+		boolean		"cleanupPrims",
+		boolean		"doComposite",
+		integer		"imageWidth",
+		integer		"imageHeight",
+		integer		"tileCount",
+		integer		"antialiasLevel",
+		boolean		"motionBlur",
+		boolean		"useNativeIllumination",
+		boolean		"useExistingState",
+		string		"outputFile",
+		array struct	"occlusions"
+		{
+			integer		"numVerts",
+			integer		"numFaces",
+			integer		"numFaceVerts",
+			array integer	"faceVertIndices",
+			array integer	"faceStarts",
+			array integer	"faceEnds",
+			array vector	"vertColors",
+			array vector	"verts",
+			array vector	"vertVelocities",
+			array vector	"vertUVs",
+			array vector	"vertNormals"
+		},
+		string		"hairDataFile",
+		array integer	"hairData"
+	)
+	version 1
+   gui "gui_shaveMRRenderComp" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+   apply texture
+end declare
+
+declare shader
+	color "shaveMRVertexIllum" (
+		scalar		"trigger",
+		integer		"mode",
+		scalar		"ambdiff",
+		scalar		"gloss",
+		scalar		"hairPasses",
+		scalar		"specular"
+	)
+	version 1
+   gui "gui_shaveMRVertexIllum" {
+		control "Global" "Global" (
+			"hidden"
+		)
+	}
+   apply texture
+end declare
+

@@ -1,0 +1,142 @@
+;
+; Generates a distortion in z based on the input x and y coordinates.
+; Distortion is generated from sin and cosine functions.
+; A normal is also calculated which then looks into a cubic environment map, using
+; generated texture coordinates.  This normal is also used for lighting
+; Note that the input vertex is simply 2 floats - the z coordinate, and the
+; normal/texture coordinates are all generated here.
+;
+;
+; MEMORY MAP
+;
+;	Each vertex ultimately needs to write the following output registers:
+;	oPos	-- the vertex's clip-space coordinates
+;	oT0     -- the vertex's reflection vector stored as uvw-coordinates
+;
+;	Each vertex comes into the vertex shader with the following read-only data:
+;	v0 -- vertex's u, v coordinates; they are used to generate the vertex position
+;		  (u, v, h * sin(time * distance)) 
+;		  distance is sqrt(u*u + v*v)
+;
+;	Constant memory is set in Sinewave.cpp to contain:
+;	c0-c3   -- CV_WORLDVIEWPROJ
+;			   contains matrix to take model-space 
+;			   coordinates to clip-space coordinates
+;	c4-c7   -- CV_WORLDVIEW
+;			   contains matrix to take model-space coordinates to 
+;			   eye-space coordinates
+;   c8-c10  -- CV_WORLDVIEWIT
+;		       contains matrix to take model-space normals to eye-space 
+;			   normals
+;   c12     -- CV_ZERO
+;			   contains all zeros
+;   c13     -- CV_ONE
+;		       contains all ones
+;   c14     -- CV_HALF
+;			   contains all 1/2
+;   c15     -- CV_VECSIN
+;			   contains sine Taylor-series coefficients
+;   c16     -- CV_VECCOS
+;			   contains cosine Taylor-series coefficients
+;   c17     -- CV_TIME
+;			   contains time and other convenience constants 
+;              (time, 0.0f, 0.8f, 1.0f)
+;   c18     -- CV_PIS
+;			   contains PI-related constants 
+;			   (PI, 1/(2*PI), 2*PI, height-scaler)
+;
+;	Registers contain
+;   r0	    -- vertex position in model-space
+;   r4.x    -- sin(theta)
+;   r5.x    -- cos(theta)
+;	r9      -- theta
+;
+
+vs.1.0
+
+; Compute theta from distance and time
+dp3 r4, v0, v0          ; compute distance^2 (v0.z luckily defaults to 0)
+rsq r4.x, r4.x          ; compute the square root
+rcp r4.x, r4.x          
+mov r9, r4.x            ; save distance in r9 for later use
+
+mul r4.x, r4.x, c17.x     ; scale by time
+
+
+; Clamp theta to -pi..pi
+add r4.x, r4.x, c18.x		; add PI
+mul r4.x, r4.x, c18.y		; divide by 2*PI
+expp r6.y, r4.x		            ; get fractional part only 
+mul r4.x, r6.y, c18.z		; multiply with 2*PI
+add r4.x, r4.x,-c18.x		; subtract PI
+
+; Compute first 4 values in sin and cos series
+mov r5.x, c17.w ; theta^0
+mov r4.x, r4.x         ; theta^1
+mul r5.y, r4.x, r4.x   ; theta^2
+mul r4.y, r4.x, r5.y   ; theta^3
+mul r5.z, r5.y, r5.y   ; theta^4
+mul r4.z, r4.x, r5.z   ; theta^5
+mul r5.w, r5.y, r5.z   ; theta^6
+mul r4.w, r4.x, r5.w   ; theta^7
+
+mul r4, r4,   c15      ; sin
+dp4 r4.x, r4, c17.w		; store sin(theta) in r4.x 
+
+mul r5, r5,   c16      ; cos
+dp4 r5.x, r5, c17.w		; store cos(theta) in r5.x
+
+; decompress position and scale height
+mov r0, v0
+mul r0.z, r4.x, c18.w
+
+; Transform position
+dp4 oPos.x, r0, c0
+dp4 oPos.y, r0, c1
+dp4 oPos.z, r0, c2
+dp4 oPos.w, r0, c3
+
+
+; Transform (vertex - eye) to view-space 
+; it thus beomes transformed(vertex) - 0
+dp4 r10.x, r0, c4
+dp4 r10.y, r0, c5
+dp4 r10.z, r0, c6
+dp4 r10.w, r0, c7
+
+; Create R_EYE_VECTOR, the normalized vector from the eye to the vertex
+dp3 r7.w, r10, r10
+rsq r7.w, r7.w		
+mul r7, r10, r7.w
+
+; Compute the normal per vertex
+rcp r9.w, r9.w      ; 1 / distance
+
+; norm x dist = x * (1 / distance)
+; norm y dist = y * (1 / distance)
+mul r9.xy, r0, r9.w
+
+; x = (x / distance) * cos theta
+; y = (y / distance) * cos theta
+mul r8.xy, r5.x, r9 
+mov r8.zw, c13.x		 ; z = 1
+
+; intermittently copy normal into color
+mov oD0, r8
+
+; transform normal from model-space to view-space
+dp3 r9.x, r8, c8
+dp3 r9.y, r8, c9
+dp3 r9.z, r8, c10
+
+; normalize normal
+dp3 r9.w, r9, r9
+rsq r9.w, r9
+mul r9, r9, r9.w
+
+; Calculate E - 2*(E dot N)*N
+dp3 r5, r7, r9
+add r5, r5, r5
+mul r9, r9, r5
+add oT0, r7, -r9
+mov oT0.w, c13.x

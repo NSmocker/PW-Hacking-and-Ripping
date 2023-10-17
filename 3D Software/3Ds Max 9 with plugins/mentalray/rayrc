@@ -1,0 +1,26 @@
+# RayRC
+# Startup file for mental ray in 3ds max
+
+
+# Include the standard 3ds max shaders
+
+registry "{_MI_REG_INCLUDE}" value ".\shaders_standard\include" end registry
+registry "{_MI_REG_LIBRARY}" value ".\shaders_standard\shaders" end registry
+$include ".\shaders_standard\standard.mi"
+$lookup "{_AUTODESK_REG_3DSMAX_LOAD_STANDARD_SHADERS}"
+
+
+# Include the 3rd party shaders
+
+registry "{_MI_REG_INCLUDE}" value ".\shaders_3rdparty\include" end registry
+registry "{_MI_REG_LIBRARY}" value ".\shaders_3rdparty\shaders" end registry
+$include ".\shaders_3rdparty\3rdparty.mi"
+$lookup "{_AUTODESK_REG_3DSMAX_LOAD_3RDPARTY_SHADERS}"
+
+
+# Define the auto-loading lookup directory.
+# 3ds max will automatically try to load all .dll files found in the "shaders" subfolder
+# and will parse all .mi and .mi2 files in the "include" subfolder.
+# Auto-loading may be disabled by commenting out this line.
+
+registry "{_AUTODESK_REG_3DSMAX_AUTOLOOKUP_ROOT}" value ".\shaders_autoload" end registry

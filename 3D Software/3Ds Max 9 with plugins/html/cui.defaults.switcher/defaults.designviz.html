@@ -1,0 +1,180 @@
+
+<html>
+<head>
+<META content="text/html; charset=unicode" http-equiv=Content-Type><LINK href="./_html.assets/main.css" rel=stylesheet type=text/css>
+<script language="JavaScript" src="./_html.assets/util.js"></script>
+</head>
+<body>
+<table>
+  <tr> 
+    <td colspan=2> <h2>Initial settings for DesignVIZ</h2></td>
+  </tr>
+  <tr> 
+    <td colspan="2"><h4>Overview<a name="top"></a></h4>
+      <p>The <em>DesignVIZ</em> initial settings are configured to provide as 
+        much rendering performance as possible with large scenes, containing many 
+        lights. Your application will be directed towards photo realistic rendering 
+        of typical architectural models.</p>
+      <ul>
+        <li><a href="#layers">Layers</a>: all objects are created &quot;By Layer&quot;.</li>
+        <li><a href="#medit">Material Editor</a>: populated with Architectural 
+          Materials, displays reflectance and transmittance information [<em>more</em> 
+          <em>below</em> ]</li>
+        <li><a href="#lights">Lights</a>: all cast raytraced shadows.</li>
+        <li><a href="#daylight">Daylight</a>: defaults to IES sun and sky.</li>
+        <li><a href="#rendering">Rendering</a>: using the Default Scanline renderer, 
+          radiosity and exposure controls are pre-assigned.</li>
+        <li><a href="#mblur">Motion Blur</a>: none of the objects will generate 
+          motion blur by default.</li>
+        <li><a href="#cloning">Cloning</a>: objects are instanced by default.</li>
+        <li><a href="#selectbyname">Select By Name</a>: display subtree and select 
+          dependent are enabled.</li>
+        <li><a href="#idrop">i-drop</a>: maps are copied from the i-drop source 
+          to the <em>/downloads/</em> folder .</li>
+        <li><a href="#ik">Inverse Kinematics</a>: optimized for interactive manipulation.</li>
+        <li><a href="#viewport.shading">Viewport Shading</a>: optimized to support 
+          many light sources.</li>
+        <li><a href="#realworldtextures">Real-World Texture Coordinates</a>: Set to support real-world scaling of UVW coordinates.</li>
+      </ul>
+      </td>
+  </tr>
+  </table>
+  <br>
+  
+<table>
+  <tr> 
+    <td><h4>Layers<a name="layers"></a></h4>
+      <p><img src="_images/designviz.layers.jpg" width="251" height="137"></p></td>
+    <td><p>All newly created objects will take advantage of the <strong>Layers</strong> 
+        feature.</p>
+      <p>Newly created lights will get their <strong>Renderable</strong> flag 
+        set to <strong>ByLayer</strong>, allowing you to exclude lights from the 
+        renderer in a group. Ideal for large projects involving many lights in 
+        many places.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td width="19%"><h4>Material Editor<a name="medit" id="medit"></a></h4>
+      <p><img src="_images/designviz.materialeditor.jpg" width="250" height="334"></p>
+      <p><img src="_images/designviz.propagate.jpg" width="250" height="157"></p></td>
+    <td width="81%"><p>The material editor of 3ds max will always default to 
+        use the new<strong> Architectural Material</strong>, dedicated to achieve 
+        photo realistic renderings easily.</p>
+      <p>The <strong>Reflectance / Transmittance </strong>information will be 
+        shown by default to facilitate the small changes you may need to make 
+        for <strong>Radiosity</strong> lighting.</p>
+      <p>The <strong>SuperSampling</strong> settings will be set to use the new 
+        <strong>Global Super Sampler</strong> feature, allowing you to manage 
+        the quality of many materials from the rendering dialog more easily.</p>
+      <p>Materials assigned to an instanced object will <strong>propagate</strong> 
+        to every instances of that object automatically.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Lights<a name="lights" id="lights"></a></h4>
+      <p><img src="_images/designviz.lights.jpg" width="182" height="129"></p>
+      <p><img src="_images/designviz.store.direct.illlumination.jpg" width="250" height="52"></p></td>
+    <td><p>The Lights will default to <strong>Cast Shadows</strong> and their 
+        shadow generator will default to the <strong>Advanced Raytraced Shadows</strong>. 
+      </p>
+      <p>All created lights will share the same shadows settings as well by using 
+        the <strong>Global Settings</strong> feature. </p>
+      <p>This will facilitate the management of multiple light sources, allow 
+        light going through transparent objects and ensure accurate shadows for 
+        linear and area lights rendering.</p>
+      <p>Skylights, Linear and Area lights will by default, <strong>Store their 
+        direct illumination</strong> to the <strong>Radiosity</strong> mesh.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Daylight<a name="daylight" id="daylight"></a></h4>
+      <p><img src="_images/designviz.daylight.jpg" width="190" height="220"></p></td>
+    <td><p><strong>Daylight</strong> assemblies will always default to the I<strong>ES 
+        sun</strong> and <strong>IES sky</strong>, the sun being predefined to 
+        a <strong>Raytraced Shadows </strong>shadow generator. </p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Rendering<a name="rendering" id="rendering"></a></h4>
+      <p><img src="_images/max.renderer.jpg" width="250" height="97"></p>
+      <p><img src="_images/designviz.radiosity.jpg" width="250" height="47"></p>
+      <p><img src="_images/designviz.exposure.jpg" width="250" height="102"></p></td>
+    <td><p>The rendering settings for a physically based lighting setup will already 
+        be set. </p>
+      <p>The<strong> Default Scanline </strong>renderer will be assigned as default 
+        and the<strong> Logarithmic Exposure Control</strong> will be used.</p>
+      <p>The <strong>Radiosity</strong> engine will be assigned to the <strong>Advanced 
+        Lighting </strong>panel.</p>
+      <p><a href="#top">return to top</a></p>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr> 
+    <td><h4><strong>Motion Blur<a name="mblur" id="mblur"></a></strong></h4>
+      <p><img src="_images/mental.ray.mblur.object.disabled.jpg" width="198" height="87"></p></td>
+    <td><p>For best default performance, none of the objects will generate motion 
+        blur effects by default.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Cloning<a name="cloning" id="cloning"></a></h4>
+      <p><img src="_images/designviz.clone.jpg" width="245" height="230"></p></td>
+    <td> <p>Design and visualization projects typically involve a lot of objects 
+        repeated within the same scene. For this reason, the default mode for 
+        cloning an object will be <strong>Instance</strong>.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Select by Name<a name="selectbyname" id="selectbyname"></a></h4>
+      <p><img src="_images/design.viz.subtree.jpg" width="250" height="218"></p></td>
+    <td><p>To make the navigation easier with data imported from DWG files (AutoCAD), 
+        the Display Subtree and Select Dependents options of the Select by Name 
+        dialog is enabled by default.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>i-drop<a name="idrop" id="idrop"></a></h4>
+      <p><img src="_images/designviz.idrop.gif" width="9" height="31"></p>
+      <p>&nbsp;</p></td>
+    <td><p><strong>Downloaded</strong> files from i-drop sites will be copied 
+        to the /downloads/ folder of your 3ds max install.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Inverse Kinematics<a name="ik" id="ik"></a></h4>
+      <p><img src="_images/designviz.ik.jpg" width="250" height="178"></p></td>
+    <td><p>Manipulating Luminaires built with HD IK chains can sometimes cause 
+        &quot;locks&quot; or &quot;jerky&quot; results with with the <em>Max</em> 
+        defaults settings.</p>
+      <p>This is normal in the context of animation: the equation solving is performed 
+        between frames and not intended to provide good motion while interactively 
+        manipulating a character.</p>
+      <p>For applications involving <strong>Luminaires</strong>, we need a high 
+        level of interactivity in the viewport and less animation/key framing 
+        support. This setting will make the HDIK solver work better with interactive 
+        manipulations.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Viewport Shading<a name="viewport.shading" id="viewport.shading"></a></h4>
+      <p><img src="_images/designviz.default.lighting.jpg" width="226" height="37"></p>
+      <p>&nbsp;</p></td>
+    <td><p>The interactive viewport of 3ds max is well suited for interactive 
+        environments where a few light sources are defined. As a result, the <strong>Daylight</strong> 
+        object and <strong>Photometric</strong> lights are typically flooding 
+        the interactive viewport with bright white color. </p>
+      <p>To resolve this, it is preferable to set the viewport shading to use 
+        what we call <strong>Default Lighting </strong>as opposed to using the 
+        lights from the scene. The <em>DesignVIZ</em> defaults enable that.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Real-World Texture Coordinates<a name="realworldtextures" id="viewport.shading"></a></h4>
+      <p><img src="_images/designviz.realworldtextures.jpg" width="250" height="47"></p>
+      <p>&nbsp;</p></td>
+    <td><p>There are two workflows for texture mapping objects, controlled by the "Use Real-World Texture Coordinates" preference.  Design visualization projects typically involve textures on a known size, such as an image of bricks. For this reason the default value of this toggle is ON, which means that objects and modifiers which generate texture coordinates scale them to the real-world size of the object.  This also turns on the "Use Real-World Scale" option for 2d texture maps in the material editor, which lets you specify the size of 2d texture maps.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+</table>
+  
+</body>
+</html>

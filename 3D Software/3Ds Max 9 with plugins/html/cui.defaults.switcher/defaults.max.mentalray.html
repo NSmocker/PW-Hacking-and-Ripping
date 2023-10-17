@@ -1,0 +1,151 @@
+
+<html>
+<head>
+<META content="text/html; charset=unicode" http-equiv=Content-Type><LINK href="./_html.assets/main.css" rel=stylesheet type=text/css>
+<script language="JavaScript" src="./_html.assets/util.js"></script>
+</head>
+<body>
+<table>
+  <tr> 
+    <td colspan=2> <h2>Initial settings for Max</h2></td>
+  </tr>
+  <tr> 
+    <td colspan="2"><h4>Overview<a name="top"></a></h4>
+      <p>Almost identical to the<em> Max</em> intial settings, the <em>Max.mentalray</em> 
+        intial settings are configured to provide as much interactive performance 
+        as possible with small scenes, containing only a few shadow casting lights 
+        using the mental ray renderer. Your application will be directed towards 
+        modeling, animating and rendering characters or models related to the 
+        entertainment industry.</p>
+      <ul>
+        <li><a href="#ext">mental ray Extensions</a>: enabled by default*</li>
+        <li><a href="#layers">Layers</a>: all objects are created &quot;By Object&quot;.</li>
+        <li><a href="#medit">Material Editor</a>: populated with Standard Materials.</li>
+        <li><a href="#lights">Lights</a>: none casts shadows, to facilitate placement 
+          of highlights and fill lights in the scene.</li>
+        <li><a href="#daylight">Daylight</a>: defaulted to Directionnal Light 
+          and Standard Sky.</li>
+        <li><a href="#rendering">Rendering</a>: <em>mental ray renderer* </em> 
+          with no exposure controls pre-assigned.</li>
+        <li><a href="#mblur">Motion Blur:</a> all objects will use motion blur 
+          when created*.</li>
+        <li><a href="#cloning">Cloning</a>: objects are copied by default.</li>
+        <li><a href="#idrop">i-drop</a>: maps are not copied from the i-drop source 
+          to the<em> /downloads/ </em>folder .</li>
+        <li><a href="#ik">Inverse Kinematics</a>: optimized for animation.</li>
+        <li><a href="#viewport.shading">Viewport Shading</a>: optimized to display 
+          the lights used in the viewport.</li>
+		<li><a href="#realworldtextures">Real-World Texture Coordinates</a>: Set to support traditional 3ds max texturing.</li>
+      </ul>
+      <p><em>*changes from the Max initial settings</em></p></td>
+  </tr>
+  </table>
+  <br>
+  
+<table>
+  <tr> 
+    <td><h4>mental ray Extensions<a name="ext" id="ext"></a></h4>
+      <p><img src="_images/mental.ray.extensions.jpg" width="250" height="221"></p></td>
+    <td><p>To provide total control over advanced mental ray features, the mental 
+        ray Extensions are enabled by default. This adds extra parameters on the 
+        <strong>Camera</strong>, <strong>Lights</strong> and <strong>Materials</strong>.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Layers<a name="layers"></a></h4>
+      <p><img src="_images/max.layers.jpg" width="250" height="315"></p></td>
+    <td><p>By default, all created objects will remain controllable at the object 
+        level. <strong>Rendering</strong>, <strong>Motion Blur</strong> and <strong>Display</strong> 
+        properties will be available at an individual level for optimal flexibility. 
+        Note that the <strong>Layers</strong> feature can still be used.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td width="19%"><h4>Material Editor<a name="medit" id="medit"></a></h4>
+      <p><img src="_images/max.material.editor.jpg" width="250" height="342"></p></td>
+    <td width="81%"><p>The <strong>Material</strong> <strong>Editor</strong> will 
+        be populated by default with the <strong>Standard</strong> <strong>Material</strong>. 
+        This material is preferred for non-physically based renderings that require 
+        total control over color, reflections, environment etc.</p>
+      <p>Mental ray</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td height="252"><h4>Lights<a name="lights" id="lights"></a></h4>
+      <p><img src="_images/max.mentalray.lights.jpg" width="170" height="133"></p></td>
+    <td><p>The Lights will default to not cast any shadows. This is to facilitate 
+        the process of creating fill lights, highlights and effects that do not 
+        require shadows in traditionnal animation scenes. The default shadow generator 
+        will be set to <strong>Raytraced Shadows</strong><em>, </em>as they typically 
+        render more efficiently than <strong>Shadow Maps</strong> in mental ray.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Daylight<a name="daylight" id="daylight"></a></h4>
+      <p><img src="_images/max.daylight.jpg" width="173" height="222"></p></td>
+    <td><p><strong>Daylight</strong> assemblies will always default to the <strong>Standard 
+        sun</strong> and <strong>Standard sky</strong>, the sun being predefined 
+        to a <strong>Raytraced Shadows </strong>shadow generator. </p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Rendering<a name="rendering" id="rendering"></a></h4>
+      <p><img src="_images/mentalray.renderer.jpg" width="250" height="97"></p>
+      <p>&nbsp;</p></td>
+    <td><p>The<strong> mental ray</strong> renderer will be assigned as default.</p>
+      <p>No <strong>Exposure</strong> <strong>Control</strong> plugin will be 
+        assigned.</p>
+      <p><a href="#top">return to top</a></p>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr> 
+    <td><h4><strong>Motion Blur<a name="mblur" id="mblur"></a></strong></h4>
+      <p><img src="_images/mental.ray.mblur.object.enabled.jpg" width="198" height="87"></p></td>
+    <td><p>In order to use Motion Blur with mental ray, objects should have Object 
+        Motion Blur turned on. Image Motion Blur will not work with mental ray.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Cloning<a name="cloning" id="cloning"></a></h4>
+      <p><img src="_images/max.clone.jpg" width="245" height="230"></p></td>
+    <td> <p>Modeling of characters or animation projects often requires to construct 
+        objects based on an existing one. For this reason, the default mode for 
+        cloning an object will be <strong>Copy.</strong>.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>i-drop<a name="idrop" id="idrop"></a></h4>
+      <p><img src="_images/designviz.idrop.gif" width="9" height="31"></p>
+      <p>&nbsp;</p></td>
+    <td><p>Studios who use assets published as i-drop content on internal websites 
+        do not need that textures get <strong>downloaded</strong> in every /downloads/ 
+        folder of their 3ds max installs. For this reason, with the <em>Max 
+        </em>default settings, this is turned off (as opposed to the <em>DesignVIZ 
+        </em>defaults<em>). </em></p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Inverse Kinematics<a name="ik" id="ik"></a></h4></td>
+    <td><p>The solver of the HD IK chains will be set to calculate interpolation 
+        between keyframes. This setting is optimized for animation.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Viewport Shading<a name="viewport.shading" id="viewport.shading"></a></h4>
+      <p>&nbsp;</p></td>
+    <td><p>The interactive viewport of 3ds max is well suited for interactive 
+        environments where a few light sources are defined and interacts in real 
+        time with the scene.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+  <tr> 
+    <td><h4>Real-World Texture Coordinates<a name="realworldtextures" id="viewport.shading"></a></h4>
+      <p><img src="_images/max.realworldtextures.jpg" width="250" height="51"></p>
+      <p>&nbsp;</p></td>
+    <td><p>There are two workflows for texture mapping objects, controlled by the "Use Real-World Texture Coordinates" preference.  Modeling and animation projects typically involve free-form textures to be placed on objects for maximum visual effect. For this reason the default value of this toggle is OFF, which means that objects and modifiers which generate texture coordinates don't scale them to the real-world size of the object.  This is the style of texturing which 3ds max has traditionally supported.</p>
+      <p><a href="#top">return to top</a></p></td>
+  </tr>
+</table>
+  
+</body>
+</html>

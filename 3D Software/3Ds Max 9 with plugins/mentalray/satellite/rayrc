@@ -1,0 +1,1 @@
+registry "{_MI_REG_LIBRARY}" value "..\shaders_standard\shaders;..\shaders_3rdparty\shaders;..\shaders_autoload\shaders" end registry

@@ -1,0 +1,127 @@
+//-----------------------------------------------------------------------------
+// Resource strings for 3ds max R8.0 backburner plugin
+//-----------------------------------------------------------------------------
+//
+
+#ifndef _MAX6_RESOURCE_STRINGS_H_
+#define _MAX6_RESOURCE_STRINGS_H_
+
+enum {
+	MRES_SCENE_INFO=10000,			// Scene Info
+	MRES_ON,						// On
+	MRES_OFF,						// Off
+	MRES_YES,						// Yes
+	MRES_NO,						// No
+	MRES_ENABLED,					// Enabled
+	MRES_DISABLED,					// Disabled
+	MRES_3DSMAX_GENERAL,			// Autodesk 3ds Max 8.0 General
+	MRES_FRAMES,					// Frames
+	MRES_FIRST_FRAME,				// First Frame
+	MRES_LAST_FRAME,				// Last Frame
+	MRES_EVERY_NTH,					// Every Nth
+	MRES_OUTPUT,					// Output
+	MRES_OUTPUT_WIDTH,				// Output Width
+	MRES_OUTPUT_HEIGHT,				// Output Height
+	MRES_GAMMA_CORRECTION,			// Gamma Correction
+	MRES_INPUT_GAMMA,				// Input Gamma
+	MRES_OUTPUT_GAMMA,				// Output Gamma
+	MRES_PIX_ASP_RATIO,				// Pixel Aspect Ratio
+	MRES_CAMERA,					// Camera
+	MRES_RENDER_VIEW,				// Render View
+	MRES_ORTOGONAL,					// Orthogonal
+	MRES_OUTPUTS,					// Outputs
+	MRES_OUTPUT_X,					// Output %d
+	MRES_NONE_DEFINED,				// None Defined
+	MRES_RENDER_ELEMENTS,			// Render Elements
+	MRES_STATE,						// State
+	MRES_OBJECTS,					// Objects
+	MRES_FACES,						// Faces
+	MRES_LIGHTS,					// Lights
+	MRES_SCENE_START,				// Scene Start
+	MRES_SCENE_END,					// Scene End
+	MRES_VIDEO_COLOR_CHECK,			// Video Color Check
+	MRES_TWO_SIDED,					// Two Sided
+	MRES_RENDER_HIDDEN,				// Render Hidden
+	MRES_RENDER_ATMOS,				// Render Atmosphere
+	MRES_SUPER_BLACK,				// Super Black
+	MRES_SERIAL_NUMBERING,			// Serial Numbering
+	MRES_DITHER_256,				// Dither 256
+	MRES_DITHER_32,					// Dither True Color
+	MRES_RENDER_FIELDS,				// Render Fields
+	MRES_DISPLACEMENTS,				// Displacements
+	MRES_SCENE_EFFECTS,				// Scene Effects
+	MRES_FIELD_ORDER,				// Field Order
+	MRES_X_FIRST,					// %s First
+	MRES_ODD,						// Odd
+	MRES_EVEN,						// Even
+	MRES_MAX_GEN_SETTINGS,			// Autodesk 3ds Max 8.0 General Settings
+	MRES_FRAME_SEQUENCE,			// Frame Sequence
+	MRES_WIDTH,						// Width
+	MRES_HEIGHT,					// Height
+	MRES_PIX_ASPET_RATIO,			// Pixel Aspect Ratio
+	MRES_RANGE,						// Range
+	MRES_NONE,						// None
+	MRES_OPTIONS,					// Options
+	MRES_SKIP_EXISTING,				// Skip Existing Frames
+	MRES_DISPLAY_VFB,				// Display RFW
+	MRES_RENDER_OPTIONS,			// Render Options
+	MRES_OUTPUT_N_PATH,				// Output %d Path
+	MRES_OUTPUT_N_GAMMA,			// Output %d Gamma
+	MRES_ELEMENT_N_OUTPUT,			// Element %d Output
+	MRES_ELEMENT_N_ENABLED,			// Element %d Enabled
+	MRES_ELEMENT_N_FILTER,			// Element %d Filter
+	MRES_ELEMENT_N_ATMOS,			// Element %d Atmosphere
+	MRES_ELEMENT_N_SHADOWS,			// Element %d Shadows
+	MRES_TIMEOUTS,					// Timeouts
+	MRES_WAIT_TO_LOAD,				// Wait to load
+	MRES_WAIT_TO_UNLOAD,			// Wait to unload
+	MRES_WAIT_TO_RENDER,			// Wait to render
+	MRES_APPLIED,					// Applied
+	MRES_NOT_APPLIED,				// Not Applied
+	MRES_FRAME_NOT_FOUND,			// Frame Not Found
+	MRES_FRAME_X,					// Frame %d
+	MRES_MAX_TH_STARTING,			// Autodesk 3ds Max 8.0 Thread is Starting
+	MRES_BRING_MAX_DOWN,			// Bringing Autodesk 3ds Max 8.0 down
+	MRES_ERR_IPC_FILE,				// Could not create IPC file %s
+	MRES_SENT_CANCEL_MAX,			// Sent cancel message to Autodesk 3ds Max 8.0
+	MRES_MAX_SHUTDOWN,				// Autodesk 3ds Max 8.0 shutdown
+	MRES_MAX_IS_DOWN,				// Autodesk 3ds Max 8.0 is down
+	MRES_MAX_IS_READY,				// Autodesk 3ds Max 8.0 is Ready
+	MRES_MAX_DONE_FRAME,			// Autodesk 3ds Max 8.0 is Done with Frame
+	MRES_MAX_TERMINATING,			// Autodesk 3ds Max 8.0 is Terminating
+	MRES_MAX_TASK_ERROR,			// Autodesk 3ds Max 8.0 reported task error: %s
+	MRES_COULD_NOT_LOCATE_X,		// Could not locate %s
+	MRES_EXECUTING_X,				// Executing:    %s
+	MRES_CMD_LINE,					// Command Line: %s
+	MRES_COULD_NOT_EXEC_X,			// Could not execute %s
+	MRES_STRIP_X_FRAME_Y,			// Strip %d Frame %d
+	MRES_FRAME_X_NODE_Y,			// Frame %d Node %s
+	MRES_STRIP_X_FRAME_Y_NODE_Z,			// Strip %d Frame %d Node %s
+	MRES_MULTITHREAD,				// Multithread
+	MRES_USEAREALIGHTS,				// Use Area Lights
+	MRES_USEADVLIGHT,				// Use Advanced Lighting
+	MRES_CALCADVLIGHT,				// Compute Advanced Lighting
+	MRES_RENDERER,					// Renderer
+	MRES_UNKNOWN,					// Unknown
+	MRES_PRE_RENDER_SCRIPT,			// Pre-render Script
+	MRES_POST_RENDER_SCRIPT,			// Post-render Script
+	MRES_ALT_PATHS,					// Alternate Paths
+	MRES_ALT_BMP_PATH,				// Alternate Bitmap Path
+	MRES_ALT_XRF_PATH,				// Alternate Xref Path
+	MRES_ALT_PATH_FILE,				// Alternate Path Configuration File
+	MRES_STRIP_RENDER,				// Strip Render
+	MRES_STITCH_PHASE,				// Stitch Phase
+	MRES_STRIP_COUNT,				// Strip Count
+	MRES_STRIP_HEIGHT,				// Strip Height
+	MRES_STRIP_OVERLAP,				// Strip Overlap
+	MRES_DEL_TMP_STRIPS,			// Delete Temp Strips
+	NRES_ERR_PREP_ENV,				// Error preparing the environment
+	MRES_SCENE_STATE,				// Scene State
+	MRES_BATCH_RENDER,				// Batch Render
+	MRES_MSG_MR,					// MENTAL RAY LOG: %s
+	MRES_CMD_ERR_CONNECT,			// Error connecting to client.
+
+	MRES_UNDEFINED					// Undefined
+};
+
+#endif

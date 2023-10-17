@@ -1,0 +1,31 @@
+//----------------------------------
+// Constants expected
+//
+//	c0	= Clear Color with Alpha = Zero
+//
+// Texture components
+//
+//	t0	= Depth Texture
+//
+
+//----------------------------------
+// Pixel Shader Version
+
+ps.1.1
+
+//----------------------------------
+// Load Depth Texture
+
+tex t0
+
+//----------------------------------
+// Move Depth Texture Comparison into
+// r0.a for cnd test
+
+mov r0.a, t0.a
+
+//----------------------------------
+// Conditional Test (needs to use r0.a)
+
+cnd r0, r0.a, c0, v0
+

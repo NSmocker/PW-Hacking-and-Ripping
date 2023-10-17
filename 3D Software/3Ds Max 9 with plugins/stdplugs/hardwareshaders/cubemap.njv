@@ -1,0 +1,96 @@
+; Generates texture coordinates based
+; on the input normal.  The texture coordinates
+; represent a ray from the eye reflected from the object, 
+; based on the normal.  
+; This is an implementation of D3D's CAMERASPACEREFLECTIONVECTOR
+
+; Shader version
+vs_1_1
+
+;#include "reflect.h"
+
+;#define CV_ZERO 0
+;#define CV_ONE 1
+
+;#define CV_WORLDVIEWPROJ_0 2
+;#define CV_WORLDVIEWPROJ_1 3
+;#define CV_WORLDVIEWPROJ_2 4
+;#define CV_WORLDVIEWPROJ_3 5
+
+;#define CV_WORLDVIEWIT_0 6
+;#define CV_WORLDVIEWIT_1 7
+;#define CV_WORLDVIEWIT_2 8
+
+;#define CV_VECA 10
+;#define CV_VECD 11
+;#define CV_VECSIN 12
+;#define CV_VECCOS 13
+
+;#define CV_HALF 14
+;#define CV_LIGHT1_DIRECTION 15
+
+;#define CV_WORLDVIEW_0 16
+;#define CV_WORLDVIEW_1 17
+;#define CV_WORLDVIEW_2 18
+;#define CV_WORLDVIEW_3 19
+
+;#define CV_VIEWROT_0 20
+;#define CV_VIEWROT_1 21
+;#define CV_VIEWROT_2 22
+;#define CV_VIEWROT_3 23
+
+;#define CV_POSZ 24
+
+;#define CV_WORLD_0 25
+;#define CV_WORLD_1 26
+;#define CV_WORLD_2 27
+;#define CV_WORLD_3 28
+
+;#define CV_WORLDIT_0 29
+;#define CV_WORLDIT_1 30
+;#define CV_WORLDIT_2 31
+;
+;#define CV_EYE_WORLD 32
+;
+;;;
+;
+dcl_position	v0
+dcl_normal	v1
+
+
+; Transform position to Clip space
+dp4 oPos.x, v0, c2
+dp4 oPos.y, v0, c3
+dp4 oPos.z, v0, c4
+dp4 oPos.w, v0, c5
+
+; Transform position to World Space
+dp4 r8.x, v0, c25
+dp4 r8.y, v0, c26
+dp4 r8.z, v0, c27
+dp4 r8.w, v0, c28
+
+; Create r3, the normalized vector from
+; the eye to the vertex in World Space
+add r3, r8, -c32
+rsq r3.w, r3.w		
+mul r3, r3, r3.w
+
+; Transform normal to World Space
+; We use the inverse transpose of the
+; world matrix to do this
+dp3 r9.x, v1, c29
+dp3 r9.y, v1, c30
+dp3 r9.z, v1, c31
+
+; Need to re-normalize normal
+dp3 r9.w, r9, r9
+rsq r9.w, r9.w
+mul r9, r9, r9.w
+
+; Calculate E - 2*(E dot N)*N
+dp3 r4, r3, r9
+add r4, r4, r4
+mul r9, r9, r4
+add oT0, r3, -r9
+mov oT0.w, c1.x

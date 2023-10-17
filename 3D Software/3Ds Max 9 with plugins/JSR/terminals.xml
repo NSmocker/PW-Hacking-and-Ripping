@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<terminals>
+	<terminal vendor="Nokia" model="4560" screenw="150" screenh="150" screenb="24"/>
+	<terminal vendor="Motorola" model="678" screenw="150" screenh="150" screenb="16"/>
+	<terminal vendor="Siemens" model="600" screenw="150" screenh="150" screenb="15"/>
+	<terminal vendor="Sony" model="56GH" screenw="200" screenh="320" screenb="8"/>
+</terminals>
