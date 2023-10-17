@@ -1,1 +1,1 @@
-start pPck.exe -u "D:\configs.pck"
+start pPck.exe -u "E:\Work Files\PW Native Development\PW-Hacking-and-Ripping\PCK Editor\pPCK\models.pck"
