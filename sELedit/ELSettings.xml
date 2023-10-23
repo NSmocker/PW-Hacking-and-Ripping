@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root ProductName="RodySoft Extended sELedit" Version="1.0">
+  <Main>
+    <element_fn1>E:\Work Files\PW Test Server\Perfect World 1.5.1\element\data\elements.data</element_fn1>
+    <selectedlist>38</selectedlist>
+    <WindowState>0</WindowState>
+    <Left>202</Left>
+    <Top>147</Top>
+    <Width>958</Width>
+    <Height>561</Height>
+    <uniqueid>False</uniqueid>
+    <loadlastfile>True</loadlastfile>
+    <loadlastlist>True</loadlastlist>
+    <showitemindeces>True</showitemindeces>
+    <showitemsid>True</showitemsid>
+    <autocheckid>True</autocheckid>
+    <showitemscolor>True</showitemscolor>
+    <showmobscolor>True</showmobscolor>
+    <minmoblevel>90</minmoblevel>
+    <maxmoblevel>150</maxmoblevel>
+  </Main>
+</root>
