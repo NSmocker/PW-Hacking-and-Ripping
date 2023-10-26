@@ -1,0 +1,14 @@
+##############################
+#### RULES FOR v88 -> v85 ####
+##############################
+
+SETVERSION|85
+SETSIGNATURE|12288
+SETCONVERSATIONLISTINDEX|58
+
+REMOVELIST:169
+REMOVELIST:170
+
+
+REMOVEVALUE:69:89
+
